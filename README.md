@@ -21,7 +21,7 @@
  
  POC é uma aplicação que facilita e otimiza a inserção de informações de contas despradonizadas de energia e água
  
-### Por que ele está sendo criado? 
+### Por que ele está sendo desenvolvido? :gift:
  
  Devido a grande diversidade de layouts nas contas de água e energia no Brasil, digitalizar um grande volume de contas não é uma tarefa fácil! Ai vem o POC para facilitar o trabalho com a digitação de dados fornecendo uma plataforma simples, objetiva exclusiva e funcional
  
