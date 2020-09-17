@@ -1,3 +1,5 @@
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+![Status](https://img.shields.io/badge/Status-In_progress-yellowgreen.svg)
 # <center> POC - Processos Otimizados de Contas </center> :envelope:
 <img src="https://github.com/MikeBBatista/pi-fatec-java/blob/master/img/POC.png" width="270px" heigth="270px" align="i"> 
 
