@@ -9,11 +9,11 @@
 * [Geysa Santos](https://www.linkedin.com/in/geysa-fernanda-f-f-santos-97159b10a/)  
 * [Ronaldo Galvão](https://www.linkedin.com/in/ronaldo-galv%C3%A3o-13903915a/)
 
-### Master 
+### Master :chart_with_upwards_trend:
 
 * [Mike Barcelos](https://www.linkedin.com/in/mike-barcelos-b4648016a/)  
 
-### Product Owner 
+### Product Owner :clipboard:
 
 * [Guilherme Tavares](https://www.linkedin.com/in/guilhermeftavares/) 
 
@@ -23,7 +23,7 @@
  
 ### Por que ele está sendo desenvolvido? :gift:
  
- Devido a grande diversidade de layouts nas contas de água e energia no Brasil, digitalizar um grande volume de contas não é uma tarefa fácil! Ai vem o POC para facilitar o trabalho com a digitação de dados fornecendo uma plataforma simples, objetiva exclusiva e funcional
+ Devido a grande diversidade de layouts nas contas de água e energia no Brasil, digitalizar um grande volume de contas não é uma tarefa fácil! Ai vem o POC para facilitar o trabalho com a digitação de dados fornecendo uma plataforma simples, objetiva, exclusiva e funcional
  
 ### Ferramentas :wrench:
 
