@@ -17,7 +17,11 @@
 
 ### Product Owner :clipboard:
 
-* [Guilherme Tavares](https://www.linkedin.com/in/guilhermeftavares/) 
+* [Guilherme Tavares](https://www.linkedin.com/in/guilhermeftavares/)
+
+
+### Link Apresentação Sprint I (27/09/2020) :🎬:
+[Sprint 1] (https://drive.google.com/file/d/1EVJPpmEamyzXfEI8WTmrKYo8Iq_8sBKT/view?usp=sharing)
 
 ### O que é POC?
  
