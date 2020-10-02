@@ -20,8 +20,9 @@
 * [Guilherme Tavares](https://www.linkedin.com/in/guilhermeftavares/)
 
 
-### Link Apresentação Sprint I (27/09/2020) 🎬
+### Apresentação Sprint I (27/09/2020) 
 * [Sprint 1](https://drive.google.com/file/d/1EVJPpmEamyzXfEI8WTmrKYo8Iq_8sBKT/view?usp=sharing)
+* [Story Cards](https://drive.google.com/file/d/1FgCiddxV0BacmEHiR5Xw8v0SLv4diTsZ/view?usp=sharing)
 
 ### O que é POC?
  
