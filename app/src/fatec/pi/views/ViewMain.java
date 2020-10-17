@@ -12,6 +12,10 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ViewMain extends JFrame {
 
@@ -55,109 +59,73 @@ public class ViewMain extends JFrame {
 		lblOQueDeseja.setFont(new Font("Arial", Font.BOLD, 14));
 		panel_main.add(lblOQueDeseja);
 		
-		JPanel panel_cadfornecedor = new JPanel();
-		panel_cadfornecedor.setBackground(new Color(245, 245, 245));
-		
-		JLabel lblCadastrarFornecedor = new JLabel("CADASTRAR FORNECEDOR");
-		lblCadastrarFornecedor.setForeground(new Color(0, 0, 0));
-		lblCadastrarFornecedor.setFont(new Font("Arial", Font.BOLD, 12));
-		panel_cadfornecedor.add(lblCadastrarFornecedor);
-		
-		JPanel panel_cadcliente = new JPanel();
-		panel_cadcliente.setBackground(new Color(245, 245, 245));
-		
-		JLabel lblCadastrarCliente = new JLabel("CADASTRAR CLIENTE");
-		lblCadastrarCliente.setForeground(Color.BLACK);
-		lblCadastrarCliente.setFont(new Font("Arial", Font.BOLD, 12));
-		panel_cadcliente.add(lblCadastrarCliente);
-		
-		JPanel panel_cadconta = new JPanel();
-		panel_cadconta.setBackground(new Color(245, 245, 245));
-		
-		JLabel lblCadastrarNovaConta = new JLabel("CADASTRAR NOVA CONTA");
-		lblCadastrarNovaConta.setForeground(Color.BLACK);
-		lblCadastrarNovaConta.setFont(new Font("Arial", Font.BOLD, 12));
-		panel_cadconta.add(lblCadastrarNovaConta);
-		
-		JPanel panel_edinf = new JPanel();
-		panel_edinf.setBackground(new Color(245, 245, 245));
-		
-		JLabel lblEditarInformaoCadastrada = new JLabel("EDITAR INFORMA\u00C7\u00C3O CADASTRADA");
-		lblEditarInformaoCadastrada.setForeground(Color.BLACK);
-		lblEditarInformaoCadastrada.setFont(new Font("Arial", Font.BOLD, 12));
-		panel_edinf.add(lblEditarInformaoCadastrada);
-		
-		JPanel panel_relatorio = new JPanel();
-		panel_relatorio.setBackground(new Color(245, 245, 245));
-		
-		JLabel lblGerarRelatrios = new JLabel("GERAR RELAT\u00D3RIOS");
-		lblGerarRelatrios.setForeground(Color.BLACK);
-		lblGerarRelatrios.setFont(new Font("Arial", Font.BOLD, 12));
-		panel_relatorio.add(lblGerarRelatrios);
-		
-		JPanel panel_relcolaboradores = new JPanel();
-		panel_relcolaboradores.setBackground(new Color(245, 245, 245));
-		
-		JLabel lblRelatrioColaboradores = new JLabel("RELAT\u00D3RIO COLABORADORES");
-		lblRelatrioColaboradores.setForeground(Color.BLACK);
-		lblRelatrioColaboradores.setFont(new Font("Arial", Font.BOLD, 12));
-		panel_relcolaboradores.add(lblRelatrioColaboradores);
-		
-		JPanel panel_exit = new JPanel();
-		panel_exit.setBackground(new Color(165, 42, 42));
-		
-		JLabel lblSair = new JLabel("SAIR");
-		lblSair.setForeground(Color.WHITE);
-		lblSair.setFont(new Font("Arial", Font.BOLD, 14));
-		panel_exit.add(lblSair);
-		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(ViewMain.class.getResource("/img/rsz_poc_verde.png")));
+		
+		JButton btnCadastrarCliente = new JButton("CADASTRAR CLIENTE");
+		btnCadastrarCliente.setFont(new Font("Arial", Font.BOLD, 13));
+		
+		JButton btnCadastrarNovaConta = new JButton("CADASTRAR NOVA CONTA");
+		btnCadastrarNovaConta.setFont(new Font("Arial", Font.BOLD, 13));
+		
+		JButton btnEditarInformaoCadastrada = new JButton("EDITAR INFORMA\u00C7\u00C3O CADASTRADA");
+		btnEditarInformaoCadastrada.setFont(new Font("Arial", Font.BOLD, 13));
+		
+		JButton btnGerarRelatrios = new JButton("GERAR RELAT\u00D3RIOS");
+		btnGerarRelatrios.setFont(new Font("Arial", Font.BOLD, 13));
+		
+		JButton btnRelatriosColaboradores = new JButton("RELAT\u00D3RIOS COLABORADORES");
+		btnRelatriosColaboradores.setFont(new Font("Arial", Font.BOLD, 13));
+		
+		JButton btnSair = new JButton("SAIR");
+		btnSair.setFont(new Font("Arial", Font.BOLD, 13));
+		
+		JButton btnCadastrarFornecedor = new JButton("CADASTRAR FORNECEDOR");
+		btnCadastrarFornecedor.setFont(new Font("Arial", Font.BOLD, 13));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 					.addContainerGap(331, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(panel_exit, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_relcolaboradores, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_relatorio, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_edinf, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_cadconta, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_cadcliente, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_cadfornecedor, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_main, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE))
-							.addGap(320))
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
-							.addGap(416))))
+						.addComponent(panel_main, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+						.addGroup(Alignment.TRAILING, gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addComponent(btnCadastrarFornecedor, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnRelatriosColaboradores, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnGerarRelatrios, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnEditarInformaoCadastrada, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnCadastrarNovaConta, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnCadastrarCliente, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGap(96)
+								.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
+								.addGap(96))))
+					.addGap(320))
 		);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(62, Short.MAX_VALUE)
-					.addComponent(panel_main, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addGap(39)
-					.addComponent(panel_cadfornecedor, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(panel_cadcliente, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(panel_cadconta, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(panel_edinf, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(panel_relatorio, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(panel_relcolaboradores, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addGap(14)
-					.addComponent(panel_exit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(55, Short.MAX_VALUE)
+					.addComponent(panel_main, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(37)
+					.addComponent(btnCadastrarFornecedor, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnCadastrarCliente, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnCadastrarNovaConta, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnEditarInformaoCadastrada, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnGerarRelatrios, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnRelatriosColaboradores, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addGap(28)
+					.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addGap(32)
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
-					.addGap(46))
+					.addGap(45))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
-
 }
