@@ -1,5 +1,6 @@
 package fatec.pi.views;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -38,13 +39,13 @@ public class ViewSucess {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 456, 170);
+		frame.setBackground(new Color(204,223,214));
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblDadosSalvosCom = new JLabel("Dados Salvos com Sucesso");
 		lblDadosSalvosCom.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblDadosSalvosCom.setBounds(113, 94, 217, 36);
+		lblDadosSalvosCom.setBounds(113, 41, 217, 36);
 		frame.getContentPane().add(lblDadosSalvosCom);
 	}
 }

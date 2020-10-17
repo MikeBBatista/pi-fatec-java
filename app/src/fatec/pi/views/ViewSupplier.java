@@ -57,6 +57,8 @@ public class ViewSupplier extends JFrame {
 		contentPane.setBackground(new Color(204,223,214));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(95, 158, 160));
@@ -83,6 +85,10 @@ public class ViewSupplier extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SupplierController.saveValues(text_CNPJ.getText(), text_companyname.getText(), text_site.getText());
+				text_CNPJ.setText("");
+				text_companyname.setText("");
+				text_site.setText("");
+				
 			}
 		});
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
@@ -95,6 +101,8 @@ public class ViewSupplier extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ViewMain voltamenu = new ViewMain();
 				voltamenu.setVisible(true);
+				setVisible(false);
+				
 			}
 		});
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 11));
@@ -155,6 +163,7 @@ public class ViewSupplier extends JFrame {
 		panel.add(lblNewLabel);
 		contentPane.setLayout(gl_contentPane);
 	}
+	
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
 			putValue(NAME, "SwingAction");

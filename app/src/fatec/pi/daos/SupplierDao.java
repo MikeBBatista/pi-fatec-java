@@ -29,7 +29,7 @@ public class SupplierDao {
 		return res;
 	}
 	
-	public static List<Supplier> listSuppliers() throws SQLException {
+	public static List<Supplier> listSuppliers() {
 		List<Supplier> supplierList = new ArrayList<>();
 		String sql = "Select * from SUPPLIER";
 		try {
