@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import fatec.pi.daos.SupplierDao;
 import fatec.pi.daos.WaterAccountDao;
 import fatec.pi.entities.WaterAccount;
-import fatec.pi.views.ViewSucess;
+import fatec.pi.views.ViewAccountType;
 
 public class WaterAccountController {
 	public static void saveValues(String number, String dueDate, BigDecimal penalty, BigDecimal consumptionValue,

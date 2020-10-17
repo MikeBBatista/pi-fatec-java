@@ -50,6 +50,8 @@ public class ViewMain extends JFrame {
 		contentPane.setBackground(new Color(204,223,214));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		
 		JPanel panel_main = new JPanel();
 		panel_main.setBackground(new Color(95, 158, 160));
@@ -66,6 +68,14 @@ public class ViewMain extends JFrame {
 		btnCadastrarCliente.setFont(new Font("Arial", Font.BOLD, 13));
 		
 		JButton btnCadastrarNovaConta = new JButton("CADASTRAR NOVA CONTA");
+		btnCadastrarNovaConta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewAccountType view = new ViewAccountType();
+				view.frame.setVisible(true);
+				setVisible(false);
+				
+			}
+		});
 		btnCadastrarNovaConta.setFont(new Font("Arial", Font.BOLD, 13));
 		
 		JButton btnEditarInformaoCadastrada = new JButton("EDITAR INFORMA\u00C7\u00C3O CADASTRADA");
@@ -81,6 +91,13 @@ public class ViewMain extends JFrame {
 		btnSair.setFont(new Font("Arial", Font.BOLD, 13));
 		
 		JButton btnCadastrarFornecedor = new JButton("CADASTRAR FORNECEDOR");
+		btnCadastrarFornecedor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ViewSupplier sup = new ViewSupplier();
+				sup.setVisible(true);
+				setVisible(false);
+			}
+		});
 		btnCadastrarFornecedor.setFont(new Font("Arial", Font.BOLD, 13));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
