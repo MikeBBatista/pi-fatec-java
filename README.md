@@ -25,7 +25,7 @@
 * [Sprint 0](https://drive.google.com/file/d/1EVJPpmEamyzXfEI8WTmrKYo8Iq_8sBKT/view?usp=sharing)
 
 
-### Apresentação Sprint I (27/09/2020) 
+### Apresentação Sprint I (17/10/2020) 
 * [Sprint 1](https://drive.google.com/file/d/1nOgl_S0vtLXNuLil7aBkkigiMFR3jACz/view?usp=sharing)
 * [Executável Beta](https://drive.google.com/file/d/1VomvKVPfKELb7qm2l9W4r22lDG6mXhUk/view?usp=sharing)
 
