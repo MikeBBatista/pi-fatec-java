@@ -84,7 +84,7 @@ public class ViewSupplier extends JFrame {
 		JButton btnNewButton = new JButton("SALVAR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SupplierController.saveValues(text_CNPJ.getText(), text_companyname.getText(), text_site.getText());
+				SupplierController.saveValues(text_CNPJ.getText(), text_companyname.getText(), text_site.getText(), 0);
 				text_CNPJ.setText("");
 				text_companyname.setText("");
 				text_site.setText("");
