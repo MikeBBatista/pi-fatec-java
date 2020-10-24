@@ -78,9 +78,13 @@ public class ViewWaterAccount extends JFrame {
 		text_numhidro.setColumns(10);
 		
 		text_dateleitura = new JTextField();
-		text_dateleitura.setForeground(Color.LIGHT_GRAY);
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
+			text_dateleitura = new javax.swing.JFormattedTextField(format_textField3);
+			} catch (Exception e){}
+		text_dateleitura.setForeground(Color.BLACK);
 		text_dateleitura.setFont(new Font("Arial", Font.PLAIN, 11));
-		text_dateleitura.setText("00/00/0000");
+		text_dateleitura.setText("");
 		text_dateleitura.setColumns(10);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Leitura Atual");
@@ -90,8 +94,12 @@ public class ViewWaterAccount extends JFrame {
 		lblNewLabel_1_1_1.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		text_datevencimento = new JTextField();
-		text_datevencimento.setText("00/00/0000");
-		text_datevencimento.setForeground(Color.LIGHT_GRAY);
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
+			text_datevencimento = new javax.swing.JFormattedTextField(format_textField3);
+			} catch (Exception e){}
+		text_datevencimento.setText("");
+		text_datevencimento.setForeground(Color.BLACK);
 		text_datevencimento.setFont(new Font("Arial", Font.PLAIN, 11));
 		text_datevencimento.setColumns(10);
 		
