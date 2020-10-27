@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 public class LightAccount {
 	
 	private Integer id;
+	private String identCod;
 	private String meterNumber;
 	private String invoice;
 	private String currentDate;
@@ -29,13 +30,14 @@ public class LightAccount {
 	private String supplierCnpj;
 	private String clientCpf;
 	
-	public LightAccount(String meterNumber, String invoice, String currentDate, String dueDate,
+	public LightAccount(String identCod, String meterNumber, String invoice, String currentDate, String dueDate,
 			Integer consumptionDays, String flagType, BigDecimal consumptionValue, BigDecimal pisPercentage,
 			BigDecimal cofinsPercentage, BigDecimal icmsBasis, BigDecimal icmsPercentage, BigDecimal icmsValue,
 			BigDecimal pisCofinsBasis, BigDecimal pisValue, BigDecimal cofinsValue, BigDecimal forfeitValue,
 			BigDecimal interestValue, BigDecimal otherValues, BigDecimal supplyValue, BigDecimal financialItems,
 			BigDecimal amount, String supplierCnpj) {
 		super();
+		this.setIdentCod(identCod);
 		this.setMeterNumber(meterNumber);
 		this.setInvoice(invoice);
 		this.setCurrentDate(currentDate);
@@ -64,6 +66,12 @@ public class LightAccount {
 	}
 	public void setId(Integer id) {
 		this.id=id;
+	}
+	public String getIdentCod() {
+		return identCod;
+	}
+	public void setIdentCod(String identCod) {
+		this.identCod = identCod;
 	}
 
 	public String getMeterNumber() {
