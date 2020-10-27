@@ -1,3 +1,7 @@
 .metadata/
 app/bin
+<<<<<<< PISS10
 /.recommenders/
+=======
+/bin/
+>>>>>>> develop
