@@ -3,6 +3,8 @@ package fatec.pi.daos;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import fatec.pi.entities.LightAccount;
+
 public class LightAccountDao {
 	
 	public static Integer save(LightAccount light) {
@@ -51,7 +53,7 @@ public class LightAccountDao {
 				+ light.getForfeitValue() + "', "
 				+ light.getInterestValue() + "', "
 				+ light.getOtherValues() + "', "
-				+ light.getSupplyValues() + "', "
+				+ light.getSupplyValue() + "', "
 				+ light.getFinancialItems() + "', "
 				+ light.getAmount() + "', "
 				+ light.getSupplierCnpj() + "', "
