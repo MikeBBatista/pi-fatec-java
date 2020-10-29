@@ -8,11 +8,20 @@ public class Supplier {
 	private Integer type;
 	
 	public Supplier(String cnpj, String name, String site, Integer type) {
-		super();
+		
 		this.setCnpj(cnpj);
 		this.setName(name);
 		this.setSite(site);
 		this.setType(type);
+	}
+	
+	public Supplier(String cnpj, String name, String site, Integer id, Integer type) {
+		
+		this.setCnpj(cnpj);
+		this.setName(name);
+		this.setSite(site);
+		this.setType(type);	
+		this.setId(id);
 	}
 	
 	public Integer getId() {
@@ -63,7 +72,7 @@ public class Supplier {
 	}
 	
 	public String toString() {
-		String tipo = this.getType() == 0 ? "Luz" : "Água";
+		String tipo = this.getType() == 0 ? "Luz" : "ï¿½gua";
 		String res = "Nome: "+this.getName() + "\nCNPJ: " + this.getCnpj() + "\nTipo: " + tipo;
 		return res;
 	}

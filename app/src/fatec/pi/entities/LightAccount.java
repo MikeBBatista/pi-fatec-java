@@ -35,8 +35,8 @@ public class LightAccount {
 			BigDecimal cofinsPercentage, BigDecimal icmsBasis, BigDecimal icmsPercentage, BigDecimal icmsValue,
 			BigDecimal pisCofinsBasis, BigDecimal pisValue, BigDecimal cofinsValue, BigDecimal forfeitValue,
 			BigDecimal interestValue, BigDecimal otherValues, BigDecimal supplyValue, BigDecimal financialItems,
-			BigDecimal amount, String supplierCnpj) {
-		super();
+			BigDecimal amount, String supplierCnpj, String clientCpf) {
+		
 		this.setIdentCod(identCod);
 		this.setMeterNumber(meterNumber);
 		this.setInvoice(invoice);
@@ -59,6 +59,8 @@ public class LightAccount {
 		this.setSupplyValue(supplyValue);
 		this.setFinancialItems(financialItems);
 		this.setAmount(amount);
+		this.setSupplierCnpj(supplierCnpj);
+		this.setClientCpf(clientCpf);
 	}
 	
 	public Integer getId() {
