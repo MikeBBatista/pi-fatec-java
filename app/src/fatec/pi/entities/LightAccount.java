@@ -67,7 +67,6 @@ public class LightAccount {
 	public void setId(Integer id) {
 		this.id=id;
 	}
-	
 	public String getIdentCod() {
 		return identCod;
 	}

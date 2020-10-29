@@ -1,3 +1,4 @@
 .metadata/
 app/bin
-/.recommenders/
+/bin/
+

@@ -7,20 +7,12 @@ public class Supplier {
 	private String site;
 	private Integer type;
 	
-	public Supplier(String cnpj, String name, String site, Integer id, Integer type) {
+	public Supplier(String cnpj, String name, String site, Integer type) {
 		super();
-		this.setId(id);
 		this.setCnpj(cnpj);
 		this.setName(name);
 		this.setSite(site);
 		this.setType(type);
-	}
-
-	public Supplier(String cnpj, String name, String site) {
-		super();
-		this.setCnpj(cnpj);
-		this.setName(name);
-		this.setSite(site);
 	}
 	
 	public Integer getId() {
