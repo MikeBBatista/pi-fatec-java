@@ -2,6 +2,11 @@ package fatec.pi.controllers;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
+import java.math.BigDecimal;
+
+import fatec.pi.daos.LightAccountDao;
+import fatec.pi.entities.LightAccount;
+
 public class LightAccountController {
 	
 	public static void saveValues(String identCod, String meterNumber, String invoice, String currentDate,
@@ -16,7 +21,7 @@ public class LightAccountController {
 				pisCofinsBasis, pisValue, cofinsValue, forfeitValue, interestValue, otherValues, supplyValue,
 				financialItems, amount, supplierCnpj, clientCpf);
 		
-		if(LightAccountDao.save(light)) {
+		if(LightAccountDao.save(light) == 1) {
 			
 			showMessageDialog(null, "Dados cadastrados com Sucesso!");
 		}
