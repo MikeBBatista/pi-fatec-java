@@ -10,6 +10,7 @@ import fatec.pi.entities.Client;
 import fatec.pi.views.ViewClient;
 
 public class ClientController {
+
 	public static void saveValues(String supplierCnpj, String clientCpf, String clientName, String zipCode, Integer streetNumber, String streetName,
 			String streetComplement, String city, String state, String meterNumber, String measurementOrder, String lightClass, String lightSubclass,
 			BigDecimal normalTax, BigDecimal tributeTax) {
@@ -23,5 +24,4 @@ public class ClientController {
 
 }
 	}
-
 }
