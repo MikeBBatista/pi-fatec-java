@@ -166,7 +166,7 @@ public class ViewClient extends JFrame {
 		textField_uf = new JTextField();
 		textField_uf.setColumns(10);
 		
-		JLabel lbl_nummedidor = new JLabel("N\u00FAmero da Instala\u00E7\u00E3o");
+		JLabel lbl_nummedidor = new JLabel("N\u00FAmero do Medidor");
 		lbl_nummedidor.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		textField_nummedidor = new JTextField();
