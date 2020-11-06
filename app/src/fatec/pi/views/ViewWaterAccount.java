@@ -16,6 +16,8 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
@@ -181,8 +183,16 @@ public class ViewWaterAccount extends JFrame {
 		JLabel lblNewLabel_1_2 = new JLabel("CNPJ do Fornecedor");
 		lblNewLabel_1_2.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		text_SupplierCnpj = new JTextField();
+	
+		JFormattedTextField text_SupplierCnpj = new JFormattedTextField();
+		text_SupplierCnpj.setForeground(Color.BLACK);
 		text_SupplierCnpj.setColumns(10);
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##.###.###/####-##");
+			text_SupplierCnpj = new javax.swing.JFormattedTextField(format_textField3);
+			} catch (Exception e){}
+		
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
