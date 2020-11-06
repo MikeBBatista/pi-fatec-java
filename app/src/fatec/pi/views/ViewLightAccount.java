@@ -7,6 +7,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import fatec.pi.controllers.ClientController;
+import fatec.pi.controllers.LightAccountController;
+
 import javax.swing.JScrollPane;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -23,6 +27,9 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.awt.event.ActionEvent;
 
 public class ViewLightAccount extends JFrame {
 
@@ -452,6 +459,57 @@ public class ViewLightAccount extends JFrame {
 		txt_amount.setColumns(10);
 		
 		JButton btn_save = new JButton("SALVAR");
+		btn_save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Integer consumptionDays = Integer.parseInt(txt_consumptionDays.getText());
+				BigDecimal consumptionValue = new BigDecimal(txt_consumptionValue.getText());
+				BigDecimal pisPercentage = new BigDecimal(txt_pisPercentage.getText());
+				BigDecimal cofinsPercentage = new BigDecimal(txt_cofinsPercentage.getText());
+				BigDecimal icmsBasis = new BigDecimal(txt_icmsBasis.getText());
+				BigDecimal icmsPercentage = new BigDecimal(txt_icmsPercentage.getText());
+				BigDecimal icmsValue = new BigDecimal(txt_icmsValue.getText());
+				BigDecimal pisCofinsBasis = new BigDecimal(txt_pisCofinsBasis.getText());
+				BigDecimal pisValue = new BigDecimal(txt_pisValue.getText());
+				BigDecimal cofinsValue = new BigDecimal(txt_cofinsValue.getText());
+				BigDecimal forfeitValue = new BigDecimal(txt_forfeitValue.getText());
+				BigDecimal interestValue = new BigDecimal(txt_interestValue.getText());
+				BigDecimal otherValues = new BigDecimal(txt_otherValues.getText());
+				BigDecimal supplyValue = new BigDecimal(txt_supplyValue.getText());
+				BigDecimal financialItems = new BigDecimal(txt_financialItems.getText());
+				BigDecimal amount = new BigDecimal(txt_amount.getText());
+				
+				LightAccountController.saveValues( txt_identCod.getText(), txt_meterNumber.getText(), txt_invoice.getText(), txt_currentDate.getText(),
+						txt_dueDate.getText(), consumptionDays, box_flagType.getSelectedItem().toString(), consumptionValue,
+						pisPercentage, cofinsPercentage, icmsBasis, icmsPercentage, icmsValue, pisCofinsBasis, pisValue,
+						cofinsValue, forfeitValue, interestValue, otherValues, supplyValue, financialItems, amount,
+						txt_supplierCnpj.getText());
+				txt_identCod.setText("");
+				txt_meterNumber.setText("");
+				txt_invoice.setText("");
+				txt_currentDate.setText("");
+				txt_dueDate.setText("");
+				txt_consumptionDays.setText("");
+				box_flagType.setToolTipText("");
+				txt_consumptionValue.setText("");
+				txt_pisPercentage.setText("");
+				txt_cofinsPercentage.setText("");
+				txt_icmsBasis.setText("");
+				txt_icmsPercentage.setText("");
+				txt_icmsValue.setText("");
+				txt_pisCofinsBasis.setText("");
+				txt_pisValue.setText("");
+				txt_cofinsValue.setText("");
+				txt_forfeitValue.setText("");
+				txt_interestValue.setText("");
+				txt_otherValues.setText("");
+				txt_supplyValue.setText("");
+				txt_financialItems.setText("");
+				txt_amount.setText("");
+				txt_supplierCnpj.setText("");
+				
+				}
+		});
 		btn_save.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		JButton btn_back = new JButton("VOLTAR");
