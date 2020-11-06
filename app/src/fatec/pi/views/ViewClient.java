@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import fatec.pi.controllers.SupplierController;
 
@@ -115,8 +116,12 @@ public class ViewClient extends JFrame {
 		JLabel lbl_clientcnpjcpf = new JLabel("CPF / CNPJ");
 		lbl_clientcnpjcpf.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		textField_cnpjcpf = new JTextField();
-		textField_cnpjcpf.setColumns(10);
+		JFormattedTextField textField_cpf = new JFormattedTextField((Object) null);
+		textField_cpf.setColumns(10);
+		try {
+			javax.swing.text.MaskFormatter format_textFieldcpf = new javax.swing.text.MaskFormatter("###.###.###-##");
+			textField_cpf = new javax.swing.JFormattedTextField(format_textFieldcpf);
+			} catch (Exception e){}
 		
 		JLabel lbl_cep = new JLabel("CEP");
 		lbl_cep.setFont(new Font("Arial", Font.BOLD, 11));
@@ -289,7 +294,7 @@ public class ViewClient extends JFrame {
 											.addGap(1))
 										.addComponent(lbl_clientcnpjcpf, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(textField_cnpjcpf, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+											.addComponent(textField_cpf, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
 											.addGap(1))
 										.addComponent(lbl_cep, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
@@ -345,7 +350,7 @@ public class ViewClient extends JFrame {
 					.addGap(6)
 					.addComponent(lbl_clientcnpjcpf)
 					.addGap(6)
-					.addComponent(textField_cnpjcpf, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+					.addComponent(textField_cpf, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addComponent(lbl_cep)
 					.addGap(6)

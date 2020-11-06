@@ -16,6 +16,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
@@ -96,9 +97,14 @@ public class ViewLightAccount extends JFrame {
 		JLabel lbl_supplierCnpj = new JLabel("CNPJ do Fornecedor");
 		lbl_supplierCnpj.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		txt_supplierCnpj = new JTextField();
 		lbl_supplierCnpj.setLabelFor(txt_supplierCnpj);
+		JFormattedTextField txt_supplierCnpj= new JFormattedTextField();
+		txt_supplierCnpj.setForeground(Color.BLACK);
 		txt_supplierCnpj.setColumns(10);
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##.###.###/####-##");
+			txt_supplierCnpj = new javax.swing.JFormattedTextField(format_textField3);
+			} catch (Exception e){}
 		
 		JLabel lbl_currentDate = new JLabel("Leitura Atual");
 		lbl_currentDate.setFont(new Font("Arial", Font.BOLD, 11));
@@ -120,7 +126,7 @@ public class ViewLightAccount extends JFrame {
 		txt_dueDate.setFont(new Font("Arial", Font.PLAIN, 11));
 		txt_dueDate.setColumns(10);
 		
-		JLabel lbl_identCod = new JLabel("C\u00F3digo de Identifica\u00E7\u00E3o");
+		JLabel lbl_identCod = new JLabel("N\u00FAmero da Instala\u00E7\u00E3o");
 		lbl_identCod.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		txt_identCod = new JTextField();
