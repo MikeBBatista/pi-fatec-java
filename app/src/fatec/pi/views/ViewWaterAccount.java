@@ -73,7 +73,7 @@ public class ViewWaterAccount extends JFrame {
 		lblCadastroConta.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(lblCadastroConta);
 		
-		JLabel lblNewLabel_1 = new JLabel("Hidr\u00F4metro");
+		JLabel lblNewLabel_1 = new JLabel("N\u00FAmero da Instala\u00E7\u00E3o");
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		text_numhidro = new JTextField();

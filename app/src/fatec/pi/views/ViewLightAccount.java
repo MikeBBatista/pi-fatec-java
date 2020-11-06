@@ -126,7 +126,7 @@ public class ViewLightAccount extends JFrame {
 		txt_dueDate.setFont(new Font("Arial", Font.PLAIN, 11));
 		txt_dueDate.setColumns(10);
 		
-		JLabel lbl_identCod = new JLabel("C\u00F3digo de Identifica\u00E7\u00E3o");
+		JLabel lbl_identCod = new JLabel("N\u00FAmero da Instala\u00E7\u00E3o");
 		lbl_identCod.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		txt_identCod = new JTextField();
