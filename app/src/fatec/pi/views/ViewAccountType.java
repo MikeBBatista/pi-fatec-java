@@ -80,6 +80,13 @@ public class ViewAccountType {
 		frame.getContentPane().add(btnagua);
 		
 		JButton btnLuz = new JButton("Luz");
+		btnLuz.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewLightAccount light = new ViewLightAccount();
+				light.setVisible(true);
+				ViewAccountType.frame.setVisible(false);
+			}
+		});
 		btnLuz.setFont(new Font("Arial", Font.BOLD, 11));
 		btnLuz.setBounds(251, 72, 89, 36);
 		frame.getContentPane().add(btnLuz);

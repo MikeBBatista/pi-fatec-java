@@ -67,6 +67,14 @@ public class ViewMain extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(ViewMain.class.getResource("/img/rsz_poc_verde.png")));
 		
 		JButton btnCadastrarCliente = new JButton("CADASTRAR CLIENTE");
+		btnCadastrarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewClient viewCliente = new ViewClient();
+				viewCliente.setVisible(true);
+				setVisible(false);
+			}
+		});
+		btnCadastrarCliente.setMnemonic(KeyEvent.VK_2);
 		btnCadastrarCliente.setFont(new Font("Arial", Font.BOLD, 13));
 		
 		JButton btnCadastrarNovaConta = new JButton("CADASTRAR NOVA CONTA");
