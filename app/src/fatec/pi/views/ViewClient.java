@@ -23,6 +23,7 @@ import javax.swing.JComboBox;
 import javax.swing.JScrollBar;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
 
@@ -187,26 +188,26 @@ public class ViewClient extends JFrame {
 		box_lightSubclass.setBackground(Color.WHITE);
 		box_lightSubclass.addItem("-");
 		box_lightSubclass.addItem("BAIXA RENDA");
-		box_lightSubclass.addItem("BAIXA RENDA INDÍGENA");
-		box_lightSubclass.addItem("BAIXA RENDA BENEFÍCIO PREST CONT");
+		box_lightSubclass.addItem("BAIXA RENDA INDï¿½GENA");
+		box_lightSubclass.addItem("BAIXA RENDA BENEFï¿½CIO PREST CONT");
 		box_lightSubclass.addItem("BAIXA RENDA MULTIFAMILIAR");
-		box_lightSubclass.addItem("SERVIÇO DE TRANSPORTE");
-		box_lightSubclass.addItem("SERVIÇO DE COMUNICAÇÃO");
-		box_lightSubclass.addItem("ASSOCIA. FILANTRÓPICA");
+		box_lightSubclass.addItem("SERVIï¿½O DE TRANSPORTE");
+		box_lightSubclass.addItem("SERVIï¿½O DE COMUNICAï¿½ï¿½O");
+		box_lightSubclass.addItem("ASSOCIA. FILANTRï¿½PICA");
 		box_lightSubclass.addItem("TEMPLOS RELIGIOSOS");
 		box_lightSubclass.addItem("ADM CONDOMINIAL");
-		box_lightSubclass.addItem("ILUMINAÇÃO RODOVIAS");
-		box_lightSubclass.addItem("SEMÁFAROS, RADARES E CAMERAS");
+		box_lightSubclass.addItem("ILUMINAï¿½ï¿½O RODOVIAS");
+		box_lightSubclass.addItem("SEMï¿½FAROS, RADARES E CAMERAS");
 		box_lightSubclass.addItem("AGROPECUARIA RURAL");
 		box_lightSubclass.addItem("AGROPECUARIA URBANA");
 		box_lightSubclass.addItem("RESIDENCIAL RURAL");
 		box_lightSubclass.addItem("COOP DE ELETRIF. RURAL");
 		box_lightSubclass.addItem("AGROINDUSTRIAL");
-		box_lightSubclass.addItem("SERVIÇO PUBLI. IRRIGAÇAO RURAL");
+		box_lightSubclass.addItem("SERVIï¿½O PUBLI. IRRIGAï¿½AO RURAL");
 		box_lightSubclass.addItem("ESCOLA AGROTECNICA");
 		box_lightSubclass.addItem("AQUICULTURA");
-		box_lightSubclass.addItem("ILUMINAÇÃO PUBLICA");
-		box_lightSubclass.addItem("SERVIÇO PUBLICA");
+		box_lightSubclass.addItem("ILUMINAï¿½ï¿½O PUBLICA");
+		box_lightSubclass.addItem("SERVIï¿½O PUBLICA");
 		box_lightSubclass.addItem("CONSUMO PROPRIO");
 		
 		JLabel lbl_street_1_1_1 = new JLabel("Tarifa (R$)");
@@ -248,6 +249,7 @@ public class ViewClient extends JFrame {
 				
 			}
 				});
+		btn_save.setMnemonic(KeyEvent.VK_S);
 		btn_save.setFont(new Font("Arial", Font.BOLD, 13));
 		
 		JButton btn_back = new JButton("VOLTAR");
@@ -258,7 +260,9 @@ public class ViewClient extends JFrame {
 				setVisible(false);
 			}
 		});
+		btn_back.setMnemonic(KeyEvent.VK_B);
 		btn_back.setFont(new Font("Arial", Font.BOLD, 13));
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
