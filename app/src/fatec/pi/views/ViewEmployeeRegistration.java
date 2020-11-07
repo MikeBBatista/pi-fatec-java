@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -143,6 +144,14 @@ public class ViewEmployeeRegistration extends JFrame {
 		btnCadastro.setBackground(botao);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewMain viewMain = new ViewMain();
+				viewMain.setVisible(true);
+				setVisible(false);
+			}
+		});
+		btnVoltar.setMnemonic(KeyEvent.VK_B);
 		btnVoltar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnVoltar.setBackground(new Color(156, 183, 170));
 		btnVoltar.setBounds(277, 236, 145, 23);

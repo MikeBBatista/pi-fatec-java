@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
 
@@ -166,6 +167,7 @@ public class ViewWaterAccount extends JFrame {
 				text_SupplierCnpj.setText("");
 			}
 		});
+		btnNewButton.setMnemonic(KeyEvent.VK_S);
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		JButton btnVoltar = new JButton("VOLTAR");
@@ -176,6 +178,7 @@ public class ViewWaterAccount extends JFrame {
 				setVisible(false);
 			}
 		});
+		btnVoltar.setMnemonic(KeyEvent.VK_B);
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		JLabel lblNewLabel_1_2 = new JLabel("CNPJ do Fornecedor");
