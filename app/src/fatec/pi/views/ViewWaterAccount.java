@@ -16,7 +16,10 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
 
@@ -71,7 +74,7 @@ public class ViewWaterAccount extends JFrame {
 		lblCadastroConta.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(lblCadastroConta);
 		
-		JLabel lblNewLabel_1 = new JLabel("Hidr\u00F4metro");
+		JLabel lblNewLabel_1 = new JLabel("N\u00FAmero da Instala\u00E7\u00E3o");
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		text_numhidro = new JTextField();
@@ -152,7 +155,7 @@ public class ViewWaterAccount extends JFrame {
 						new BigDecimal (text_watervalue.getText()),
 						Integer.parseInt(text_PISCOFINS.getText()),
 						new BigDecimal (text_othervalue.getText()),
-						text_SupplierCnpj.getText());
+						formataDados(text_SupplierCnpj.getText()));
 				
 				text_numhidro.setText("");
 				text_dateleitura.setText("");
@@ -166,6 +169,7 @@ public class ViewWaterAccount extends JFrame {
 				text_SupplierCnpj.setText("");
 			}
 		});
+		btnNewButton.setMnemonic(KeyEvent.VK_S);
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		JButton btnVoltar = new JButton("VOLTAR");
@@ -176,13 +180,22 @@ public class ViewWaterAccount extends JFrame {
 				setVisible(false);
 			}
 		});
+		btnVoltar.setMnemonic(KeyEvent.VK_B);
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		JLabel lblNewLabel_1_2 = new JLabel("CNPJ do Fornecedor");
 		lblNewLabel_1_2.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		text_SupplierCnpj = new JTextField();
+	
+		JFormattedTextField text_SupplierCnpj = new JFormattedTextField();
+		text_SupplierCnpj.setForeground(Color.BLACK);
 		text_SupplierCnpj.setColumns(10);
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##.###.###/####-##");
+			text_SupplierCnpj = new javax.swing.JFormattedTextField(format_textField3);
+			} catch (Exception e){}
+		
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -302,4 +315,9 @@ public class ViewWaterAccount extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
+	//Func Trata Dados
+		public static String formataDados(String dado){
+			
+			   return dado.replaceAll("[^0-9]+", "");
+			}
 }

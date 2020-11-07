@@ -7,7 +7,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
+import fatec.pi.controllers.ClientController;
 import fatec.pi.controllers.SupplierController;
 
 import javax.swing.GroupLayout;
@@ -22,22 +24,26 @@ import javax.swing.JComboBox;
 import javax.swing.JScrollBar;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
 
 public class ViewClient extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField_name;
-	private JTextField textField_cnpjcpf;
-	private JTextField textField_street;
-	private JTextField textField_numadress;
-	private JTextField textField_adress;
-	private JTextField textField_city;
-	private JTextField textField_uf;
-	private JTextField textField_nummedidor;
-	private JTextField textField_roteiro;
-	private JTextField textField_value;
-	private JTextField textField_valuewtax;
+	private JTextField txt_clientName;
+	private JTextField txt_clientCpf;
+	private JTextField txt_streetName;
+	private JTextField txt_streetNumber;
+	private JTextField txt_streetComplement;
+	private JTextField txt_city;
+	private JTextField txt_state;
+	private JTextField txt_meterNumber;
+	private JTextField txt_measurementOrder;
+	private JTextField txt_normalTax;
+	private JTextField txt_tributeTax;
+	private JTextField txt_zipCode;
+	private JTextField txt_supplierCnpj;
 
 	/**
 	 * Launch the application.
@@ -93,40 +99,34 @@ public class ViewClient extends JFrame {
 		
 		JLabel lbl_cnpj = new JLabel("CNPJ - Fornecedora");
 		lbl_cnpj.setFont(new Font("Arial", Font.BOLD, 11));
-
 		
-		JFormattedTextField text_CNPJSupplier = new JFormattedTextField();
-		text_CNPJSupplier.setForeground(Color.BLACK);
-		text_CNPJSupplier.setColumns(10);
-		try {
-			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##.###.###/####-##");
-			text_CNPJSupplier = new javax.swing.JFormattedTextField(format_textField3);
-			} catch (Exception e){}
-		
+		txt_supplierCnpj = new JTextField();
+		txt_supplierCnpj.setColumns(10);
+						
 		JButton btnNewButton_searchcnpj = new JButton("");
 		btnNewButton_searchcnpj.setIcon(new ImageIcon(ViewClient.class.getResource("/img/rsz_search-icon.png")));
 		
 		JLabel lbl_clientname = new JLabel("NOME");
 		lbl_clientname.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		textField_name = new JTextField();
-		textField_name.setColumns(10);
+		txt_clientName = new JTextField();
+		txt_clientName.setColumns(10);
 		
 		JLabel lbl_clientcnpjcpf = new JLabel("CPF / CNPJ");
 		lbl_clientcnpjcpf.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		textField_cnpjcpf = new JTextField();
-		textField_cnpjcpf.setColumns(10);
+		JFormattedTextField textField_cpf = new JFormattedTextField((Object) null);
+		textField_cpf.setColumns(10);
+		try {
+			javax.swing.text.MaskFormatter format_textFieldcpf = new javax.swing.text.MaskFormatter("###.###.###-##");
+			textField_cpf = new javax.swing.JFormattedTextField(format_textFieldcpf);
+			} catch (Exception e){}
 		
 		JLabel lbl_cep = new JLabel("CEP");
 		lbl_cep.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		JFormattedTextField textField_cep = new JFormattedTextField((Object) null);
-		textField_cep.setColumns(10);
-		try {
-			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("#####-###");
-			textField_cep = new javax.swing.JFormattedTextField(format_textField3);
-			} catch (Exception e){}
+		txt_zipCode = new JTextField();
+		txt_zipCode.setColumns(10);
 		
 		JButton btnNewButton_searchcep = new JButton("");
 		btnNewButton_searchcep.setIcon(new ImageIcon(ViewClient.class.getResource("/img/rsz_search-icon.png")));
@@ -134,44 +134,44 @@ public class ViewClient extends JFrame {
 		JLabel lbl_street = new JLabel("Logradouro");
 		lbl_street.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		textField_street = new JTextField();
-		textField_street.setColumns(10);
+		txt_streetName = new JTextField();
+		txt_streetName.setColumns(10);
 		
 		JLabel lbl_num = new JLabel("N\u00FAmero");
 		lbl_num.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		textField_numadress = new JTextField();
-		textField_numadress.setColumns(10);
+		txt_streetNumber = new JTextField();
+		txt_streetNumber.setColumns(10);
 		
 		JLabel lbl_adress = new JLabel("Complemento");
 		lbl_adress.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		textField_adress = new JTextField();
-		textField_adress.setColumns(10);
+		txt_streetComplement = new JTextField();
+		txt_streetComplement.setColumns(10);
 		
 		JLabel lbl_city = new JLabel("Cidade");
 		lbl_city.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		textField_city = new JTextField();
-		textField_city.setColumns(10);
+		txt_city = new JTextField();
+		txt_city.setColumns(10);
 		
 		JLabel lbl_num_1 = new JLabel("UF");
 		lbl_num_1.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		textField_uf = new JTextField();
-		textField_uf.setColumns(10);
+		txt_state = new JTextField();
+		txt_state.setColumns(10);
 		
 		JLabel lbl_nummedidor = new JLabel("N\u00FAmero do Medidor");
 		lbl_nummedidor.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		textField_nummedidor = new JTextField();
-		textField_nummedidor.setColumns(10);
+		txt_meterNumber = new JTextField();
+		txt_meterNumber.setColumns(10);
 		
 		JLabel lbl_street_1 = new JLabel("Roteiro de Leitura");
 		lbl_street_1.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		textField_roteiro = new JTextField();
-		textField_roteiro.setColumns(10);
+		txt_measurementOrder = new JTextField();
+		txt_measurementOrder.setColumns(10);
 		
 		JLabel lbl_street_1_1 = new JLabel("Classe");
 		lbl_street_1_1.setFont(new Font("Arial", Font.BOLD, 11));
@@ -179,41 +179,41 @@ public class ViewClient extends JFrame {
 		JLabel lbl_street_1_2 = new JLabel("Subclasse");
 		lbl_street_1_2.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		JComboBox comboBox_Classe = new JComboBox();
-		comboBox_Classe.setBackground(Color.WHITE);
-		comboBox_Classe.addItem("-");
-		comboBox_Classe.addItem("RESIDENCIAL");
-		comboBox_Classe.addItem("INDUSTRIAL");
-		comboBox_Classe.addItem("COMERCIAL");
-		comboBox_Classe.addItem("RURAL");
-		comboBox_Classe.addItem("PODER PUBLICO");
+		JComboBox box_lightClass = new JComboBox();
+		box_lightClass.setBackground(Color.WHITE);
+		box_lightClass.addItem("-");
+		box_lightClass.addItem("RESIDENCIAL");
+		box_lightClass.addItem("INDUSTRIAL");
+		box_lightClass.addItem("COMERCIAL");
+		box_lightClass.addItem("RURAL");
+		box_lightClass.addItem("PODER PUBLICO");
 		
 		
-		JComboBox comboBox_subclasse = new JComboBox();
-		comboBox_subclasse.setBackground(Color.WHITE);
-		comboBox_subclasse.addItem("-");
-		comboBox_subclasse.addItem("BAIXA RENDA");
-		comboBox_subclasse.addItem("BAIXA RENDA INDÍGENA");
-		comboBox_subclasse.addItem("BAIXA RENDA BENEFÍCIO PREST CONT");
-		comboBox_subclasse.addItem("BAIXA RENDA MULTIFAMILIAR");
-		comboBox_subclasse.addItem("SERVIÇO DE TRANSPORTE");
-		comboBox_subclasse.addItem("SERVIÇO DE COMUNICAÇÃO");
-		comboBox_subclasse.addItem("ASSOCIA. FILANTRÓPICA");
-		comboBox_subclasse.addItem("TEMPLOS RELIGIOSOS");
-		comboBox_subclasse.addItem("ADM CONDOMINIAL");
-		comboBox_subclasse.addItem("ILUMINAÇÃO RODOVIAS");
-		comboBox_subclasse.addItem("SEMÁFAROS, RADARES E CAMERAS");
-		comboBox_subclasse.addItem("AGROPECUARIA RURAL");
-		comboBox_subclasse.addItem("AGROPECUARIA URBANA");
-		comboBox_subclasse.addItem("RESIDENCIAL RURAL");
-		comboBox_subclasse.addItem("COOP DE ELETRIF. RURAL");
-		comboBox_subclasse.addItem("AGROINDUSTRIAL");
-		comboBox_subclasse.addItem("SERVIÇO PUBLI. IRRIGAÇAO RURAL");
-		comboBox_subclasse.addItem("ESCOLA AGROTECNICA");
-		comboBox_subclasse.addItem("AQUICULTURA");
-		comboBox_subclasse.addItem("ILUMINAÇÃO PUBLICA");
-		comboBox_subclasse.addItem("SERVIÇO PUBLICA");
-		comboBox_subclasse.addItem("CONSUMO PROPRIO");
+		JComboBox box_lightSubclass = new JComboBox();
+		box_lightSubclass.setBackground(Color.WHITE);
+		box_lightSubclass.addItem("-");
+		box_lightSubclass.addItem("BAIXA RENDA");
+		box_lightSubclass.addItem("BAIXA RENDA INDï¿½GENA");
+		box_lightSubclass.addItem("BAIXA RENDA BENEFï¿½CIO PREST CONT");
+		box_lightSubclass.addItem("BAIXA RENDA MULTIFAMILIAR");
+		box_lightSubclass.addItem("SERVIï¿½O DE TRANSPORTE");
+		box_lightSubclass.addItem("SERVIï¿½O DE COMUNICAï¿½ï¿½O");
+		box_lightSubclass.addItem("ASSOCIA. FILANTRï¿½PICA");
+		box_lightSubclass.addItem("TEMPLOS RELIGIOSOS");
+		box_lightSubclass.addItem("ADM CONDOMINIAL");
+		box_lightSubclass.addItem("ILUMINAï¿½ï¿½O RODOVIAS");
+		box_lightSubclass.addItem("SEMï¿½FAROS, RADARES E CAMERAS");
+		box_lightSubclass.addItem("AGROPECUARIA RURAL");
+		box_lightSubclass.addItem("AGROPECUARIA URBANA");
+		box_lightSubclass.addItem("RESIDENCIAL RURAL");
+		box_lightSubclass.addItem("COOP DE ELETRIF. RURAL");
+		box_lightSubclass.addItem("AGROINDUSTRIAL");
+		box_lightSubclass.addItem("SERVIï¿½O PUBLI. IRRIGAï¿½AO RURAL");
+		box_lightSubclass.addItem("ESCOLA AGROTECNICA");
+		box_lightSubclass.addItem("AQUICULTURA");
+		box_lightSubclass.addItem("ILUMINAï¿½ï¿½O PUBLICA");
+		box_lightSubclass.addItem("SERVIï¿½O PUBLICA");
+		box_lightSubclass.addItem("CONSUMO PROPRIO");
 		
 		JLabel lbl_street_1_1_1 = new JLabel("Tarifa (R$)");
 		lbl_street_1_1_1.setFont(new Font("Arial", Font.BOLD, 11));
@@ -221,107 +221,130 @@ public class ViewClient extends JFrame {
 		JLabel lbl_street_1_1_1_1 = new JLabel("Tarifa com Imposto (R$)");
 		lbl_street_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		textField_value = new JTextField();
-		textField_value.setColumns(10);
+		txt_normalTax = new JTextField();
+		txt_normalTax.setColumns(10);
 		
-		textField_valuewtax = new JTextField();
-		textField_valuewtax.setColumns(10);
+		txt_tributeTax = new JTextField();
+		txt_tributeTax.setColumns(10);
 		
-		JButton btnNewButton_save = new JButton("SALVAR");
-		btnNewButton_save.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-	
+		JButton btn_save = new JButton("SALVAR");
+		btn_save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				BigDecimal normalTax = new BigDecimal(txt_normalTax.getText());
+				BigDecimal tributeTax = new BigDecimal(txt_tributeTax.getText());
+				Integer meterNumber = Integer.parseInt(txt_streetNumber.getText());
+				
+				ClientController.saveValues(txt_supplierCnpj.getText(), txt_clientName.getText(), txt_clientCpf.getText(),
+						txt_zipCode.getText(), meterNumber, txt_streetName.getText(), txt_streetComplement.getText(),
+						txt_city.getText(), txt_state.getText(), txt_meterNumber.getText(), txt_measurementOrder.getText(),
+						box_lightClass.getSelectedItem().toString(), box_lightSubclass.getSelectedItem().toString(),
+						normalTax, tributeTax);
+				txt_supplierCnpj.setText("");
+				txt_clientName.setText("");
+				txt_clientCpf.setText("");
+				txt_zipCode.setText("");
+				txt_streetName.setText("");
+				txt_streetComplement.setText("");
+				box_lightClass.setToolTipText("");
+				box_lightSubclass.setToolTipText("");
+				txt_normalTax.setText("");
+				txt_tributeTax.setText("");
+				
+				
 			}
-		});
-		btnNewButton_save.setFont(new Font("Arial", Font.BOLD, 13));
+				});
+		btn_save.setMnemonic(KeyEvent.VK_S);
+		btn_save.setFont(new Font("Arial", Font.BOLD, 13));
 		
-		JButton btnNewButton_back = new JButton("VOLTAR");
-		btnNewButton_back.addActionListener(new ActionListener() {
+		JButton btn_back = new JButton("VOLTAR");
+		btn_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewMain voltamenu = new ViewMain();
 				voltamenu.setVisible(true);
 				setVisible(false);
 			}
 		});
-		btnNewButton_back.setFont(new Font("Arial", Font.BOLD, 13));
+		btn_back.setMnemonic(KeyEvent.VK_B);
+		btn_back.setFont(new Font("Arial", Font.BOLD, 13));
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(88)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnNewButton_save, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btn_save, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lbl_street_1_1_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 										.addComponent(lbl_street_1_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-										.addComponent(comboBox_Classe, 0, 149, Short.MAX_VALUE)
-										.addComponent(textField_value, 144, 144, 144))
+										.addComponent(box_lightClass, 0, 149, Short.MAX_VALUE)
+										.addComponent(txt_normalTax, 144, 144, 144))
 									.addGap(36)
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_panel.createSequentialGroup()
 											.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-												.addComponent(comboBox_subclasse, 0, 149, Short.MAX_VALUE)
+												.addComponent(box_lightSubclass, 0, 149, Short.MAX_VALUE)
 												.addComponent(lbl_street_1_1_1_1, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-												.addComponent(textField_valuewtax, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-												.addComponent(btnNewButton_back, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
+												.addComponent(txt_tributeTax, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+												.addComponent(btn_back, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
 											.addGap(59))
 										.addComponent(lbl_street_1_2, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)))
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 										.addComponent(lbl_street_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-										.addComponent(textField_roteiro, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
+										.addComponent(txt_measurementOrder, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
 									.addGap(60))
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 										.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
 										.addComponent(lbl_cnpj, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(text_CNPJSupplier, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+											.addComponent(txt_supplierCnpj, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
 											.addGap(10)
 											.addComponent(btnNewButton_searchcnpj, GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
 											.addGap(1))
 										.addComponent(lbl_clientname, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(textField_name, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+											.addComponent(txt_clientName, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
 											.addGap(1))
 										.addComponent(lbl_clientcnpjcpf, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(textField_cnpjcpf, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
 											.addGap(1))
 										.addComponent(lbl_cep, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(textField_cep, GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+											.addComponent(txt_zipCode, GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
 											.addGap(6)
 											.addComponent(btnNewButton_searchcep, GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 											.addGap(5))
 										.addComponent(lbl_street, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(textField_street, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+											.addComponent(txt_streetName, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
 											.addGap(1))
 										.addGroup(gl_panel.createSequentialGroup()
 											.addComponent(lbl_num, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 											.addGap(77)
 											.addComponent(lbl_adress, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(textField_numadress, GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+											.addComponent(txt_streetNumber, GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
 											.addGap(46)
-											.addComponent(textField_adress, GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+											.addComponent(txt_streetComplement, GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
 											.addGap(1))
 										.addGroup(gl_panel.createSequentialGroup()
 											.addComponent(lbl_city, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
 											.addGap(151)
 											.addComponent(lbl_num_1, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(textField_city, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+											.addComponent(txt_city, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
 											.addGap(57)
-											.addComponent(textField_uf, 91, 91, 91)
+											.addComponent(txt_state, 91, 91, 91)
 											.addGap(1))
 										.addComponent(lbl_nummedidor, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(textField_nummedidor, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+											.addComponent(txt_meterNumber, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
 											.addGap(1)))
 									.addGap(59)))
 							.addGap(17)))
@@ -336,70 +359,69 @@ public class ViewClient extends JFrame {
 					.addComponent(lbl_cnpj)
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(text_CNPJSupplier, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txt_supplierCnpj, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnNewButton_searchcnpj, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
 					.addGap(6)
 					.addComponent(lbl_clientname)
 					.addGap(6)
-					.addComponent(textField_name, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+					.addComponent(txt_clientName, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addComponent(lbl_clientcnpjcpf)
 					.addGap(6)
-					.addComponent(textField_cnpjcpf, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addComponent(lbl_cep)
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField_cep, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txt_zipCode, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnNewButton_searchcep, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
 					.addGap(6)
 					.addComponent(lbl_street)
 					.addGap(6)
-					.addComponent(textField_street, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+					.addComponent(txt_streetName, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lbl_num)
 						.addComponent(lbl_adress))
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField_numadress, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_adress, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txt_streetNumber, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txt_streetComplement, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lbl_city)
 						.addComponent(lbl_num_1))
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField_city, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_uf, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txt_city, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txt_state, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
 					.addGap(6)
 					.addComponent(lbl_nummedidor)
 					.addGap(6)
-					.addComponent(textField_nummedidor, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+					.addComponent(txt_meterNumber, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lbl_street_1)
 					.addGap(6)
-					.addComponent(textField_roteiro, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+					.addComponent(txt_measurementOrder, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lbl_street_1_1)
 						.addComponent(lbl_street_1_2))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(comboBox_Classe, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBox_subclasse, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+						.addComponent(box_lightClass, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+						.addComponent(box_lightSubclass, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lbl_street_1_1_1)
 						.addComponent(lbl_street_1_1_1_1))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField_value, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_valuewtax, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txt_normalTax, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txt_tributeTax, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnNewButton_save, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNewButton_back, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btn_save, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btn_back, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(57, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);

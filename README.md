@@ -9,7 +9,7 @@
 
 * [Felipe Duo](https://www.linkedin.com/in/felipe-duo-209651127/)
 * [Geysa Santos](https://www.linkedin.com/in/geysa-fernanda-f-f-santos-97159b10a/)  
-* [Ronaldo Galvão](https://www.linkedin.com/in/ronaldo-galv%C3%A3o-13903915a/)
+* [Jefferson Neves](https://www.linkedin.com/in/jeferson-tadeu-das-neves-a98343190/)
 
 ### Master :chart_with_upwards_trend:
 
@@ -40,8 +40,15 @@
 ### Ferramentas :wrench:
 
 Para desenvolver a aplicação estamos usando:
-- JAVA :coffee:
+- JAVA SE 14 :coffee:
+- MYSQL 8.0.21.0
+- MySQL Connector/J 5.1.49
+- ECLIPSE JAVA 2018 09
 
 ### Pré Requisitos :cd:
 
 Para rodar o POC você vai precisar:
+- JAVA SE 14
+- MYSQL 8.0.21.0
+- MySQL Connector/J 5.1.49
+- ECLIPSE JAVA 2018 09
