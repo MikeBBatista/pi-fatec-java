@@ -43,6 +43,7 @@ Para desenvolver a aplicação estamos usando:
 - JAVA SE 14 :coffee:
 - MYSQL 8.0.21.0
 - MySQL Connector/J 5.1.49
+- ECLIPSE JAVA 2018 09
 
 ### Pré Requisitos :cd:
 
@@ -50,3 +51,4 @@ Para rodar o POC você vai precisar:
 - JAVA SE 14
 - MYSQL 8.0.21.0
 - MySQL Connector/J 5.1.49
+- ECLIPSE JAVA 2018 09
