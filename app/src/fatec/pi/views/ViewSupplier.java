@@ -22,6 +22,8 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JRadioButton;
 
 public class ViewSupplier extends JFrame {
@@ -98,6 +100,7 @@ public class ViewSupplier extends JFrame {
 				
 			}
 		});
+		btnNewButton.setMnemonic(KeyEvent.VK_S);
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		JLabel lbl_title = new JLabel("");
@@ -112,6 +115,7 @@ public class ViewSupplier extends JFrame {
 				
 			}
 		});
+		btnVoltar.setMnemonic(KeyEvent.VK_B);
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Tipo de Fornecimento");
