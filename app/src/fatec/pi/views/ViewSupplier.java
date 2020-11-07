@@ -92,7 +92,7 @@ public class ViewSupplier extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SupplierController.saveValues(formataDados(text_CNPJ_1.getText()), text_companyname.getText(),text_site.getText(), 0);
-				text_CNPJ.setText("");
+				text_CNPJ_1.setText("");
 				text_companyname.setText("");
 				text_site.setText("");
 				

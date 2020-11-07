@@ -7,7 +7,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
 
 import fatec.pi.controllers.ClientController;
 import fatec.pi.controllers.SupplierController;
@@ -24,7 +23,6 @@ import javax.swing.JComboBox;
 import javax.swing.JScrollBar;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
 
@@ -100,7 +98,12 @@ public class ViewClient extends JFrame {
 		JLabel lbl_cnpj = new JLabel("CNPJ - Fornecedora");
 		lbl_cnpj.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		txt_supplierCnpj = new JTextField();
+
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##.###.###/####-##");
+			txt_supplierCnpj= new javax.swing.JFormattedTextField(format_textField3);
+			} catch (Exception e){}
+		txt_supplierCnpj.setForeground(Color.BLACK);
 		txt_supplierCnpj.setColumns(10);
 						
 		JButton btnNewButton_searchcnpj = new JButton("");
@@ -112,15 +115,16 @@ public class ViewClient extends JFrame {
 		txt_clientName = new JTextField();
 		txt_clientName.setColumns(10);
 		
-		JLabel lbl_clientcnpjcpf = new JLabel("CPF / CNPJ");
+		JLabel lbl_clientcnpjcpf = new JLabel("CPF do Cliente");
 		lbl_clientcnpjcpf.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		JFormattedTextField textField_cpf = new JFormattedTextField((Object) null);
-		textField_cpf.setColumns(10);
+		txt_clientCpf = new JTextField();
 		try {
-			javax.swing.text.MaskFormatter format_textFieldcpf = new javax.swing.text.MaskFormatter("###.###.###-##");
-			textField_cpf = new javax.swing.JFormattedTextField(format_textFieldcpf);
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("###.###.###.-##");
+			txt_clientCpf = new javax.swing.JFormattedTextField(format_textField3);
 			} catch (Exception e){}
+		txt_clientCpf.setForeground(Color.BLACK);
+		txt_clientCpf.setColumns(10);
 		
 		JLabel lbl_cep = new JLabel("CEP");
 		lbl_cep.setFont(new Font("Arial", Font.BOLD, 11));
@@ -161,7 +165,7 @@ public class ViewClient extends JFrame {
 		txt_state = new JTextField();
 		txt_state.setColumns(10);
 		
-		JLabel lbl_nummedidor = new JLabel("N\u00FAmero do Medidor");
+		JLabel lbl_nummedidor = new JLabel("N\u00FAmero da Instalação");
 		lbl_nummedidor.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		txt_meterNumber = new JTextField();
@@ -193,26 +197,26 @@ public class ViewClient extends JFrame {
 		box_lightSubclass.setBackground(Color.WHITE);
 		box_lightSubclass.addItem("-");
 		box_lightSubclass.addItem("BAIXA RENDA");
-		box_lightSubclass.addItem("BAIXA RENDA INDï¿½GENA");
-		box_lightSubclass.addItem("BAIXA RENDA BENEFï¿½CIO PREST CONT");
+		box_lightSubclass.addItem("BAIXA RENDA INDÍGENA");
+		box_lightSubclass.addItem("BAIXA RENDA BENEFÍCIO PREST CONT");
 		box_lightSubclass.addItem("BAIXA RENDA MULTIFAMILIAR");
-		box_lightSubclass.addItem("SERVIï¿½O DE TRANSPORTE");
-		box_lightSubclass.addItem("SERVIï¿½O DE COMUNICAï¿½ï¿½O");
-		box_lightSubclass.addItem("ASSOCIA. FILANTRï¿½PICA");
+		box_lightSubclass.addItem("SERVIÇO DE TRANSPORTE");
+		box_lightSubclass.addItem("SERVIÇO DE COMUNICAÇÃO");
+		box_lightSubclass.addItem("ASSOCIA. FILANTRÓPICA");
 		box_lightSubclass.addItem("TEMPLOS RELIGIOSOS");
 		box_lightSubclass.addItem("ADM CONDOMINIAL");
-		box_lightSubclass.addItem("ILUMINAï¿½ï¿½O RODOVIAS");
-		box_lightSubclass.addItem("SEMï¿½FAROS, RADARES E CAMERAS");
+		box_lightSubclass.addItem("ILUMINAÇÃO RODOVIAS");
+		box_lightSubclass.addItem("SEMÁFAROS, RADARES E CAMERAS");
 		box_lightSubclass.addItem("AGROPECUARIA RURAL");
 		box_lightSubclass.addItem("AGROPECUARIA URBANA");
 		box_lightSubclass.addItem("RESIDENCIAL RURAL");
 		box_lightSubclass.addItem("COOP DE ELETRIF. RURAL");
 		box_lightSubclass.addItem("AGROINDUSTRIAL");
-		box_lightSubclass.addItem("SERVIï¿½O PUBLI. IRRIGAï¿½AO RURAL");
+		box_lightSubclass.addItem("SERVIÇO PUBLI. IRRIGAÇAO RURAL");
 		box_lightSubclass.addItem("ESCOLA AGROTECNICA");
 		box_lightSubclass.addItem("AQUICULTURA");
-		box_lightSubclass.addItem("ILUMINAï¿½ï¿½O PUBLICA");
-		box_lightSubclass.addItem("SERVIï¿½O PUBLICA");
+		box_lightSubclass.addItem("ILUMINAÇÃO PUBLICA");
+		box_lightSubclass.addItem("SERVIÇO PUBLICA");
 		box_lightSubclass.addItem("CONSUMO PROPRIO");
 		
 		JLabel lbl_street_1_1_1 = new JLabel("Tarifa (R$)");
@@ -235,7 +239,7 @@ public class ViewClient extends JFrame {
 				BigDecimal tributeTax = new BigDecimal(txt_tributeTax.getText());
 				Integer meterNumber = Integer.parseInt(txt_streetNumber.getText());
 				
-				ClientController.saveValues(txt_supplierCnpj.getText(), txt_clientName.getText(), txt_clientCpf.getText(),
+				ClientController.saveValues(formataDados(txt_supplierCnpj.getText()), txt_clientName.getText(), formataDados(txt_clientCpf.getText()),
 						txt_zipCode.getText(), meterNumber, txt_streetName.getText(), txt_streetComplement.getText(),
 						txt_city.getText(), txt_state.getText(), txt_meterNumber.getText(), txt_measurementOrder.getText(),
 						box_lightClass.getSelectedItem().toString(), box_lightSubclass.getSelectedItem().toString(),
@@ -254,7 +258,6 @@ public class ViewClient extends JFrame {
 				
 			}
 				});
-		btn_save.setMnemonic(KeyEvent.VK_S);
 		btn_save.setFont(new Font("Arial", Font.BOLD, 13));
 		
 		JButton btn_back = new JButton("VOLTAR");
@@ -265,9 +268,7 @@ public class ViewClient extends JFrame {
 				setVisible(false);
 			}
 		});
-		btn_back.setMnemonic(KeyEvent.VK_B);
 		btn_back.setFont(new Font("Arial", Font.BOLD, 13));
-		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -313,6 +314,7 @@ public class ViewClient extends JFrame {
 											.addGap(1))
 										.addComponent(lbl_clientcnpjcpf, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(txt_clientCpf, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
 											.addGap(1))
 										.addComponent(lbl_cep, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
@@ -368,6 +370,7 @@ public class ViewClient extends JFrame {
 					.addGap(6)
 					.addComponent(lbl_clientcnpjcpf)
 					.addGap(6)
+					.addComponent(txt_clientCpf, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addComponent(lbl_cep)
 					.addGap(6)
@@ -427,4 +430,9 @@ public class ViewClient extends JFrame {
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 	}
+	//Func Trata Dados
+	public static String formataDados(String dado){
+		
+		   return dado.replaceAll("[^0-9]+", "");
+		}
 }
