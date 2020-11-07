@@ -80,7 +80,6 @@ public class ViewSupplier extends JFrame {
 			text_CNPJ_1 = new javax.swing.JFormattedTextField(format_textField3);
 			} catch (Exception e){}
 		text_CNPJ_1.setForeground(Color.BLACK);
-		text_CNPJ_1.setText("");
 		text_CNPJ_1.setColumns(10);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Site");
@@ -92,7 +91,7 @@ public class ViewSupplier extends JFrame {
 		JButton btnNewButton = new JButton("SALVAR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SupplierController.saveValues(text_CNPJ.getText(), text_companyname.getText(), text_site.getText(), 0);
+				SupplierController.saveValues(formataDados(text_CNPJ_1.getText()), text_companyname.getText(),text_site.getText(), 0);
 				text_CNPJ.setText("");
 				text_companyname.setText("");
 				text_site.setText("");
@@ -200,4 +199,9 @@ public class ViewSupplier extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 		}
 	}
+	//Func Trata Dados
+	public static String formataDados(String dado){
+		
+		   return dado.replaceAll("[^0-9]+", "");
+		}
 }
