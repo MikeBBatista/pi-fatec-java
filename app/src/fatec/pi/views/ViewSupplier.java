@@ -22,6 +22,8 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JRadioButton;
 
 public class ViewSupplier extends JFrame {
@@ -99,6 +101,7 @@ public class ViewSupplier extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
+		btnNewButton.setMnemonic(KeyEvent.VK_S);
 		
 		JLabel lbl_title = new JLabel("");
 		lbl_title.setIcon(new ImageIcon(ViewSupplier.class.getResource("/img/rsz_poc_verde.png")));
@@ -113,6 +116,7 @@ public class ViewSupplier extends JFrame {
 			}
 		});
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 11));
+		btnVoltar.setMnemonic(KeyEvent.VK_B);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Tipo de Fornecimento");
 		lblNewLabel_1_2.setFont(new Font("Arial", Font.BOLD, 11));
