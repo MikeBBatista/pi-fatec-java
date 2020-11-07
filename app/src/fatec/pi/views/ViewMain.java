@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -86,6 +87,7 @@ public class ViewMain extends JFrame {
 			}
 		});
 		btnCadastrarNovaConta.setFont(new Font("Arial", Font.BOLD, 13));
+		btnCadastrarNovaConta.setMnemonic(KeyEvent.VK_3);
 		
 		JButton btnEditarInformaoCadastrada = new JButton("EDITAR INFORMA\u00C7\u00C3O CADASTRADA");
 		btnEditarInformaoCadastrada.setFont(new Font("Arial", Font.BOLD, 13));
@@ -98,6 +100,13 @@ public class ViewMain extends JFrame {
 		
 		JButton btnSair = new JButton("SAIR");
 		btnSair.setFont(new Font("Arial", Font.BOLD, 13));
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				System.exit(0);
+			}
+		});
+		
 		
 		JButton btnCadastrarFornecedor = new JButton("CADASTRAR FORNECEDOR");
 		btnCadastrarFornecedor.addActionListener(new ActionListener() {
@@ -108,6 +117,7 @@ public class ViewMain extends JFrame {
 			}
 		});
 		btnCadastrarFornecedor.setFont(new Font("Arial", Font.BOLD, 13));
+		btnCadastrarFornecedor.setMnemonic(KeyEvent.VK_1);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
