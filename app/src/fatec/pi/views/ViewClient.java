@@ -23,6 +23,7 @@ import javax.swing.JComboBox;
 import javax.swing.JScrollBar;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
 
@@ -259,6 +260,7 @@ public class ViewClient extends JFrame {
 			}
 				});
 		btn_save.setFont(new Font("Arial", Font.BOLD, 13));
+		btn_save.setMnemonic(KeyEvent.VK_S);
 		
 		JButton btn_back = new JButton("VOLTAR");
 		btn_back.addActionListener(new ActionListener() {
@@ -269,6 +271,8 @@ public class ViewClient extends JFrame {
 			}
 		});
 		btn_back.setFont(new Font("Arial", Font.BOLD, 13));
+		btn_back.setMnemonic(KeyEvent.VK_B);
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
