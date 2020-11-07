@@ -28,7 +28,6 @@ import java.awt.FlowLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
 
@@ -100,7 +99,6 @@ public class ViewLightAccount extends JFrame {
 		JPanel pnl_register = new JPanel();
 		pnl_register.setBackground(new Color(204,223,214));
 		tabbedPane.addTab("cadastro", null, pnl_register, null);
-		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		
 		JLabel lbl_supplierCnpj = new JLabel("CNPJ do Fornecedor");
 		lbl_supplierCnpj.setFont(new Font("Arial", Font.BOLD, 11));
@@ -376,7 +374,6 @@ public class ViewLightAccount extends JFrame {
 		
 		JPanel pnl_resume = new JPanel();
 		tabbedPane.addTab("resumo", null, pnl_resume, null);
-		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(204,223,214));
@@ -513,18 +510,9 @@ public class ViewLightAccount extends JFrame {
 				
 				}
 		});
-		btn_save.setMnemonic(KeyEvent.VK_S);
 		btn_save.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		JButton btn_back = new JButton("VOLTAR");
-		btn_back.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ViewMain viewMain = new ViewMain();
-				viewMain.setVisible(true);
-				setVisible(false);
-			}
-		});
-		btn_back.setMnemonic(KeyEvent.VK_B);
 		btn_back.setFont(new Font("Arial", Font.BOLD, 11));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
