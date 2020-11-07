@@ -154,7 +154,7 @@ public class ViewWaterAccount extends JFrame {
 						new BigDecimal (text_watervalue.getText()),
 						Integer.parseInt(text_PISCOFINS.getText()),
 						new BigDecimal (text_othervalue.getText()),
-						text_SupplierCnpj.getText());
+						formataDados(text_SupplierCnpj.getText()));
 				
 				text_numhidro.setText("");
 				text_dateleitura.setText("");
@@ -312,4 +312,9 @@ public class ViewWaterAccount extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
+	//Func Trata Dados
+		public static String formataDados(String dado){
+			
+			   return dado.replaceAll("[^0-9]+", "");
+			}
 }
