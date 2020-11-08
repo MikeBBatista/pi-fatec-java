@@ -30,7 +30,7 @@
 * [Executável Beta](https://drive.google.com/file/d/1VomvKVPfKELb7qm2l9W4r22lDG6mXhUk/view?usp=sharing)
 
 ### Apresentação Sprint II (08/11/2020)
-* [Sprint 2] ()
+* [Sprint 2](https://drive.google.com/file/d/1foRH06ve62J8zBLN81uq8GSbTeufTLgY/view?usp=sharing)
 * [Executável Beta 2.0](https://drive.google.com/file/d/1qVH_Uh_dj-nzQ76ZDc63U17FUGkoBmyb/view?usp=sharing)
 
 ### O que é POC?
