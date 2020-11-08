@@ -215,7 +215,7 @@ public class ViewClient extends JFrame {
 		box_lightSubclass.addItem("AGROINDUSTRIAL");
 		box_lightSubclass.addItem("SERVIÇO PUBLI. IRRIGAÇAO RURAL");
 		box_lightSubclass.addItem("ESCOLA AGROTECNICA");
-		box_lightSubclass.addItem("AQUICULTURA");
+		box_lightSubclass.addItem("AGRICULTURA");
 		box_lightSubclass.addItem("ILUMINAÇÃO PUBLICA");
 		box_lightSubclass.addItem("SERVIÇO PUBLICA");
 		box_lightSubclass.addItem("CONSUMO PROPRIO");
