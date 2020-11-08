@@ -70,7 +70,7 @@ Para rodar o POC você vai precisar:
 
 - Após Instalação:
   - A primeira tela é o Menu Principal:
-    - Nele podemos escolher uma ação que irá nos direcionar a outras telas, todas as ações já disponíveis nessa versão, incluem um atalho:
+   - Nele podemos escolher uma ação que irá nos direcionar a outras telas, todas as ações já disponíveis nessa versão, incluem um atalho:
 
       - alt + 1 para abrir a opção de cadastrar fornecedores;
       - alt + 2 para abrir a opção de cadastrar cliente;
