@@ -60,12 +60,12 @@ Para rodar o POC você vai precisar:
 - No Linux: 
 
 	 - No terminal vá até a pasta em que você baixou o executável e digite:
- 
-   		$ java -jar POC_beta.jar
+
+   		```$ java -jar POC_beta.jar ```
 - No Windows:
 - Procure por "cmd" no menu iniciar, clique com o botão direito e inicie como administrador vá até a pasta onde baixou o executavél e digite:
   
-		java -jar POC_beta.jar
+		```java -jar POC_beta.jar ```
   
 
 - Após Instalação:
