@@ -16,8 +16,6 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
-
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
@@ -74,20 +72,16 @@ public class ViewWaterAccount extends JFrame {
 		lblCadastroConta.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(lblCadastroConta);
 		
-		JLabel lblNewLabel_1 = new JLabel("N\u00FAmero da Instala\u00E7\u00E3o");
+		JLabel lblNewLabel_1 = new JLabel("Hidr\u00F4metro");
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		text_numhidro = new JTextField();
 		text_numhidro.setColumns(10);
 		
 		text_dateleitura = new JTextField();
-		try {
-			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
-			text_dateleitura = new javax.swing.JFormattedTextField(format_textField3);
-			} catch (Exception e){}
-		text_dateleitura.setForeground(Color.BLACK);
+		text_dateleitura.setForeground(Color.LIGHT_GRAY);
 		text_dateleitura.setFont(new Font("Arial", Font.PLAIN, 11));
-		text_dateleitura.setText("");
+		text_dateleitura.setText("00/00/0000");
 		text_dateleitura.setColumns(10);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Leitura Atual");
@@ -97,12 +91,8 @@ public class ViewWaterAccount extends JFrame {
 		lblNewLabel_1_1_1.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		text_datevencimento = new JTextField();
-		try {
-			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
-			text_datevencimento = new javax.swing.JFormattedTextField(format_textField3);
-			} catch (Exception e){}
-		text_datevencimento.setText("");
-		text_datevencimento.setForeground(Color.BLACK);
+		text_datevencimento.setText("00/00/0000");
+		text_datevencimento.setForeground(Color.LIGHT_GRAY);
 		text_datevencimento.setFont(new Font("Arial", Font.PLAIN, 11));
 		text_datevencimento.setColumns(10);
 		
@@ -169,8 +159,8 @@ public class ViewWaterAccount extends JFrame {
 				text_SupplierCnpj.setText("");
 			}
 		});
-		btnNewButton.setMnemonic(KeyEvent.VK_S);
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
+		btnNewButton.setMnemonic(KeyEvent.VK_S);
 		
 		JButton btnVoltar = new JButton("VOLTAR");
 		btnVoltar.addActionListener(new ActionListener() {
@@ -180,21 +170,19 @@ public class ViewWaterAccount extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnVoltar.setMnemonic(KeyEvent.VK_B);
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 11));
+		btnVoltar.setMnemonic(KeyEvent.VK_B);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("CNPJ do Fornecedor");
 		lblNewLabel_1_2.setFont(new Font("Arial", Font.BOLD, 11));
 		
-	
-		JFormattedTextField text_SupplierCnpj = new JFormattedTextField();
-		text_SupplierCnpj.setForeground(Color.BLACK);
-		text_SupplierCnpj.setColumns(10);
+
 		try {
 			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##.###.###/####-##");
 			text_SupplierCnpj = new javax.swing.JFormattedTextField(format_textField3);
 			} catch (Exception e){}
-		
+		text_SupplierCnpj.setForeground(Color.BLACK);
+		text_SupplierCnpj.setColumns(10);
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -315,9 +303,10 @@ public class ViewWaterAccount extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
+	
 	//Func Trata Dados
-		public static String formataDados(String dado){
-			
-			   return dado.replaceAll("[^0-9]+", "");
-			}
+	public static String formataDados(String dado){
+		
+		   return dado.replaceAll("[^0-9]+", "");
+		}
 }

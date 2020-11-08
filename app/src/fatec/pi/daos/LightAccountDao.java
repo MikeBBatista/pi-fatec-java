@@ -11,7 +11,7 @@ public class LightAccountDao {
 		
 		Integer res = 0;
 		String sql = "Insert into LIGHT_ACCOUNT (ACCOUNT_IDENT_COD, "
-				+ "ACCOUNT_METER_NUMBER, "
+				+ "ACCOUNT_CLIENT_METER_NUMBER, "
 				+ "ACCOUNT_INVOICE, "
 				+ "ACCOUNT_CURRENT_DATE, "
 				+ "ACCOUNT_DUE_DATE, "
@@ -23,7 +23,7 @@ public class LightAccountDao {
 				+ "ACCOUNT_ICMS_BASIS, "
 				+ "ACCOUNT_ICMS_PERCENTAGE, "
 				+ "ACCOUNT_ICMS_VALUE, "
-				+ "ACCOUNT_PIC_COFINS_BASIS, "
+				+ "ACCOUNT_PIS_COFINS_BASIS, "
 				+ "ACCOUNT_PIS_VALUE, "
 				+ "ACCOUNT_COFINS_VALUE, "
 				+ "ACCOUNT_FORFEIT_VALUE, "

@@ -1,17 +1,12 @@
 package fatec.pi.views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import fatec.pi.controllers.ClientController;
 import fatec.pi.controllers.LightAccountController;
-
-import javax.swing.JScrollPane;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -20,13 +15,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import java.awt.Component;
-import java.awt.FlowLayout;
-import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -106,14 +97,14 @@ public class ViewLightAccount extends JFrame {
 		JLabel lbl_supplierCnpj = new JLabel("CNPJ do Fornecedor");
 		lbl_supplierCnpj.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		lbl_supplierCnpj.setLabelFor(txt_supplierCnpj);
-		JFormattedTextField txt_supplierCnpj= new JFormattedTextField();
-		txt_supplierCnpj.setForeground(Color.BLACK);
-		txt_supplierCnpj.setColumns(10);
+
 		try {
 			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##.###.###/####-##");
 			txt_supplierCnpj = new javax.swing.JFormattedTextField(format_textField3);
 			} catch (Exception e){}
+		txt_supplierCnpj.setForeground(Color.BLACK);
+		txt_supplierCnpj.setColumns(10);
+		lbl_supplierCnpj.setLabelFor(txt_supplierCnpj);
 		
 		JLabel lbl_currentDate = new JLabel("Leitura Atual");
 		lbl_currentDate.setFont(new Font("Arial", Font.BOLD, 11));
@@ -135,7 +126,7 @@ public class ViewLightAccount extends JFrame {
 		txt_dueDate.setFont(new Font("Arial", Font.PLAIN, 11));
 		txt_dueDate.setColumns(10);
 		
-		JLabel lbl_identCod = new JLabel("N\u00FAmero da Instala\u00E7\u00E3o");
+		JLabel lbl_identCod = new JLabel("C\u00F3digo de Identifica\u00E7\u00E3o");
 		lbl_identCod.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		txt_identCod = new JTextField();
@@ -492,7 +483,7 @@ public class ViewLightAccount extends JFrame {
 						txt_dueDate.getText(), consumptionDays, box_flagType.getSelectedItem().toString(), consumptionValue,
 						pisPercentage, cofinsPercentage, icmsBasis, icmsPercentage, icmsValue, pisCofinsBasis, pisValue,
 						cofinsValue, forfeitValue, interestValue, otherValues, supplyValue, financialItems, amount,
-						txt_supplierCnpj.getText());
+						formataDados(txt_supplierCnpj.getText()));
 				txt_identCod.setText("");
 				txt_meterNumber.setText("");
 				txt_invoice.setText("");
@@ -519,19 +510,19 @@ public class ViewLightAccount extends JFrame {
 				
 				}
 		});
-		btn_save.setMnemonic(KeyEvent.VK_S);
 		btn_save.setFont(new Font("Arial", Font.BOLD, 11));
+		btn_save.setMnemonic(KeyEvent.VK_S);
 		
 		JButton btn_back = new JButton("VOLTAR");
 		btn_back.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ViewMain viewMain = new ViewMain();
-				viewMain.setVisible(true);
-				setVisible(false);
+			public void actionPerformed(ActionEvent arg0) {
+	                ViewMain viewMain = new ViewMain();
+	                viewMain.setVisible(true);
+	                setVisible(false);
 			}
 		});
-		btn_back.setMnemonic(KeyEvent.VK_B);
 		btn_back.setFont(new Font("Arial", Font.BOLD, 11));
+		btn_back.setMnemonic(KeyEvent.VK_B);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -635,4 +626,10 @@ public class ViewLightAccount extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setResizable(true);
 	}
+	
+	//Func Trata Dados
+	public static String formataDados(String dado){
+		
+		   return dado.replaceAll("[^0-9]+", "");
+		}
 }
