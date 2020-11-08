@@ -31,7 +31,7 @@
 
 ### Apresentação Sprint II (08/11/2020)
 * [Sprint 2] ()
-* [Executável Beta 2.0 (https://drive.google.com/file/d/1qVH_Uh_dj-nzQ76ZDc63U17FUGkoBmyb/view?usp=sharing)
+* [Executável Beta 2.0](https://drive.google.com/file/d/1qVH_Uh_dj-nzQ76ZDc63U17FUGkoBmyb/view?usp=sharing)
 
 ### O que é POC?
  
