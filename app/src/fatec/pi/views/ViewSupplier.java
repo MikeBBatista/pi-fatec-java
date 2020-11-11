@@ -22,6 +22,8 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JRadioButton;
 
 public class ViewSupplier extends JFrame {
@@ -80,7 +82,6 @@ public class ViewSupplier extends JFrame {
 			text_CNPJ_1 = new javax.swing.JFormattedTextField(format_textField3);
 			} catch (Exception e){}
 		text_CNPJ_1.setForeground(Color.BLACK);
-		text_CNPJ_1.setText("");
 		text_CNPJ_1.setColumns(10);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Site");
@@ -92,14 +93,15 @@ public class ViewSupplier extends JFrame {
 		JButton btnNewButton = new JButton("SALVAR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SupplierController.saveValues(text_CNPJ.getText(), text_companyname.getText(), text_site.getText(), 0);
-				text_CNPJ.setText("");
+				SupplierController.saveValues(formataDados(text_CNPJ_1.getText()), text_companyname.getText(),text_site.getText(), 0);
+				text_CNPJ_1.setText("");
 				text_companyname.setText("");
 				text_site.setText("");
 				
 			}
 		});
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
+		btnNewButton.setMnemonic(KeyEvent.VK_S);
 		
 		JLabel lbl_title = new JLabel("");
 		lbl_title.setIcon(new ImageIcon(ViewSupplier.class.getResource("/img/rsz_poc_verde.png")));
@@ -114,6 +116,7 @@ public class ViewSupplier extends JFrame {
 			}
 		});
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 11));
+		btnVoltar.setMnemonic(KeyEvent.VK_B);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Tipo de Fornecimento");
 		lblNewLabel_1_2.setFont(new Font("Arial", Font.BOLD, 11));
@@ -200,4 +203,9 @@ public class ViewSupplier extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 		}
 	}
+	//Func Trata Dados
+	public static String formataDados(String dado){
+		
+		   return dado.replaceAll("[^0-9]+", "");
+		}
 }

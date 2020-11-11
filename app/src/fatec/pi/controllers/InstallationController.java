@@ -4,6 +4,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 import java.math.BigDecimal;
 
+import fatec.pi.daos.InstallationDao;
 import fatec.pi.entities.Installation;
 
 public class InstallationController {
@@ -14,7 +15,7 @@ public class InstallationController {
 		Installation installation = new Installation(installationNumber, subClass, mainClass, freeTaxFare,
 				readSchedule);
 		
-		if(InstallationDao.save() == 1) {
+		if(InstallationDao.save(installation) == 1) {
 			
 			showMessageDialog(null, "Dados cadastrados com Sucesso!");
 		}			
@@ -24,7 +25,7 @@ public class InstallationController {
 		
 		Installation installation = new Installation(installationNumber, installationType);
 		
-		if(InstallationDao.save() == 1) {
+		if(InstallationDao.save(installation) == 1) {
 			
 			showMessageDialog(null, "Dados cadastrados com Sucesso!");
 		}

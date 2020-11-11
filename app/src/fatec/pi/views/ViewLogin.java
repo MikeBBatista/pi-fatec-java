@@ -49,27 +49,28 @@ public class ViewLogin extends JFrame {
 	 */
 	public ViewLogin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 1366, 768);
+		setBounds(0, 0, 1000, 600);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(fundo);
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{511, 331, 0};
-		gbl_contentPane.rowHeights = new int[]{47, 180, 66, 211, 37, 182, 0};
+		gbl_contentPane.columnWidths = new int[]{353, 331, 0};
+		gbl_contentPane.rowHeights = new int[]{31, 184, 206, 106, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(ViewLogin.class.getResource("/img/rsz_1user.png")));
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.NORTH;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 1;
-		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		JLabel lblNewLabelIMG = new JLabel("");
+		lblNewLabelIMG.setIcon(new ImageIcon(ViewLogin.class.getResource("/img/rsz_1user.png")));
+		GridBagConstraints gbc_lblNewLabelIMG = new GridBagConstraints();
+		gbc_lblNewLabelIMG.fill = GridBagConstraints.VERTICAL;
+		gbc_lblNewLabelIMG.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabelIMG.gridx = 1;
+		gbc_lblNewLabelIMG.gridy = 1;
+		contentPane.add(lblNewLabelIMG, gbc_lblNewLabelIMG);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -77,7 +78,7 @@ public class ViewLogin extends JFrame {
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.gridx = 1;
-		gbc_panel.gridy = 3;
+		gbc_panel.gridy = 2;
 		contentPane.add(panel, gbc_panel);
 		panel.setLayout(null);
 		
@@ -93,17 +94,17 @@ public class ViewLogin extends JFrame {
 		passwordField.setBackground(text);
 		panel.add(passwordField);
 		
-		JButton btnNewButton = new JButton("LOGIN");
-		btnNewButton.setFont(new Font("Arial Narrow", Font.PLAIN, 14));
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setBounds(51, 160, 230, 30);
-		btnNewButton.setBackground(botao);
-		panel.add(btnNewButton);
+		JButton btnLogin = new JButton("LOGIN");
+		btnLogin.setFont(new Font("Arial Narrow", Font.PLAIN, 14));
+		btnLogin.setForeground(Color.WHITE);
+		btnLogin.setBounds(51, 160, 230, 30);
+		btnLogin.setBackground(botao);
+		panel.add(btnLogin);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Lembre-me");
-		chckbxNewCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxNewCheckBox.setBounds(20, 117, 97, 14);
-		panel.add(chckbxNewCheckBox);
+		JCheckBox CheckBoxRemember = new JCheckBox("Lembre-me");
+		CheckBoxRemember.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		CheckBoxRemember.setBounds(20, 117, 97, 14);
+		panel.add(CheckBoxRemember);
 		
 		JLabel lblNewLabel = new JLabel("Esqueceu a senha?");
 		lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 11));
@@ -122,13 +123,13 @@ public class ViewLogin extends JFrame {
 		lblNewLabel_4.setBackground(Color.GRAY);
 		panel.add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(ViewLogin.class.getResource("/img/rsz_logo_verde.png")));
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.fill = GridBagConstraints.VERTICAL;
-		gbc_lblNewLabel_2.gridx = 1;
-		gbc_lblNewLabel_2.gridy = 5;
-		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		JLabel lblNewLabelIMG2 = new JLabel("");
+		lblNewLabelIMG2.setIcon(new ImageIcon(ViewLogin.class.getResource("/img/rsz_poc_verde.png")));
+		GridBagConstraints gbc_lblNewLabelIMG2 = new GridBagConstraints();
+		gbc_lblNewLabelIMG2.fill = GridBagConstraints.VERTICAL;
+		gbc_lblNewLabelIMG2.gridx = 1;
+		gbc_lblNewLabelIMG2.gridy = 3;
+		contentPane.add(lblNewLabelIMG2, gbc_lblNewLabelIMG2);
 	}
 }
 

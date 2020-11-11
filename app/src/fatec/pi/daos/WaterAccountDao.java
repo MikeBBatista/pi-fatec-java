@@ -26,7 +26,7 @@ public class WaterAccountDao {
 				+ water.getSewerValue() + ", "
 				+ water.getWaterValue() + ", "
 				+ water.getPisPercentage() + ", "
-				+ water.getOtherValues() + ", '"
+				+ water.getOtherValues() + ",'"
 				+ water.getSupplierCnpj() + "')";
 		try {
 			BaseConnection con = new BaseConnection();

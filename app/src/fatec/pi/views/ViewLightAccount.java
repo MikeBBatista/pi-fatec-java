@@ -1,13 +1,12 @@
 package fatec.pi.views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JScrollPane;
+import fatec.pi.controllers.LightAccountController;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -17,12 +16,13 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import java.awt.Component;
-import java.awt.FlowLayout;
-import javax.swing.JCheckBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.math.BigDecimal;
+import java.awt.event.ActionEvent;
 
 public class ViewLightAccount extends JFrame {
 
@@ -92,13 +92,19 @@ public class ViewLightAccount extends JFrame {
 		JPanel pnl_register = new JPanel();
 		pnl_register.setBackground(new Color(204,223,214));
 		tabbedPane.addTab("cadastro", null, pnl_register, null);
+		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		
 		JLabel lbl_supplierCnpj = new JLabel("CNPJ do Fornecedor");
 		lbl_supplierCnpj.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		txt_supplierCnpj = new JTextField();
-		lbl_supplierCnpj.setLabelFor(txt_supplierCnpj);
+
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##.###.###/####-##");
+			txt_supplierCnpj = new javax.swing.JFormattedTextField(format_textField3);
+			} catch (Exception e){}
+		txt_supplierCnpj.setForeground(Color.BLACK);
 		txt_supplierCnpj.setColumns(10);
+		lbl_supplierCnpj.setLabelFor(txt_supplierCnpj);
 		
 		JLabel lbl_currentDate = new JLabel("Leitura Atual");
 		lbl_currentDate.setFont(new Font("Arial", Font.BOLD, 11));
@@ -367,6 +373,7 @@ public class ViewLightAccount extends JFrame {
 		
 		JPanel pnl_resume = new JPanel();
 		tabbedPane.addTab("resumo", null, pnl_resume, null);
+		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(204,223,214));
@@ -452,10 +459,70 @@ public class ViewLightAccount extends JFrame {
 		txt_amount.setColumns(10);
 		
 		JButton btn_save = new JButton("SALVAR");
+		btn_save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Integer consumptionDays = Integer.parseInt(txt_consumptionDays.getText());
+				BigDecimal consumptionValue = new BigDecimal(txt_consumptionValue.getText());
+				BigDecimal pisPercentage = new BigDecimal(txt_pisPercentage.getText());
+				BigDecimal cofinsPercentage = new BigDecimal(txt_cofinsPercentage.getText());
+				BigDecimal icmsBasis = new BigDecimal(txt_icmsBasis.getText());
+				BigDecimal icmsPercentage = new BigDecimal(txt_icmsPercentage.getText());
+				BigDecimal icmsValue = new BigDecimal(txt_icmsValue.getText());
+				BigDecimal pisCofinsBasis = new BigDecimal(txt_pisCofinsBasis.getText());
+				BigDecimal pisValue = new BigDecimal(txt_pisValue.getText());
+				BigDecimal cofinsValue = new BigDecimal(txt_cofinsValue.getText());
+				BigDecimal forfeitValue = new BigDecimal(txt_forfeitValue.getText());
+				BigDecimal interestValue = new BigDecimal(txt_interestValue.getText());
+				BigDecimal otherValues = new BigDecimal(txt_otherValues.getText());
+				BigDecimal supplyValue = new BigDecimal(txt_supplyValue.getText());
+				BigDecimal financialItems = new BigDecimal(txt_financialItems.getText());
+				BigDecimal amount = new BigDecimal(txt_amount.getText());
+				
+				LightAccountController.saveValues( txt_identCod.getText(), txt_meterNumber.getText(), txt_invoice.getText(), txt_currentDate.getText(),
+						txt_dueDate.getText(), consumptionDays, box_flagType.getSelectedItem().toString(), consumptionValue,
+						pisPercentage, cofinsPercentage, icmsBasis, icmsPercentage, icmsValue, pisCofinsBasis, pisValue,
+						cofinsValue, forfeitValue, interestValue, otherValues, supplyValue, financialItems, amount,
+						formataDados(txt_supplierCnpj.getText()));
+				txt_identCod.setText("");
+				txt_meterNumber.setText("");
+				txt_invoice.setText("");
+				txt_currentDate.setText("");
+				txt_dueDate.setText("");
+				txt_consumptionDays.setText("");
+				box_flagType.setToolTipText("");
+				txt_consumptionValue.setText("");
+				txt_pisPercentage.setText("");
+				txt_cofinsPercentage.setText("");
+				txt_icmsBasis.setText("");
+				txt_icmsPercentage.setText("");
+				txt_icmsValue.setText("");
+				txt_pisCofinsBasis.setText("");
+				txt_pisValue.setText("");
+				txt_cofinsValue.setText("");
+				txt_forfeitValue.setText("");
+				txt_interestValue.setText("");
+				txt_otherValues.setText("");
+				txt_supplyValue.setText("");
+				txt_financialItems.setText("");
+				txt_amount.setText("");
+				txt_supplierCnpj.setText("");
+				
+				}
+		});
 		btn_save.setFont(new Font("Arial", Font.BOLD, 11));
+		btn_save.setMnemonic(KeyEvent.VK_S);
 		
 		JButton btn_back = new JButton("VOLTAR");
+		btn_back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+	                ViewMain viewMain = new ViewMain();
+	                viewMain.setVisible(true);
+	                setVisible(false);
+			}
+		});
 		btn_back.setFont(new Font("Arial", Font.BOLD, 11));
+		btn_back.setMnemonic(KeyEvent.VK_B);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -559,4 +626,10 @@ public class ViewLightAccount extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setResizable(true);
 	}
+	
+	//Func Trata Dados
+	public static String formataDados(String dado){
+		
+		   return dado.replaceAll("[^0-9]+", "");
+		}
 }

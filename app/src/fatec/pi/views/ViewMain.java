@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -15,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
 public class ViewMain extends JFrame {
@@ -65,6 +67,14 @@ public class ViewMain extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(ViewMain.class.getResource("/img/rsz_poc_verde.png")));
 		
 		JButton btnCadastrarCliente = new JButton("CADASTRAR CLIENTE");
+		btnCadastrarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewClient viewCliente = new ViewClient();
+				viewCliente.setVisible(true);
+				setVisible(false);
+			}
+		});
+		btnCadastrarCliente.setMnemonic(KeyEvent.VK_2);
 		btnCadastrarCliente.setFont(new Font("Arial", Font.BOLD, 13));
 		
 		JButton btnCadastrarNovaConta = new JButton("CADASTRAR NOVA CONTA");
@@ -77,6 +87,7 @@ public class ViewMain extends JFrame {
 			}
 		});
 		btnCadastrarNovaConta.setFont(new Font("Arial", Font.BOLD, 13));
+		btnCadastrarNovaConta.setMnemonic(KeyEvent.VK_3);
 		
 		JButton btnEditarInformaoCadastrada = new JButton("EDITAR INFORMA\u00C7\u00C3O CADASTRADA");
 		btnEditarInformaoCadastrada.setFont(new Font("Arial", Font.BOLD, 13));
@@ -89,6 +100,13 @@ public class ViewMain extends JFrame {
 		
 		JButton btnSair = new JButton("SAIR");
 		btnSair.setFont(new Font("Arial", Font.BOLD, 13));
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				System.exit(0);
+			}
+		});
+		
 		
 		JButton btnCadastrarFornecedor = new JButton("CADASTRAR FORNECEDOR");
 		btnCadastrarFornecedor.addActionListener(new ActionListener() {
@@ -99,6 +117,7 @@ public class ViewMain extends JFrame {
 			}
 		});
 		btnCadastrarFornecedor.setFont(new Font("Arial", Font.BOLD, 13));
+		btnCadastrarFornecedor.setMnemonic(KeyEvent.VK_1);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
 
@@ -78,13 +79,9 @@ public class ViewWaterAccount extends JFrame {
 		text_numhidro.setColumns(10);
 		
 		text_dateleitura = new JTextField();
-		try {
-			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
-			text_dateleitura = new javax.swing.JFormattedTextField(format_textField3);
-			} catch (Exception e){}
-		text_dateleitura.setForeground(Color.BLACK);
+		text_dateleitura.setForeground(Color.LIGHT_GRAY);
 		text_dateleitura.setFont(new Font("Arial", Font.PLAIN, 11));
-		text_dateleitura.setText("");
+		text_dateleitura.setText("00/00/0000");
 		text_dateleitura.setColumns(10);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Leitura Atual");
@@ -94,12 +91,8 @@ public class ViewWaterAccount extends JFrame {
 		lblNewLabel_1_1_1.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		text_datevencimento = new JTextField();
-		try {
-			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
-			text_datevencimento = new javax.swing.JFormattedTextField(format_textField3);
-			} catch (Exception e){}
-		text_datevencimento.setText("");
-		text_datevencimento.setForeground(Color.BLACK);
+		text_datevencimento.setText("00/00/0000");
+		text_datevencimento.setForeground(Color.LIGHT_GRAY);
 		text_datevencimento.setFont(new Font("Arial", Font.PLAIN, 11));
 		text_datevencimento.setColumns(10);
 		
@@ -152,7 +145,7 @@ public class ViewWaterAccount extends JFrame {
 						new BigDecimal (text_watervalue.getText()),
 						Integer.parseInt(text_PISCOFINS.getText()),
 						new BigDecimal (text_othervalue.getText()),
-						text_SupplierCnpj.getText());
+						formataDados(text_SupplierCnpj.getText()));
 				
 				text_numhidro.setText("");
 				text_dateleitura.setText("");
@@ -167,6 +160,7 @@ public class ViewWaterAccount extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
+		btnNewButton.setMnemonic(KeyEvent.VK_S);
 		
 		JButton btnVoltar = new JButton("VOLTAR");
 		btnVoltar.addActionListener(new ActionListener() {
@@ -177,12 +171,19 @@ public class ViewWaterAccount extends JFrame {
 			}
 		});
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 11));
+		btnVoltar.setMnemonic(KeyEvent.VK_B);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("CNPJ do Fornecedor");
 		lblNewLabel_1_2.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		text_SupplierCnpj = new JTextField();
+
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##.###.###/####-##");
+			text_SupplierCnpj = new javax.swing.JFormattedTextField(format_textField3);
+			} catch (Exception e){}
+		text_SupplierCnpj.setForeground(Color.BLACK);
 		text_SupplierCnpj.setColumns(10);
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -302,4 +303,10 @@ public class ViewWaterAccount extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
+	
+	//Func Trata Dados
+	public static String formataDados(String dado){
+		
+		   return dado.replaceAll("[^0-9]+", "");
+		}
 }
