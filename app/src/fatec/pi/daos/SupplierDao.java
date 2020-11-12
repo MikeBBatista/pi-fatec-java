@@ -2,6 +2,7 @@ package fatec.pi.daos;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,26 +11,28 @@ import fatec.pi.entities.Supplier;
 
 public class SupplierDao {
 	public static Integer save(Supplier supplier) {
-		Integer res = 0;
-		String sql = "Insert into SUPPLIER (SUPPLIER_CNPJ, SUPPLIER_NAME, SUPPLIER_SITE, SUPPLIER_TYPE) VALUES ('"+
-				supplier.getCnpj() + "', '" +
-				supplier.getName() + "', '" +
-				supplier.getSite() + "', " +
-				supplier.getType() + ")";
+		Integer result = 0;
+		String sql = "Insert into SUPPLIER (SUPPLIER_CNPJ, SUPPLIER_NAME, SUPPLIER_SITE, SUPPLIER_TYPE) VALUES (?, ?, ?, ?)";
 		
 		try {
 			BaseConnection con = new BaseConnection();
-			Statement st = con.connection.createStatement();
+			PreparedStatement saveValues = con.connection.prepareStatement(sql);
 			
-			res = st.executeUpdate(sql);
+			saveValues.setString(1, supplier.getCnpj());
+			saveValues.setString(2, supplier.getName());
+			saveValues.setString(3, supplier.getSite());
+			saveValues.setInt(4, supplier.getType());
+			
+			result = saveValues.executeUpdate(sql);
 		}
 		catch(SQLException err) {
 			System.out.println(err);
 		}
-		return res;
+		return result;
 	}
 	
 	public static List<Supplier> listSuppliers() {
+		// não foi preciso mudar já que não concatenamos nenhuma string
 		List<Supplier> supplierList = new ArrayList<>();
 		String sql = "Select * from SUPPLIER";
 		try {
