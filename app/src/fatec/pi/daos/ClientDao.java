@@ -1,13 +1,12 @@
 package fatec.pi.daos;
 
 import java.sql.SQLException;
-import java.sql.Statement;
-
+import java.sql.PreparedStatement;
 import fatec.pi.entities.Client;
 
 public class ClientDao {
 	public static Integer save(Client client) {
-		Integer res = 0;
+		Integer result = 0;
 		String sql = "Insert into CLIENT_REGISTER (CLIENT_CPF, "
 				+ "CLIENT_NAME, "
 				+ "CLIENT_ZIP_COD, "
@@ -23,31 +22,34 @@ public class ClientDao {
 				+ "CLIENT_NORMAL_TAX,"
 				+ "CLIENT_TRIBUTE_TAX,"
 				+ "CLIENT_SUPPLIER_CNPJ) "
-				+ "VALUES ('" + client.getClientCpf() + "', '"
-				+ client.getClientName() + "', '"
-				+ client.getZipCode() + "', '"
-				+ client.getStreetName() + "', "
-				+ client.getStreetNumber() + ", '"
-				+ client.getStreetComplement() + "', '"
-				+ client.getCity() + "', '"
-				+ client.getState() + "', '"
-				+ client.getMeterNumber() + "', '"
-				+ client.getMeasurementOrder() + "', '"
-				+ client.getLightClass() + "', '"
-				+ client.getLightSubclass() + "', "
-				+ client.getNormalTax() + ","
-				+ client.getTributeTax() + ",'"
-				+ client.getSupplierCnpj() + "')";
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			BaseConnection con = new BaseConnection();
-			Statement st = con.connection.createStatement();
+			PreparedStatement saveValues = con.connection.prepareStatement(sql); // mudança de Statement para PreparedStatement
 			
-			res = st.executeUpdate(sql);
+			// usar o method set do preparedStatement para tratar os dados fornecidos pelo usuário antes de mandar para o SQL
+			saveValues.setString(1, client.getClientCpf());
+			saveValues.setString(2, client.getClientName());
+			saveValues.setString(3, client.getZipCode());
+			saveValues.setString(4, client.getStreetName());
+			saveValues.setInt(5, client.getStreetNumber());
+			saveValues.setString(6, client.getStreetComplement());
+			saveValues.setString(7, client.getCity());
+			saveValues.setString(8, client.getState());
+			saveValues.setString(9, client.getMeterNumber());
+			saveValues.setString(10, client.getMeasurementOrder());
+			saveValues.setString(11, client.getLightClass());
+			saveValues.setString(12, client.getLightSubclass());
+			saveValues.setBigDecimal(13, client.getNormalTax());
+			saveValues.setBigDecimal(14, client.getTributeTax());
+			saveValues.setString(15, client.getSupplierCnpj());
+			
+			result = saveValues.executeUpdate(sql);
 		}
 		catch(SQLException err) {
 			System.out.println(err);
 		}
-		return res;
+		return result;
 	}
 }
