@@ -1,17 +1,16 @@
 package fatec.pi.daos;
 
 import java.sql.SQLException;
-import java.sql.Statement;
-
+import java.sql.PreparedStatement;
 import fatec.pi.entities.LightAccount;
 
 public class LightAccountDao {
 	
 	public static Integer save(LightAccount light) {
 		
-		Integer res = 0;
+		Integer result = 0;
 		String sql = "Insert into LIGHT_ACCOUNT (ACCOUNT_IDENT_COD, "
-				+ "ACCOUNT_METER_NUMBER, "
+				+ "ACCOUNT_CLIENT_METER_NUMBER, "
 				+ "ACCOUNT_INVOICE, "
 				+ "ACCOUNT_CURRENT_DATE, "
 				+ "ACCOUNT_DUE_DATE, "
@@ -23,7 +22,7 @@ public class LightAccountDao {
 				+ "ACCOUNT_ICMS_BASIS, "
 				+ "ACCOUNT_ICMS_PERCENTAGE, "
 				+ "ACCOUNT_ICMS_VALUE, "
-				+ "ACCOUNT_PIC_COFINS_BASIS, "
+				+ "ACCOUNT_PIS_COFINS_BASIS, "
 				+ "ACCOUNT_PIS_VALUE, "
 				+ "ACCOUNT_COFINS_VALUE, "
 				+ "ACCOUNT_FORFEIT_VALUE, "
@@ -33,40 +32,42 @@ public class LightAccountDao {
 				+ "ACCOUNT_FINANCIAL_ITEMS, "
 				+ "ACCOUNT_AMOUNT, "
 				+ "ACCOUNT_SUPPLIER_CNPJ) "
-				+ "VALUES ('" + light.getIdentCod() + "','"
-				+ light.getMeterNumber() + "','"
-				+ light.getInvoice() + "','"
-				+ light.getCurrentDate() + "','"
-				+ light.getDueDate() + "',"
-				+ light.getConsumptionDays() + ",'"
-				+ light.getFlagType() + "',"
-				+ light.getConsumptionValue() + ","
-				+ light.getPisPercentage() + ","
-				+ light.getCofinsPercentage() + ","
-				+ light.getIcmsBasis() + ","
-				+ light.getIcmsPercentage() + ","
-				+ light.getIcmsValue() + ","
-				+ light.getPisCofinsBasis() + ","
-				+ light.getPisValue() + ","
-				+ light.getCofinsValue() + ","
-				+ light.getForfeitValue() + ","
-				+ light.getInterestValue() + ","
-				+ light.getOtherValues() + ","
-				+ light.getSupplyValue() + ","
-				+ light.getFinancialItems() + ","
-				+ light.getAmount() + ",'"
-				+ light.getSupplierCnpj() + "')";
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			BaseConnection con = new BaseConnection();
-			Statement st = con.connection.createStatement();
+			PreparedStatement saveValues = con.connection.prepareStatement(sql);
 			
-			res = st.executeUpdate(sql);
+			saveValues.setString(1, light.getIdentCod());
+			saveValues.setString(2, light.getMeterNumber());
+			saveValues.setString(3, light.getInvoice());
+			saveValues.setString(4, light.getCurrentDate());
+			saveValues.setString(5, light.getDueDate());
+			saveValues.setInt(6, light.getConsumptionDays());
+			saveValues.setString(7, light.getFlagType());
+			saveValues.setBigDecimal(8, light.getConsumptionValue());
+			saveValues.setBigDecimal(9, light.getPisPercentage());
+			saveValues.setBigDecimal(10, light.getCofinsPercentage());
+			saveValues.setBigDecimal(11, light.getIcmsBasis());
+			saveValues.setBigDecimal(12, light.getIcmsPercentage());
+			saveValues.setBigDecimal(13, light.getIcmsValue());
+			saveValues.setBigDecimal(14, light.getPisCofinsBasis());
+			saveValues.setBigDecimal(15, light.getPisValue());
+			saveValues.setBigDecimal(16, light.getCofinsValue());
+			saveValues.setBigDecimal(17, light.getForfeitValue());
+			saveValues.setBigDecimal(18, light.getInterestValue());
+			saveValues.setBigDecimal(19, light.getOtherValues());
+			saveValues.setBigDecimal(20, light.getSupplyValue());
+			saveValues.setBigDecimal(21, light.getFinancialItems());
+			saveValues.setBigDecimal(22, light.getAmount());
+			saveValues.setString(23, light.getSupplierCnpj());
+			
+			result = saveValues.executeUpdate(sql);
 		}
 		catch(SQLException err) {
 			System.out.println(err);
 		}
 		
-		return res;
+		return result;
 	}		
 }

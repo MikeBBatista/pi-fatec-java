@@ -22,6 +22,8 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JRadioButton;
 
 public class ViewSupplier extends JFrame {
@@ -92,13 +94,14 @@ public class ViewSupplier extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SupplierController.saveValues(formataDados(text_CNPJ_1.getText()), text_companyname.getText(),text_site.getText(), 0);
-				text_CNPJ.setText("");
+				text_CNPJ_1.setText("");
 				text_companyname.setText("");
 				text_site.setText("");
 				
 			}
 		});
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
+		btnNewButton.setMnemonic(KeyEvent.VK_S);
 		
 		JLabel lbl_title = new JLabel("");
 		lbl_title.setIcon(new ImageIcon(ViewSupplier.class.getResource("/img/rsz_poc_verde.png")));
@@ -113,6 +116,7 @@ public class ViewSupplier extends JFrame {
 			}
 		});
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 11));
+		btnVoltar.setMnemonic(KeyEvent.VK_B);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Tipo de Fornecimento");
 		lblNewLabel_1_2.setFont(new Font("Arial", Font.BOLD, 11));
