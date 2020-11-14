@@ -45,7 +45,7 @@ public class ClientDao {
 			saveValues.setBigDecimal(14, client.getTributeTax());
 			saveValues.setString(15, client.getSupplierCnpj());
 			
-			result = saveValues.executeUpdate(sql);
+			result = saveValues.executeUpdate();
 		}
 		catch(SQLException err) {
 			System.out.println(err);

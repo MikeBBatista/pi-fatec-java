@@ -34,7 +34,7 @@ public class WaterAccountDao {
 			saveValues.setBigDecimal(9, water.getOtherValues());
 			saveValues.setString(10, water.getSupplierCnpj());
 			
-			result = saveValues.executeUpdate(sql);
+			result = saveValues.executeUpdate();
 		}
 		catch(SQLException err) {
 			System.out.println(err);

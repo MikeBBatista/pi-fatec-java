@@ -62,7 +62,7 @@ public class LightAccountDao {
 			saveValues.setBigDecimal(22, light.getAmount());
 			saveValues.setString(23, light.getSupplierCnpj());
 			
-			result = saveValues.executeUpdate(sql);
+			result = saveValues.executeUpdate();
 		}
 		catch(SQLException err) {
 			System.out.println(err);
