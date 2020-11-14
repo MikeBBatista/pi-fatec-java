@@ -63,6 +63,7 @@ public class LightAccountDao {
 			saveValues.setString(23, light.getSupplierCnpj());
 			
 			result = saveValues.executeUpdate();
+
 		}
 		catch(SQLException err) {
 			System.out.println(err);

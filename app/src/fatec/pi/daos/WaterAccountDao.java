@@ -35,6 +35,7 @@ public class WaterAccountDao {
 			saveValues.setString(10, water.getSupplierCnpj());
 			
 			result = saveValues.executeUpdate();
+
 		}
 		catch(SQLException err) {
 			System.out.println(err);
