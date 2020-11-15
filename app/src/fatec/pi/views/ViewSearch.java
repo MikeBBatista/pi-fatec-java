@@ -19,6 +19,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JSpinner;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingConstants;
+import javax.swing.JTabbedPane;
 
 public class ViewSearch extends JFrame {
 
@@ -28,9 +29,9 @@ public class ViewSearch extends JFrame {
 	Color botao  = new Color(156,183,170);
 	Color jpanel = new Color(95, 158, 160);
 	private JTextField txtPesquisa;
-	private JTextField textField_1;
-	private JTextField textField;
-	private JTextField textField_2;
+	private JTextField textFieldCNPJ;
+	private JTextField textFieldCPF;
+	private JTextField textFieldNOME;
 	/**
 	 * Launch the application.
 	 */
@@ -72,40 +73,44 @@ public class ViewSearch extends JFrame {
 		contentPane.add(txtPesquisa);
 		txtPesquisa.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("CNPJ");
-		lblNewLabel.setBounds(315, 140, 94, 25);
-		contentPane.add(lblNewLabel);
+		JLabel LabelCNPJ = new JLabel("CNPJ");
+		LabelCNPJ.setBounds(315, 140, 94, 25);
+		contentPane.add(LabelCNPJ);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(407, 140, 192, 25);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		textFieldCNPJ = new JTextField();
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##.###.###/####-##");
+			textFieldCNPJ= new javax.swing.JFormattedTextField(format_textField3);
+			} catch (Exception e){}
+		textFieldCNPJ.setBounds(407, 140, 192, 25);
+		contentPane.add(textFieldCNPJ);
+		textFieldCNPJ.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"\u00C1gua", "Luz"}));
-		comboBox.setBounds(407, 245, 94, 20);
-		contentPane.add(comboBox);
+		JComboBox comboBoxConta = new JComboBox();
+		comboBoxConta.setModel(new DefaultComboBoxModel(new String[] {"\u00C1gua", "Luz"}));
+		comboBoxConta.setBounds(407, 245, 94, 20);
+		contentPane.add(comboBoxConta);
 		
-		JLabel lblNewLabel_1 = new JLabel("Tipo de conta");
-		lblNewLabel_1.setBounds(315, 247, 94, 17);
-		contentPane.add(lblNewLabel_1);
+		JLabel LabelTipodeConta = new JLabel("Tipo de conta");
+		LabelTipodeConta.setBounds(315, 247, 94, 17);
+		contentPane.add(LabelTipodeConta);
 		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(ViewSearch.class.getResource("/img/rsz_poc_verde.png")));
-		lblNewLabel_2.setBounds(473, 689, 126, 71);
-		contentPane.add(lblNewLabel_2);
+		JLabel LabelLogo = new JLabel("");
+		LabelLogo.setIcon(new ImageIcon(ViewSearch.class.getResource("/img/rsz_poc_verde.png")));
+		LabelLogo.setBounds(473, 689, 126, 71);
+		contentPane.add(LabelLogo);
 		
-		JButton btnNewButton = new JButton("Gerar Relat\u00F3rio");
-		btnNewButton.setBounds(350, 621, 151, 23);
-		contentPane.add(btnNewButton);
+		JButton btnRelatorio = new JButton("Gerar Relat\u00F3rio");
+		btnRelatorio.setBounds(350, 621, 151, 23);
+		contentPane.add(btnRelatorio);
 		
-		JButton btnNewButton_1 = new JButton("Voltar");
-		btnNewButton_1.setBounds(555, 621, 151, 23);
-		contentPane.add(btnNewButton_1);
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setBounds(555, 621, 151, 23);
+		contentPane.add(btnVoltar);
 		
-		JButton btnNewButton_2 = new JButton("Pesquisar");
-		btnNewButton_2.setBounds(625, 344, 108, 23);
-		contentPane.add(btnNewButton_2);
+		JButton btnPesquisa = new JButton("Pesquisar");
+		btnPesquisa.setBounds(625, 344, 108, 23);
+		contentPane.add(btnPesquisa);
 		
 		JSpinner spinner = new JSpinner();
 		spinner.setBounds(315, 394, 418, 147);
@@ -115,21 +120,39 @@ public class ViewSearch extends JFrame {
 		lblCpf.setBounds(315, 176, 94, 25);
 		contentPane.add(lblCpf);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(407, 176, 192, 25);
-		contentPane.add(textField);
+		textFieldCPF = new JTextField();
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("###.###.###.-##");
+			textFieldCPF = new javax.swing.JFormattedTextField(format_textField3);
+			} catch (Exception e){}
+		textFieldCPF.setColumns(10);
+		textFieldCPF.setBounds(407, 176, 192, 25);
+		contentPane.add(textFieldCPF);
 		
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setBounds(315, 211, 94, 25);
 		contentPane.add(lblNome);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(407, 212, 192, 25);
-		contentPane.add(textField_2);
+		textFieldNOME = new JTextField();
+		textFieldNOME.setColumns(10);
+		textFieldNOME.setBounds(407, 212, 192, 25);
+		contentPane.add(textFieldNOME);
+		
+		JComboBox comboBoxBusca = new JComboBox();
+		comboBoxBusca.setModel(new DefaultComboBoxModel(new String[] {"Cliente", "Conta", "Fornecedor"}));
+		comboBoxBusca.setBounds(407, 109, 94, 20);
+		contentPane.add(comboBoxBusca);
+		
+		JLabel LabelBusca = new JLabel("Buscar por");
+		LabelBusca.setBounds(315, 109, 74, 20);
+		contentPane.add(LabelBusca);
 		
 	
 		
 	}
+	//Func Trata Dados
+		public static String formataDados(String dado){
+			
+			   return dado.replaceAll("[^0-9]+", "");
+			}
 }
