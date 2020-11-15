@@ -118,31 +118,42 @@ public class ViewMain extends JFrame {
 		});
 		btnCadastrarFornecedor.setFont(new Font("Arial", Font.BOLD, 13));
 		btnCadastrarFornecedor.setMnemonic(KeyEvent.VK_1);
+		
+		JButton btnCadastroColaborator = new JButton("CADASTRO DE COLABORADOR");
+		btnCadastroColaborator.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewEmployeeRegistration user = new ViewEmployeeRegistration();
+				user.setVisible(true);
+				setVisible(false);
+			}
+		});
+		btnCadastroColaborator.setFont(new Font("Arial", Font.BOLD, 13));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(331, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_main, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(336, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panel_main, GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 							.addComponent(btnCadastrarFornecedor, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
 							.addComponent(btnRelatriosColaboradores, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
 							.addComponent(btnGerarRelatrios, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
 							.addComponent(btnEditarInformaoCadastrada, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
 							.addComponent(btnCadastrarNovaConta, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
 							.addComponent(btnCadastrarCliente, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addGap(96)
-								.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
-								.addGap(96))))
+							.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnCadastroColaborator, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)))
 					.addGap(320))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(436, Short.MAX_VALUE)
+					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
+					.addGap(417))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(55, Short.MAX_VALUE)
+					.addContainerGap(65, Short.MAX_VALUE)
 					.addComponent(panel_main, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(37)
 					.addComponent(btnCadastrarFornecedor, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
@@ -156,11 +167,13 @@ public class ViewMain extends JFrame {
 					.addComponent(btnGerarRelatrios, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnRelatriosColaboradores, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-					.addGap(28)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnCadastroColaborator, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addGap(46)
 					.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-					.addGap(32)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
-					.addGap(45))
+					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

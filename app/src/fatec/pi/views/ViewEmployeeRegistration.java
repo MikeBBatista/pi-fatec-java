@@ -145,7 +145,8 @@ public class ViewEmployeeRegistration extends JFrame {
 		btnCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String adm = comboBox_Adm.getSelectedItem().toString();
-				UserController.saveValues(textFieldNome.getText(), textFieldEmail.getText(), passwordFieldSenha.getName(), adminValidate(adm));
+				String password = String.valueOf(passwordFieldSenha.getPassword());
+				UserController.saveValues(textFieldNome.getText(), textFieldEmail.getText(), password, adminValidate(adm));
 			}
 		});
 		btnCadastro.setFont(new Font("Arial", Font.PLAIN, 12));
