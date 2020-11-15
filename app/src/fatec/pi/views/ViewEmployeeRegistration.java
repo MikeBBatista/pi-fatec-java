@@ -8,6 +8,9 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import fatec.pi.controllers.UserController;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
@@ -110,7 +113,7 @@ public class ViewEmployeeRegistration extends JFrame {
 		textFieldNome.setBounds(106, 62, 316, 20);
 		panel.add(textFieldNome);
 		textFieldNome.setColumns(10);
-		textFieldNome.setBackground(text);
+		textFieldNome.setBackground(Color.WHITE);
 		
 		JLabel LabelEmail = new JLabel("Email");
 		LabelEmail.setBounds(50, 111, 46, 14);
@@ -121,7 +124,7 @@ public class ViewEmployeeRegistration extends JFrame {
 		textFieldEmail.setColumns(10);
 		textFieldEmail.setBounds(106, 109, 316, 20);
 		panel.add(textFieldEmail);
-		textFieldEmail.setBackground(text);
+		textFieldEmail.setBackground(Color.WHITE);
 		
 		JLabel lblSenha = new JLabel("Senha");
 		lblSenha.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -131,11 +134,18 @@ public class ViewEmployeeRegistration extends JFrame {
 		passwordFieldSenha = new JPasswordField();
 		passwordFieldSenha.setBounds(106, 153, 316, 20);
 		panel.add(passwordFieldSenha);
-		passwordFieldSenha.setBackground(text);
+		passwordFieldSenha.setBackground(Color.WHITE);
+		
+		JComboBox comboBox_Adm = new JComboBox();
+		comboBox_Adm.setModel(new DefaultComboBoxModel(new String[] {"Sim", "Nao"}));
+		comboBox_Adm.setBounds(132, 196, 104, 20);
+		panel.add(comboBox_Adm);
 		
 		JButton btnCadastro = new JButton("Cadastrar");
 		btnCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String adm = comboBox_Adm.getSelectedItem().toString();
+				UserController.saveValues(textFieldNome.getText(), textFieldEmail.getText(), passwordFieldSenha.getName(), adminValidate(adm));
 			}
 		});
 		btnCadastro.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -157,11 +167,6 @@ public class ViewEmployeeRegistration extends JFrame {
 		btnVoltar.setBounds(277, 236, 145, 23);
 		panel.add(btnVoltar);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Sim", "Nao"}));
-		comboBox.setBounds(132, 196, 104, 20);
-		panel.add(comboBox);
-		
 		JLabel lblNewLabel = new JLabel("Administrador");
 		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblNewLabel.setBounds(50, 198, 77, 14);
@@ -174,5 +179,14 @@ public class ViewEmployeeRegistration extends JFrame {
 		gbc_lblNewLabelIMG.gridx = 1;
 		gbc_lblNewLabelIMG.gridy = 4;
 		contentPane.add(lblNewLabelIMG, gbc_lblNewLabelIMG);
+	}
+	
+	public static Boolean adminValidate(String adm) {
+		if(adm == "Sim") {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
