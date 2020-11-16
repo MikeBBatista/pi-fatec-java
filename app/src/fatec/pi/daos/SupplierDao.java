@@ -23,7 +23,8 @@ public class SupplierDao {
 			saveValues.setString(3, supplier.getSite());
 			saveValues.setInt(4, supplier.getType());
 			
-			result = saveValues.executeUpdate(sql);
+			result = saveValues.executeUpdate();
+      
 		}
 		catch(SQLException err) {
 			System.out.println(err);
