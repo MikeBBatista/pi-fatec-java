@@ -31,10 +31,10 @@ public class UserDao {
 		return result;
 	}
 	
-	public static String checkLogin(String email, String password) {
+	public static User login(String email, String password) {
 
 		String sql = "Select * from USER WHERE USER_EMAIL = ? AND USER_PASSWORD = ?";
-		String user = "";
+		User user = new User();
 		
 		try {
 			BaseConnection con = new BaseConnection();
@@ -46,7 +46,12 @@ public class UserDao {
 			ResultSet result = listUser.executeQuery();
 			
 			if (result.next()) {
-				user = result.getString("USER_ADMIN").toString();
+				Integer userId = result.getInt("USER_ID");
+				String name = result.getString("USER_NAME");
+				String userEmail = result.getString("USER_EMAIL");
+				String pass = result.getString("USER_PASSWORD");
+				Boolean adm = result.getBoolean("USER_ADMIN");
+				user = new User(userId,name, userEmail, pass, adm);
 			}
 			
 		}

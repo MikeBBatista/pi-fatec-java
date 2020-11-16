@@ -13,16 +13,15 @@ public class UserController {
 		}
 	}
 	
-	public static String checkLogin (String email, String password) {
-		String login = UserDao.checkLogin(email, password).toString();
-		
-		if(login.equals("1") || login.equals("0")) {
+	public static User checkLogin (String email, String password) {
+		User login = UserDao.login(email, password);
+		if(login.getAdmin().equals(true) || login.getAdmin().equals(false)) {
 			showMessageDialog(null, "Login realizado com sucesso!");
 		}
 		else {
 			showMessageDialog(null, "Email ou senha inválidos!");
 		}
-
+		System.setProperty("userId", login.getId().toString());
 		return login;
 		
 	}

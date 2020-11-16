@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import fatec.pi.controllers.UserController;
+import fatec.pi.entities.User;
 
 import javax.swing.BoxLayout;
 import java.awt.GridBagLayout;
@@ -104,7 +105,7 @@ public class ViewLogin extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String password = String.valueOf(passwordField.getPassword());
-				String login = UserController.checkLogin(txtLogin.getText(), password);
+				User login = UserController.checkLogin(txtLogin.getText(), password);
 				adminValidate(login);
 
 				
@@ -147,13 +148,13 @@ public class ViewLogin extends JFrame {
 		contentPane.add(lblNewLabelIMG2, gbc_lblNewLabelIMG2);
 	}
 	
-	public void adminValidate(String adm) {
-		if(adm.equals("1")) {
+	public void adminValidate(User adm) {
+		if(adm.getAdmin().equals(true)) {
 			ViewMainAdmin menu = new ViewMainAdmin();
 			menu.setVisible(true);
 			setVisible(false);
 		}
-		else if(adm.equals("0")) {
+		else if(adm.getAdmin().equals(false)) {
 			ViewMain menu = new ViewMain();
 			menu.setVisible(true);
 			setVisible(false);
