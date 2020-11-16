@@ -7,6 +7,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import fatec.pi.controllers.UserController;
+
 import javax.swing.BoxLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
@@ -19,6 +22,9 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Insets;
+import java.awt.Window;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ViewLogin extends JFrame {
 
@@ -95,6 +101,15 @@ public class ViewLogin extends JFrame {
 		panel.add(passwordField);
 		
 		JButton btnLogin = new JButton("LOGIN");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String password = String.valueOf(passwordField.getPassword());
+				String login = UserController.checkLogin(txtLogin.getText(), password);
+				adminValidate(login);
+
+				
+			}
+		});
 		btnLogin.setFont(new Font("Arial Narrow", Font.PLAIN, 14));
 		btnLogin.setForeground(Color.WHITE);
 		btnLogin.setBounds(51, 160, 230, 30);
@@ -130,6 +145,19 @@ public class ViewLogin extends JFrame {
 		gbc_lblNewLabelIMG2.gridx = 1;
 		gbc_lblNewLabelIMG2.gridy = 3;
 		contentPane.add(lblNewLabelIMG2, gbc_lblNewLabelIMG2);
+	}
+	
+	public void adminValidate(String adm) {
+		if(adm.equals("1")) {
+			ViewMainAdmin menu = new ViewMainAdmin();
+			menu.setVisible(true);
+			setVisible(false);
+		}
+		else if(adm.equals("0")) {
+			ViewMain menu = new ViewMain();
+			menu.setVisible(true);
+			setVisible(false);
+		}
 	}
 }
 

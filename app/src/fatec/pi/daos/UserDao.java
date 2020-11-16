@@ -1,7 +1,10 @@
 package fatec.pi.daos;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
 
 import fatec.pi.entities.User;
 
@@ -20,10 +23,36 @@ public class UserDao {
 			saveValues.setBoolean(4, user.getAdmin());
 			
 			result = saveValues.executeUpdate();
+			con.connection.close();
 		}
 		catch(SQLException err) {
 			System.out.println(err);
 		}
 		return result;
+	}
+	
+	public static String checkLogin(String email, String password) {
+
+		String sql = "Select * from USER WHERE USER_EMAIL = ? AND USER_PASSWORD = ?";
+		String user = "";
+		
+		try {
+			BaseConnection con = new BaseConnection();
+			PreparedStatement listUser = con.connection.prepareStatement(sql);
+			
+			listUser.setString(1, email);
+			listUser.setString(2, password);
+			
+			ResultSet result = listUser.executeQuery();
+			
+			if (result.next()) {
+				user = result.getString("USER_ADMIN").toString();
+			}
+			
+		}
+		catch(SQLException err) {
+			System.out.println(err);
+		}
+		return user;
 	}
 }

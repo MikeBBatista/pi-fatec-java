@@ -12,5 +12,19 @@ public class UserController {
 			showMessageDialog(null, "Dados cadastrados com Sucesso!");
 		}
 	}
+	
+	public static String checkLogin (String email, String password) {
+		String login = UserDao.checkLogin(email, password).toString();
+		
+		if(login.equals("1") || login.equals("0")) {
+			showMessageDialog(null, "Login realizado com sucesso!");
+		}
+		else {
+			showMessageDialog(null, "Email ou senha inválidos!");
+		}
+
+		return login;
+		
+	}
 
 }

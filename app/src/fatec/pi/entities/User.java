@@ -1,6 +1,7 @@
 package fatec.pi.entities;
 
 public class User {
+	private Integer id;
 	private String name;
 	private String email;
 	private String password;
@@ -11,6 +12,19 @@ public class User {
 		this.setEmail(email);
 		this.setPassword(password);
 		this.setAdmin(admin);
+		
+	}
+	
+	public User(Integer id, String name, String email, String password, Boolean admin) {
+		this.setId(id);
+		this.setName(name);
+		this.setEmail(email);
+		this.setPassword(password);
+		this.setAdmin(admin);
+		
+	}
+	
+	public User() {
 		
 	}
 
@@ -44,6 +58,14 @@ public class User {
 
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	public Integer getId() {
+		return id;
 	}
 	
 	
