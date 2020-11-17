@@ -51,7 +51,7 @@ public class ClientDao {
 			saveValues.setBigDecimal(14, client.getTributeTax());
 			saveValues.setString(15, client.getSupplierCnpj());
 			
-			result = saveValues.executeUpdate(sql);
+			result = saveValues.executeUpdate();
 		}
 		catch(SQLException err) {
 			System.out.println(err);
@@ -64,13 +64,14 @@ public class ClientDao {
 		String sql = "Select * from CLIENT_REGISTER";
 		try {
 			BaseConnection con = new BaseConnection();
-			Statement st = con.connection.createStatement();
+			PreparedStatement st = con.connection.prepareStatement(sql);
 			
 			st.executeQuery(sql);
 			ResultSet rs = st.getResultSet();
 			
 			while (rs.next()) {
 				Client clt = new Client(
+						rs.getInt("CLIENT_ID"),
 						rs.getString("CLIENT_CPF"),
 						rs.getString("CLIENT_SUPPLIER_CNPJ"),
 						rs.getString("CLIENT_NAME"),
@@ -87,7 +88,7 @@ public class ClientDao {
 						rs.getBigDecimal("CLIENT_NORMAL_TAX"),
 						rs.getBigDecimal("CLIENT_TRIBUTE_TAX"));
 				clientList.add(clt);
-				
+								
 			}
 		}
 		catch(SQLException err) {
