@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class LightAccount {
 	
 	private Integer id;
-	private String identCod;
+	private Integer identCod;
 	private String meterNumber;
 	private String invoice;
 	private String currentDate;
@@ -30,7 +30,7 @@ public class LightAccount {
 	private String supplierCnpj;
 	private String clientCpf;
 	
-	public LightAccount(String identCod, String meterNumber, String invoice, String currentDate, String dueDate,
+	public LightAccount(Integer identCod, String meterNumber, String invoice, String currentDate, String dueDate,
 			Integer consumptionDays, String flagType, BigDecimal consumptionValue, BigDecimal pisPercentage,
 			BigDecimal cofinsPercentage, BigDecimal icmsBasis, BigDecimal icmsPercentage, BigDecimal icmsValue,
 			BigDecimal pisCofinsBasis, BigDecimal pisValue, BigDecimal cofinsValue, BigDecimal forfeitValue,
@@ -63,16 +63,52 @@ public class LightAccount {
 		this.setClientCpf(clientCpf);
 	}
 	
+	
+	
+	
+	public LightAccount(Integer id, Integer identCod, String meterNumber, String invoice, String currentDate,
+			String dueDate, Integer consumptionDays, String flagType, BigDecimal consumptionValue,
+			BigDecimal pisPercentage, BigDecimal cofinsPercentage, BigDecimal icmsBasis, BigDecimal icmsPercentage,
+			BigDecimal icmsValue, BigDecimal pisCofinsBasis, BigDecimal pisValue, BigDecimal cofinsValue,
+			BigDecimal forfeitValue, BigDecimal interestValue, BigDecimal otherValues, BigDecimal supplyValue,
+			BigDecimal financialItems, BigDecimal amount, String supplierCnpj, String clientCpf) {
+		this.setId(id);
+		this.setIdentCod(identCod);
+		this.setMeterNumber(meterNumber);
+		this.setInvoice(invoice);
+		this.setCurrentDate(currentDate);
+		this.setDueDate(dueDate);
+		this.setConsumptionDays(consumptionDays);
+		this.setFlagType(flagType);
+		this.setConsumptionValue(consumptionValue);
+		this.setPisPercentage(pisPercentage);
+		this.setCofinsPercentage(cofinsPercentage);
+		this.setIcmsBasis(icmsBasis);
+		this.setIcmsPercentage(icmsPercentage);
+		this.setIcmsValue(icmsValue);
+		this.setPisCofinsBasis(pisCofinsBasis);
+		this.setPisValue(pisValue);
+		this.setCofinsValue(cofinsValue);
+		this.setForfeitValue(forfeitValue);
+		this.setInterestValue(interestValue);
+		this.setOtherValues(otherValues);
+		this.setSupplyValue(supplyValue);
+		this.setFinancialItems(financialItems);
+		this.setAmount(amount);
+		this.setSupplierCnpj(supplierCnpj);
+		this.setClientCpf(clientCpf);
+	}
+
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id=id;
 	}
-	public String getIdentCod() {
+	public Integer getIdentCod() {
 		return identCod;
 	}
-	public void setIdentCod(String identCod) {
+	public void setIdentCod(Integer identCod) {
 		this.identCod = identCod;
 	}
 
@@ -214,5 +250,19 @@ public class LightAccount {
 	public void setClientCpf(String clientCpf) {
 		this.clientCpf = clientCpf;
 	}
+
+	
+	public String toString() {
+		return "LightAccount [id=" + id + ", identCod=" + identCod + ", meterNumber=" + meterNumber + ", invoice="
+				+ invoice + ", currentDate=" + currentDate + ", dueDate=" + dueDate + ", consumptionDays="
+				+ consumptionDays + ", flagType=" + flagType + ", consumptionValue=" + consumptionValue
+				+ ", pisPercentage=" + pisPercentage + ", cofinsPercentage=" + cofinsPercentage + ", icmsBasis="
+				+ icmsBasis + ", icmsPercentage=" + icmsPercentage + ", icmsValue=" + icmsValue + ", pisCofinsBasis="
+				+ pisCofinsBasis + ", pisValue=" + pisValue + ", cofinsValue=" + cofinsValue + ", forfeitValue="
+				+ forfeitValue + ", interestValue=" + interestValue + ", otherValues=" + otherValues + ", supplyValue="
+				+ supplyValue + ", financialItems=" + financialItems + ", amount=" + amount + ", supplierCnpj="
+				+ supplierCnpj + ", clientCpf=" + clientCpf + "]";
+	}
+	
 	
 }
