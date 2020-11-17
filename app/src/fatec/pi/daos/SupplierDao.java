@@ -32,12 +32,12 @@ public class SupplierDao {
 	}
 	
 	public static List<Supplier> listSuppliers() {
-		// n√£o foi preciso mudar j√° que n√£o concatenamos nenhuma string
+		
 		List<Supplier> supplierList = new ArrayList<>();
 		String sql = "Select * from SUPPLIER where SUPPLIER_CNPJ = srch_supplier"; // verificar a criaÁ„o de variavel
 		try {
 			BaseConnection con = new BaseConnection();
-			Statement st = con.connection.createStatement();
+			PreparedStatement st = con.connection.prepareStatement(sql);
 			
 			st.executeQuery(sql);
 			ResultSet rs = st.getResultSet();
