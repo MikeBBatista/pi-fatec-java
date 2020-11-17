@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import fatec.pi.controllers.UserController;
+import fatec.pi.daos.UserDao;
 import fatec.pi.entities.User;
 
 import javax.swing.BoxLayout;
@@ -106,8 +107,7 @@ public class ViewLogin extends JFrame {
 		JButton btnLogin = new JButton("LOGIN");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				System.out.println(txtLogin.getText());
+				;
 				String password = String.valueOf(passwordField.getPassword());
 				User login = UserController.checkLogin(txtLogin.getText(), password);
 				adminValidate(login);
