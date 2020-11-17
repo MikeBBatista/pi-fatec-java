@@ -1,5 +1,7 @@
 package fatec.pi.views;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -104,10 +106,11 @@ public class ViewLogin extends JFrame {
 		JButton btnLogin = new JButton("LOGIN");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println(txtLogin.getText());
 				String password = String.valueOf(passwordField.getPassword());
 				User login = UserController.checkLogin(txtLogin.getText(), password);
 				adminValidate(login);
-
 				
 			}
 		});
@@ -157,7 +160,7 @@ public class ViewLogin extends JFrame {
 		else if(adm.getAdmin().equals(false)) {
 			ViewMain menu = new ViewMain();
 			menu.setVisible(true);
-			setVisible(false);
+			dispose();
 		}
 	}
 }

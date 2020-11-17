@@ -104,7 +104,10 @@ public class ViewMainAdmin extends JFrame {
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				System.exit(0);
+				ViewLogin login = new ViewLogin();
+				login.setVisible(true);
+				System.clearProperty("userId");
+				setVisible(false);
 			}
 		});
 		
