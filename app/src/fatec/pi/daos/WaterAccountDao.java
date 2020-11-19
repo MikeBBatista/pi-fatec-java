@@ -109,7 +109,7 @@ public class WaterAccountDao {
 				+ "ACCOUNT_PIS = ?, "
 				+ "ACCOUNT_OTHERS = ?, "
 				+ "ACCOUNT_SUPPLIER_CNPJ = ? "
-				+ "WHERE ACCOUNT_ID = " + water.getId() + ";";
+				+ "WHERE ACCOUNT_ID = ?;";
 		
 		try {
 			
@@ -126,6 +126,7 @@ public class WaterAccountDao {
 			updateValues.setInt(8, water.getPisPercentage());
 			updateValues.setBigDecimal(9, water.getOtherValues());
 			updateValues.setString(10, water.getSupplierCnpj());
+			updateValues.setInt(11, water.getId());
 			
 			result = updateValues.executeUpdate();
 			con.connection.close();
@@ -145,12 +146,14 @@ public class WaterAccountDao {
 		Logger logger = Logger.getLogger(WaterAccountDao.class.getName());
 		
 		String sql = "DELETE FROM WATER_ACCOUNT "
-				+ "WHERE ID = " + water.getId() + ";";
+				+ "WHERE ID = ?;";
 		
 		try {
 			
 			BaseConnection con = new BaseConnection();
 			PreparedStatement updateValues = con.connection.prepareStatement(sql);
+			
+			updateValues.setInt(1, water.getId());
 			
 			result = updateValues.executeUpdate();
 			con.connection.close();
