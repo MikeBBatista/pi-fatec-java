@@ -24,7 +24,6 @@ public class Client {
 	public Client(String supplierCnpj, String clientCpf, String clientName, String zipCode, String streetName, Integer streetNumber,
 			String streetComplement, String city, String state, String meterNumber, String measurementOrder, String lightClass, String lightSubclass,
 			BigDecimal normalTax, BigDecimal tributeTax) {
-		super();
 		this.setSupplierCnpj(supplierCnpj);
 		this.setClientCpf(clientCpf);
 		this.setClientName(clientName);
@@ -42,6 +41,32 @@ public class Client {
 		this.setTributeTax(tributeTax);
 	}
 	
+	
+	
+	public Client(Integer id, String supplierCnpj, String clientCpf, String clientName, String zipCode,
+			String streetName, Integer streetNumber, String streetComplement, String city, String state,
+			String meterNumber, String measurementOrder, String lightClass, String lightSubclass, BigDecimal normalTax,
+			BigDecimal tributeTax) {
+		this.setId(id);
+		this.setSupplierCnpj(supplierCnpj);
+		this.setClientCpf(clientCpf);
+		this.setClientName(clientName);
+		this.setZipCode(zipCode);
+		this.setStreetName(streetName);
+		this.setStreetNumber(streetNumber);
+		this.setStreetComplement(streetComplement);
+		this.setCity(city);
+		this.setState(state);
+		this.setMeterNumber(meterNumber);
+		this.setMeasurementOrder(measurementOrder);
+		this.setLightClass(lightClass);
+		this.setLightSubclass(lightSubclass);
+		this.setNormalTax(normalTax);
+		this.setTributeTax(tributeTax);
+	}
+
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -138,6 +163,16 @@ public class Client {
 	public void setTributeTax(BigDecimal tributeTax) {
 		this.tributeTax=tributeTax;
 	}
+
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", supplierCnpj=" + supplierCnpj + ", clientCpf=" + clientCpf + ", clientName="
+				+ clientName + ", zipCode=" + zipCode + ", streetName=" + streetName + ", streetNumber=" + streetNumber
+				+ ", streetComplement=" + streetComplement + ", city=" + city + ", state=" + state + ", meterNumber="
+				+ meterNumber + ", measurementOrder=" + measurementOrder + ", lightClass=" + lightClass
+				+ ", lightSubclass=" + lightSubclass + ", normalTax=" + normalTax + ", tributeTax=" + tributeTax + "]";
+	}
+	
 	
 
 }

@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import fatec.pi.controllers.ClientController;
 import fatec.pi.controllers.SupplierController;
+import fatec.pi.daos.ClientDao;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -165,7 +166,7 @@ public class ViewClient extends JFrame {
 		txt_state = new JTextField();
 		txt_state.setColumns(10);
 		
-		JLabel lbl_meterNumber = new JLabel("N\u00FAmero da InstalaÁ„o");
+		JLabel lbl_meterNumber = new JLabel("N\u00FAmero da Instala√ß√£o");
 		lbl_meterNumber.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		txt_meterNumber = new JTextField();
@@ -197,26 +198,26 @@ public class ViewClient extends JFrame {
 		box_lightSubclass.setBackground(Color.WHITE);
 		box_lightSubclass.addItem("-");
 		box_lightSubclass.addItem("BAIXA RENDA");
-		box_lightSubclass.addItem("BAIXA RENDA INDÕGENA");
-		box_lightSubclass.addItem("BAIXA RENDA BENEFÕCIO PREST CONT");
+		box_lightSubclass.addItem("BAIXA RENDA IND√çGENA");
+		box_lightSubclass.addItem("BAIXA RENDA BENEF√çCIO PREST CONT");
 		box_lightSubclass.addItem("BAIXA RENDA MULTIFAMILIAR");
-		box_lightSubclass.addItem("SERVI«O DE TRANSPORTE");
-		box_lightSubclass.addItem("SERVI«O DE COMUNICA«√O");
-		box_lightSubclass.addItem("ASSOCIA. FILANTR”PICA");
+		box_lightSubclass.addItem("SERVI√áO DE TRANSPORTE");
+		box_lightSubclass.addItem("SERVI√áO DE COMUNICA√á√ÉO");
+		box_lightSubclass.addItem("ASSOCIA. FILANTR√ìPICA");
 		box_lightSubclass.addItem("TEMPLOS RELIGIOSOS");
 		box_lightSubclass.addItem("ADM CONDOMINIAL");
-		box_lightSubclass.addItem("ILUMINA«√O RODOVIAS");
-		box_lightSubclass.addItem("SEM¡FAROS, RADARES E CAMERAS");
+		box_lightSubclass.addItem("ILUMINA√á√ÉO RODOVIAS");
+		box_lightSubclass.addItem("SEM√ÅFAROS, RADARES E CAMERAS");
 		box_lightSubclass.addItem("AGROPECUARIA RURAL");
 		box_lightSubclass.addItem("AGROPECUARIA URBANA");
 		box_lightSubclass.addItem("RESIDENCIAL RURAL");
 		box_lightSubclass.addItem("COOP DE ELETRIF. RURAL");
 		box_lightSubclass.addItem("AGROINDUSTRIAL");
-		box_lightSubclass.addItem("SERVI«O PUBLI. IRRIGA«AO RURAL");
+		box_lightSubclass.addItem("SERVI√áO PUBLI. IRRIGA√áAO RURAL");
 		box_lightSubclass.addItem("ESCOLA AGROTECNICA");
 		box_lightSubclass.addItem("AGRICULTURA");
-		box_lightSubclass.addItem("ILUMINA«√O PUBLICA");
-		box_lightSubclass.addItem("SERVI«O PUBLICO");
+		box_lightSubclass.addItem("ILUMINA√á√ÉO PUBLICA");
+		box_lightSubclass.addItem("SERVI√áO PUBLICO");
 		box_lightSubclass.addItem("CONSUMO PROPRIO");
 		
 		JLabel lbl_normalTax = new JLabel("Tarifa (R$)");
@@ -259,9 +260,10 @@ public class ViewClient extends JFrame {
 				txt_state.setText("");
 				txt_measurementOrder.setText("");
 				txt_streetNumber.setText("");
-				
+				txt_tributeTax.setText("");						
+								
 			}
-				});
+		});
 		btn_save.setFont(new Font("Arial", Font.BOLD, 13));
 		btn_save.setMnemonic(KeyEvent.VK_S);
 		

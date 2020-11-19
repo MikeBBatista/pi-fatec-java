@@ -32,6 +32,22 @@ public class WaterAccount {
 		this.setSupplierCnpj(supplierCnpj);
 	}
 	
+	public WaterAccount(Integer id,String number, String dueDate, BigDecimal penalty, BigDecimal consumptionValue,
+			BigDecimal pollutionValue, BigDecimal sewerValue, BigDecimal waterValue, Integer pisPercentage,
+			BigDecimal otherValues, String supplierCnpj) {
+		this.setId(id);
+		this.setNumber(number);
+		this.setDueDate(dueDate);
+		this.setPenalty(penalty);
+		this.setConsumptionValue(consumptionValue);
+		this.setPollutionValue(pollutionValue);
+		this.setSewerValue(sewerValue);
+		this.setWaterValue(waterValue);
+		this.setPisPercentage(pisPercentage);
+		this.setOtherValues(otherValues);
+		this.setSupplierCnpj(supplierCnpj);
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -105,4 +121,12 @@ public class WaterAccount {
 		this.clientCpf = clientCpf;
 	}
 
+	@Override
+	public String toString() {
+		return "WaterAccount [id=" + id + ", number=" + number + ", dueDate=" + dueDate + ", penalty=" + penalty
+				+ ", consumptionValue=" + consumptionValue + ", pollutionValue=" + pollutionValue + ", sewerValue="
+				+ sewerValue + ", waterValue=" + waterValue + ", pisPercentage=" + pisPercentage + ", otherValues="
+				+ otherValues + ", supplierCnpj=" + supplierCnpj + ", clientCpf=" + clientCpf + "]";
+	}
+	
 }

@@ -24,6 +24,7 @@ public class SupplierDao {
 			saveValues.setInt(4, supplier.getType());
 			
 			result = saveValues.executeUpdate();
+
 		}
 		catch(SQLException err) {
 			System.out.println(err);
@@ -34,7 +35,7 @@ public class SupplierDao {
 	public static List<Supplier> listSuppliers() {
 		
 		List<Supplier> supplierList = new ArrayList<>();
-		String sql = "Select * from SUPPLIER where SUPPLIER_CNPJ = srch_supplier"; // verificar a criação de variavel
+		String sql = "Select * from SUPPLIER where SUPPLIER_CNPJ = srch_supplier"; // verificar a criaï¿½ï¿½o de variavel
 		try {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement st = con.connection.prepareStatement(sql);
