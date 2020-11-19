@@ -42,6 +42,7 @@ public class WaterAccountDao {
 			saveValues.setString(10, water.getSupplierCnpj());
 			
 			result = saveValues.executeUpdate();
+			con.connection.close();
 
 		}
 		catch(SQLException err) {
@@ -81,6 +82,7 @@ public class WaterAccountDao {
 				WaterAccount wat = new WaterAccount(id,accountNumber, dueDate, penalty,consumpition,polluition,sewer,water,pis,other,sup);
 				WaterAccountList.add(wat);
 				System.out.println(wat.toString());
+				con.connection.close();
 
 			}
 		}
@@ -126,6 +128,7 @@ public class WaterAccountDao {
 			updateValues.setString(10, water.getSupplierCnpj());
 			
 			result = updateValues.executeUpdate();
+			con.connection.close();
 			
 		} catch(SQLException err) {
 			
@@ -150,6 +153,7 @@ public class WaterAccountDao {
 			PreparedStatement updateValues = con.connection.prepareStatement(sql);
 			
 			result = updateValues.executeUpdate();
+			con.connection.close();
 			
 		} catch(SQLException err) {
 			
