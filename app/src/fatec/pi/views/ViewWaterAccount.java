@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import fatec.pi.controllers.WaterAccountController;
+import fatec.pi.daos.WaterAccountDao;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -72,38 +73,44 @@ public class ViewWaterAccount extends JFrame {
 		lblCadastroConta.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(lblCadastroConta);
 		
-		JLabel lblNewLabel_1 = new JLabel("Hidr\u00F4metro");
-		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_hNumber = new JLabel("Hidr\u00F4metro");
+		lbl_hNumber.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		text_numhidro = new JTextField();
 		text_numhidro.setColumns(10);
 		
 		text_dateleitura = new JTextField();
-		text_dateleitura.setForeground(Color.LIGHT_GRAY);
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
+			text_dateleitura = new javax.swing.JFormattedTextField(format_textField3);
+			} catch (Exception e){}
+		text_dateleitura.setForeground(Color.BLACK);
 		text_dateleitura.setFont(new Font("Arial", Font.PLAIN, 11));
-		text_dateleitura.setText("00/00/0000");
 		text_dateleitura.setColumns(10);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Leitura Atual");
-		lblNewLabel_1_1.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_dueDate = new JLabel("Leitura Atual");
+		lbl_dueDate.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Vencimento");
-		lblNewLabel_1_1_1.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_pDate = new JLabel("Vencimento");
+		lbl_pDate.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		text_datevencimento = new JTextField();
-		text_datevencimento.setText("00/00/0000");
-		text_datevencimento.setForeground(Color.LIGHT_GRAY);
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
+			text_datevencimento = new javax.swing.JFormattedTextField(format_textField3);
+			} catch (Exception e){}
+		text_datevencimento.setForeground(Color.BLACK);
 		text_datevencimento.setFont(new Font("Arial", Font.PLAIN, 11));
 		text_datevencimento.setColumns(10);
 		
-		JLabel lblNewLabel_1_1_2 = new JLabel("Consumo (m\u00B3)");
-		lblNewLabel_1_1_2.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_consumption = new JLabel("Consumo (m\u00B3)");
+		lbl_consumption.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		text_consumo = new JTextField();
 		text_consumo.setColumns(10);
 		
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("Valor \u00C1gua (R$)");
-		lblNewLabel_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_waterValue = new JLabel("Valor \u00C1gua (R$)");
+		lbl_waterValue.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		text_watervalue = new JTextField();
 		text_watervalue.setColumns(10);
@@ -111,23 +118,23 @@ public class ViewWaterAccount extends JFrame {
 		text_sewervalue = new JTextField();
 		text_sewervalue.setColumns(10);
 		
-		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Fator Polui\u00E7\u00E3o (R$)");
-		lblNewLabel_1_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_pollution = new JLabel("Fator Polui\u00E7\u00E3o (R$)");
+		lbl_pollution.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		text_pollution = new JTextField();
 		text_pollution.setColumns(10);
 		
-		JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("Valor Esgoto (R$)");
-		lblNewLabel_1_1_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_sewer = new JLabel("Valor Esgoto (R$)");
+		lbl_sewer.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		JLabel lblNewLabel_1_1_1_1_1_1_1 = new JLabel("Al\u00EDquota PIS/COFINS (%)");
-		lblNewLabel_1_1_1_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lb_PIS_COFINS = new JLabel("Al\u00EDquota PIS/COFINS (%)");
+		lb_PIS_COFINS.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		text_PISCOFINS = new JTextField();
 		text_PISCOFINS.setColumns(10);
 		
-		JLabel lblNewLabel_1_1_1_1_1_2 = new JLabel("Outros (R$)");
-		lblNewLabel_1_1_1_1_1_2.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_other = new JLabel("Outros (R$)");
+		lbl_other.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		text_othervalue = new JTextField();
 		text_othervalue.setColumns(10);
@@ -165,6 +172,7 @@ public class ViewWaterAccount extends JFrame {
 		JButton btnVoltar = new JButton("VOLTAR");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				WaterAccountDao.listWaterAccounts();
 				ViewMain voltamenu = new ViewMain();
 				voltamenu.setVisible(true);
 				setVisible(false);
@@ -173,8 +181,8 @@ public class ViewWaterAccount extends JFrame {
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 11));
 		btnVoltar.setMnemonic(KeyEvent.VK_B);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("CNPJ do Fornecedor");
-		lblNewLabel_1_2.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_Supplier = new JLabel("CNPJ do Fornecedor");
+		lbl_Supplier.setFont(new Font("Arial", Font.BOLD, 11));
 		
 
 		try {
@@ -195,7 +203,7 @@ public class ViewWaterAccount extends JFrame {
 							.addContainerGap())
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(lblNewLabel_1_2, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lbl_Supplier, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 								.addContainerGap())
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
@@ -210,40 +218,40 @@ public class ViewWaterAccount extends JFrame {
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 											.addGroup(gl_contentPane.createSequentialGroup()
 												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-													.addComponent(lblNewLabel_1_1_1_1_1_1_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+													.addComponent(lb_PIS_COFINS, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 													.addComponent(text_PISCOFINS, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
 												.addGap(33)
 												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 													.addComponent(text_othervalue, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
-													.addComponent(lblNewLabel_1_1_1_1_1_2, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)))
+													.addComponent(lbl_other, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)))
 											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 												.addGroup(gl_contentPane.createSequentialGroup()
-													.addComponent(lblNewLabel_1_1_1_1_1_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+													.addComponent(lbl_sewer, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 													.addGap(56)
-													.addComponent(lblNewLabel_1_1_1_1_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
+													.addComponent(lbl_pollution, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
 												.addGroup(gl_contentPane.createSequentialGroup()
 													.addComponent(text_sewervalue, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
 													.addGap(33)
 													.addComponent(text_pollution, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
 												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 													.addGroup(gl_contentPane.createSequentialGroup()
-														.addComponent(lblNewLabel_1_1_2, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+														.addComponent(lbl_consumption, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 														.addGap(56)
-														.addComponent(lblNewLabel_1_1_1_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
+														.addComponent(lbl_waterValue, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
 													.addGroup(gl_contentPane.createSequentialGroup()
 														.addComponent(text_consumo, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
 														.addGap(33)
 														.addComponent(text_watervalue, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
 													.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-														.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+														.addComponent(lbl_hNumber, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 														.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 															.addGroup(gl_contentPane.createSequentialGroup()
 																.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-																	.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(lbl_dueDate, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 																	.addComponent(text_dateleitura, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
 																.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
 																.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-																	.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(lbl_pDate, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 																	.addComponent(text_datevencimento, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)))
 															.addComponent(text_numhidro, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)))))))
 									.addGap(320))))))
@@ -254,43 +262,43 @@ public class ViewWaterAccount extends JFrame {
 					.addGap(19)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblNewLabel_1_2)
+					.addComponent(lbl_Supplier)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(text_SupplierCnpj, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-					.addComponent(lblNewLabel_1)
+					.addComponent(lbl_hNumber)
 					.addGap(6)
 					.addComponent(text_numhidro, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblNewLabel_1_1)
+							.addComponent(lbl_dueDate)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(text_dateleitura, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblNewLabel_1_1_1)
+							.addComponent(lbl_pDate)
 							.addGap(6)
 							.addComponent(text_datevencimento, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel_1_1_2)
-						.addComponent(lblNewLabel_1_1_1_1))
+						.addComponent(lbl_consumption)
+						.addComponent(lbl_waterValue))
 					.addGap(6)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(text_consumo, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
 						.addComponent(text_watervalue, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel_1_1_1_1_1)
-						.addComponent(lblNewLabel_1_1_1_1_1_1))
+						.addComponent(lbl_pollution)
+						.addComponent(lbl_sewer))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(text_sewervalue, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
 						.addComponent(text_pollution, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_1_1_1_1_1_1_1)
-						.addComponent(lblNewLabel_1_1_1_1_1_2))
+						.addComponent(lb_PIS_COFINS)
+						.addComponent(lbl_other))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(text_PISCOFINS, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
