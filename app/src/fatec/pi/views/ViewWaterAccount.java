@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import fatec.pi.controllers.WaterAccountController;
+import fatec.pi.daos.WaterAccountDao;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -165,6 +166,7 @@ public class ViewWaterAccount extends JFrame {
 		JButton btnVoltar = new JButton("VOLTAR");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				WaterAccountDao.listWaterAccounts();
 				ViewMain voltamenu = new ViewMain();
 				voltamenu.setVisible(true);
 				setVisible(false);
