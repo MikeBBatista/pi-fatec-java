@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import fatec.pi.controllers.ClientController;
 import fatec.pi.controllers.SupplierController;
+import fatec.pi.daos.ClientDao;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -254,11 +255,11 @@ public class ViewClient extends JFrame {
 				box_lightClass.setToolTipText("");
 				box_lightSubclass.setToolTipText("");
 				txt_normalTax.setText("");
-				txt_tributeTax.setText("");
+				txt_tributeTax.setText("");			
 				
-				
+								
 			}
-				});
+		});
 		btn_save.setFont(new Font("Arial", Font.BOLD, 13));
 		btn_save.setMnemonic(KeyEvent.VK_S);
 		
