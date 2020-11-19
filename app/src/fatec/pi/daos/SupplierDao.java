@@ -24,7 +24,7 @@ public class SupplierDao {
 			saveValues.setInt(4, supplier.getType());
 			
 			result = saveValues.executeUpdate();
-      
+
 		}
 		catch(SQLException err) {
 			System.out.println(err);
@@ -33,12 +33,12 @@ public class SupplierDao {
 	}
 	
 	public static List<Supplier> listSuppliers() {
-		// não foi preciso mudar já que não concatenamos nenhuma string
+		
 		List<Supplier> supplierList = new ArrayList<>();
-		String sql = "Select * from SUPPLIER";
+		String sql = "Select * from SUPPLIER where SUPPLIER_CNPJ = srch_supplier"; // verificar a cria��o de variavel
 		try {
 			BaseConnection con = new BaseConnection();
-			Statement st = con.connection.createStatement();
+			PreparedStatement st = con.connection.prepareStatement(sql);
 			
 			st.executeQuery(sql);
 			ResultSet rs = st.getResultSet();

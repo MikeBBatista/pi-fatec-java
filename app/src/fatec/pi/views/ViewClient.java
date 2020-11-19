@@ -100,7 +100,6 @@ public class ViewClient extends JFrame {
 		JLabel lbl_cnpj = new JLabel("CNPJ - Fornecedora");
 		lbl_cnpj.setFont(new Font("Arial", Font.BOLD, 11));
 		
-
 		try {
 			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##.###.###/####-##");
 			txt_supplierCnpj= new javax.swing.JFormattedTextField(format_textField3);
@@ -122,14 +121,14 @@ public class ViewClient extends JFrame {
 		
 		txt_clientCpf = new JTextField();
 		try {
-			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("###.###.###.-##");
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("###.###.###-##");
 			txt_clientCpf = new javax.swing.JFormattedTextField(format_textField3);
 			} catch (Exception e){}
 		txt_clientCpf.setForeground(Color.BLACK);
 		txt_clientCpf.setColumns(10);
 		
-		JLabel lbl_cep = new JLabel("CEP");
-		lbl_cep.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_zip = new JLabel("CEP");
+		lbl_zip.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		txt_zipCode = new JTextField();
 		txt_zipCode.setColumns(10);
@@ -161,29 +160,29 @@ public class ViewClient extends JFrame {
 		txt_city = new JTextField();
 		txt_city.setColumns(10);
 		
-		JLabel lbl_num_1 = new JLabel("UF");
-		lbl_num_1.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_state = new JLabel("UF");
+		lbl_state.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		txt_state = new JTextField();
 		txt_state.setColumns(10);
 		
-		JLabel lbl_nummedidor = new JLabel("N\u00FAmero da InstalaÁ„o");
-		lbl_nummedidor.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_meterNumber = new JLabel("N\u00FAmero da Instala√ß√£o");
+		lbl_meterNumber.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		txt_meterNumber = new JTextField();
 		txt_meterNumber.setColumns(10);
 		
-		JLabel lbl_street_1 = new JLabel("Roteiro de Leitura");
-		lbl_street_1.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_measurementOrder = new JLabel("Roteiro de Leitura");
+		lbl_measurementOrder.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		txt_measurementOrder = new JTextField();
 		txt_measurementOrder.setColumns(10);
 		
-		JLabel lbl_street_1_1 = new JLabel("Classe");
-		lbl_street_1_1.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_class = new JLabel("Classe");
+		lbl_class.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		JLabel lbl_street_1_2 = new JLabel("Subclasse");
-		lbl_street_1_2.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_subclass = new JLabel("Subclasse");
+		lbl_subclass.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		JComboBox box_lightClass = new JComboBox();
 		box_lightClass.setBackground(Color.WHITE);
@@ -199,33 +198,33 @@ public class ViewClient extends JFrame {
 		box_lightSubclass.setBackground(Color.WHITE);
 		box_lightSubclass.addItem("-");
 		box_lightSubclass.addItem("BAIXA RENDA");
-		box_lightSubclass.addItem("BAIXA RENDA INDÕGENA");
-		box_lightSubclass.addItem("BAIXA RENDA BENEFÕCIO PREST CONT");
+		box_lightSubclass.addItem("BAIXA RENDA IND√çGENA");
+		box_lightSubclass.addItem("BAIXA RENDA BENEF√çCIO PREST CONT");
 		box_lightSubclass.addItem("BAIXA RENDA MULTIFAMILIAR");
-		box_lightSubclass.addItem("SERVI«O DE TRANSPORTE");
-		box_lightSubclass.addItem("SERVI«O DE COMUNICA«√O");
-		box_lightSubclass.addItem("ASSOCIA. FILANTR”PICA");
+		box_lightSubclass.addItem("SERVI√áO DE TRANSPORTE");
+		box_lightSubclass.addItem("SERVI√áO DE COMUNICA√á√ÉO");
+		box_lightSubclass.addItem("ASSOCIA. FILANTR√ìPICA");
 		box_lightSubclass.addItem("TEMPLOS RELIGIOSOS");
 		box_lightSubclass.addItem("ADM CONDOMINIAL");
-		box_lightSubclass.addItem("ILUMINA«√O RODOVIAS");
-		box_lightSubclass.addItem("SEM¡FAROS, RADARES E CAMERAS");
+		box_lightSubclass.addItem("ILUMINA√á√ÉO RODOVIAS");
+		box_lightSubclass.addItem("SEM√ÅFAROS, RADARES E CAMERAS");
 		box_lightSubclass.addItem("AGROPECUARIA RURAL");
 		box_lightSubclass.addItem("AGROPECUARIA URBANA");
 		box_lightSubclass.addItem("RESIDENCIAL RURAL");
 		box_lightSubclass.addItem("COOP DE ELETRIF. RURAL");
 		box_lightSubclass.addItem("AGROINDUSTRIAL");
-		box_lightSubclass.addItem("SERVI«O PUBLI. IRRIGA«AO RURAL");
+		box_lightSubclass.addItem("SERVI√áO PUBLI. IRRIGA√áAO RURAL");
 		box_lightSubclass.addItem("ESCOLA AGROTECNICA");
 		box_lightSubclass.addItem("AGRICULTURA");
-		box_lightSubclass.addItem("ILUMINA«√O PUBLICA");
-		box_lightSubclass.addItem("SERVI«O PUBLICA");
+		box_lightSubclass.addItem("ILUMINA√á√ÉO PUBLICA");
+		box_lightSubclass.addItem("SERVI√áO PUBLICO");
 		box_lightSubclass.addItem("CONSUMO PROPRIO");
 		
-		JLabel lbl_street_1_1_1 = new JLabel("Tarifa (R$)");
-		lbl_street_1_1_1.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_normalTax = new JLabel("Tarifa (R$)");
+		lbl_normalTax.setFont(new Font("Arial", Font.BOLD, 11));
 		
-		JLabel lbl_street_1_1_1_1 = new JLabel("Tarifa com Imposto (R$)");
-		lbl_street_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 11));
+		JLabel lbl_tributeTax = new JLabel("Tarifa com Imposto (R$)");
+		lbl_tributeTax.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		txt_normalTax = new JTextField();
 		txt_normalTax.setColumns(10);
@@ -241,7 +240,7 @@ public class ViewClient extends JFrame {
 				BigDecimal tributeTax = new BigDecimal(txt_tributeTax.getText());
 				Integer meterNumber = Integer.parseInt(txt_streetNumber.getText());
 				
-				ClientController.saveValues(formataDados(txt_supplierCnpj.getText()), txt_clientName.getText(), formataDados(txt_clientCpf.getText()),
+				ClientController.saveValues(formataDados(txt_supplierCnpj.getText()), formataDados(txt_clientCpf.getText()), txt_clientName.getText(),
 						txt_zipCode.getText(), meterNumber, txt_streetName.getText(), txt_streetComplement.getText(),
 						txt_city.getText(), txt_state.getText(), txt_meterNumber.getText(), txt_measurementOrder.getText(),
 						box_lightClass.getSelectedItem().toString(), box_lightSubclass.getSelectedItem().toString(),
@@ -252,11 +251,16 @@ public class ViewClient extends JFrame {
 				txt_zipCode.setText("");
 				txt_streetName.setText("");
 				txt_streetComplement.setText("");
-				box_lightClass.setToolTipText("");
-				box_lightSubclass.setToolTipText("");
+				box_lightClass.setSelectedIndex(0);
+				box_lightSubclass.setSelectedIndex(0);
 				txt_normalTax.setText("");
-				txt_tributeTax.setText("");			
-				
+				txt_tributeTax.setText("");
+				txt_meterNumber.setText("");
+				txt_city.setText("");
+				txt_state.setText("");
+				txt_measurementOrder.setText("");
+				txt_streetNumber.setText("");
+				txt_tributeTax.setText("");						
 								
 			}
 		});
@@ -266,6 +270,7 @@ public class ViewClient extends JFrame {
 		JButton btn_back = new JButton("VOLTAR");
 		btn_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(txt_clientCpf.getText());
 				ViewMain voltamenu = new ViewMain();
 				voltamenu.setVisible(true);
 				setVisible(false);
@@ -281,12 +286,12 @@ public class ViewClient extends JFrame {
 					.addGap(88)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(btn_save, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lbl_street_1_1_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lbl_normalTax, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(lbl_street_1_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lbl_class, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addComponent(box_lightClass, 0, 149, Short.MAX_VALUE)
 										.addComponent(txt_normalTax, 144, 144, 144))
 									.addGap(36)
@@ -294,14 +299,14 @@ public class ViewClient extends JFrame {
 										.addGroup(gl_panel.createSequentialGroup()
 											.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 												.addComponent(box_lightSubclass, 0, 149, Short.MAX_VALUE)
-												.addComponent(lbl_street_1_1_1_1, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+												.addComponent(lbl_tributeTax, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
 												.addComponent(txt_tributeTax, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
 												.addComponent(btn_back, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
 											.addGap(59))
-										.addComponent(lbl_street_1_2, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)))
+										.addComponent(lbl_subclass, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)))
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(lbl_street_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lbl_measurementOrder, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addComponent(txt_measurementOrder, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
 									.addGap(60))
 								.addGroup(gl_panel.createSequentialGroup()
@@ -321,7 +326,7 @@ public class ViewClient extends JFrame {
 										.addGroup(gl_panel.createSequentialGroup()
 											.addComponent(txt_clientCpf, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
 											.addGap(1))
-										.addComponent(lbl_cep, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lbl_zip, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
 											.addComponent(txt_zipCode, GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
 											.addGap(6)
@@ -343,13 +348,13 @@ public class ViewClient extends JFrame {
 										.addGroup(gl_panel.createSequentialGroup()
 											.addComponent(lbl_city, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
 											.addGap(151)
-											.addComponent(lbl_num_1, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
+											.addComponent(lbl_state, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
 										.addGroup(gl_panel.createSequentialGroup()
 											.addComponent(txt_city, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
 											.addGap(57)
 											.addComponent(txt_state, 91, 91, 91)
 											.addGap(1))
-										.addComponent(lbl_nummedidor, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lbl_meterNumber, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
 											.addComponent(txt_meterNumber, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
 											.addGap(1)))
@@ -377,7 +382,7 @@ public class ViewClient extends JFrame {
 					.addGap(6)
 					.addComponent(txt_clientCpf, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
-					.addComponent(lbl_cep)
+					.addComponent(lbl_zip)
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(txt_zipCode, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
@@ -397,31 +402,31 @@ public class ViewClient extends JFrame {
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lbl_city)
-						.addComponent(lbl_num_1))
+						.addComponent(lbl_state))
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(txt_city, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 						.addComponent(txt_state, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
 					.addGap(6)
-					.addComponent(lbl_nummedidor)
+					.addComponent(lbl_meterNumber)
 					.addGap(6)
 					.addComponent(txt_meterNumber, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lbl_street_1)
+					.addComponent(lbl_measurementOrder)
 					.addGap(6)
 					.addComponent(txt_measurementOrder, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lbl_street_1_1)
-						.addComponent(lbl_street_1_2))
+						.addComponent(lbl_class)
+						.addComponent(lbl_subclass))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(box_lightClass, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
 						.addComponent(box_lightSubclass, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lbl_street_1_1_1)
-						.addComponent(lbl_street_1_1_1_1))
+						.addComponent(lbl_normalTax)
+						.addComponent(lbl_tributeTax))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(txt_normalTax, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
