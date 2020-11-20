@@ -97,5 +97,32 @@ public class ClientDao {
 		return clientList;
 		
 	}
+	
+	public static void main(String[] args) {
+		
+		String deleteSql = "DELETE FROM CLIENT_REGISTER WHERE CLIENT_CPF=?"; 
+			
+		try {
+			BaseConnection con = new BaseConnection();
+			PreparedStatement st = con.connection.prepareStatement(deleteSql);
+			
+			st.setString(1,"SDFDSFDSGD");
+					
+			int rowsDeleted = st.executeUpdate();
+			
+			if (rowsDeleted > 0) {
+				System.out.println("Usuário deletado com Sucesso");
+			}
+		}
+		
+		catch(SQLException err) {
+			System.out.println(err);
+		}
+		
+		}
+		
+	}
 
-}
+
+	
+	
