@@ -72,18 +72,20 @@ public class LightAccountDao {
 		return result;
 	}		
 	
-	public static Integer delete(LightAccount lightAccount) {
+	public static Integer delete(Integer id) {
 		
 		int result = 0;
 		
 		Logger logger = Logger.getLogger(LightAccountDao.class.getName());
 		
-		String sql = "DELETE FROM LIGHT_ACCOUNT WHERE ID = " + lightAccount.getId() + ";";
+		String sql = "DELETE FROM LIGHT_ACCOUNT WHERE ACCOUNT_ID = ?;";
 		
 		try {
 			
 			BaseConnection con = new BaseConnection();
 			PreparedStatement updateValues = con.connection.prepareStatement(sql);
+			
+			updateValues.setInt(1, id);
 			
 			result = updateValues.executeUpdate();
 			con.connection.close();

@@ -33,23 +33,25 @@ public class SupplierDao {
 		return result;
 	}
 	
-	public static List<Supplier> listSuppliers(int supplierId) {
+	public static List<Supplier> listSuppliers(String supplierCnpj) {
 		
 		List<Supplier> supplierList = new ArrayList<>();
-		String sql = "Select * from SUPPLIER where SUPPLIER_CNPJ =" + supplierId + ";"; // verificar a criacao de variavel
+		String sql = "Select * from SUPPLIER where SUPPLIER_CNPJ = ?;";
 		try {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement st = con.connection.prepareStatement(sql);
 			
-			st.executeQuery(sql);
+			st.setString(1, supplierCnpj);
+			
+			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			
 			while(rs.next()) {
 				Supplier sup = new Supplier(
+						rs.getInt("SUPPLIER_ID"),
 						rs.getString("SUPPLIER_CNPJ"), 
 						rs.getString("SUPPLIER_NAME"), 
 						rs.getString("SUPPLIER_SITE"),
-						rs.getInt("SUPPLIER_ID"),
 						rs.getInt("SUPPLIER_TYPE"));
 				supplierList.add(sup);
 			}
@@ -60,7 +62,7 @@ public class SupplierDao {
 		return supplierList;
 	}
 	
-public static Integer update(Supplier supplier) {
+	public static Integer update(Supplier supplier) {
 		
 		int result = 0;
 		
@@ -70,7 +72,7 @@ public static Integer update(Supplier supplier) {
 		String sql = "UPDATE SUPPLIER SET SUPPLIER_CNPJ = ?, "
 				+ "SUPPLIER_NAME = ?, "
 				+ "SUPPLIER_SITE = ?, "
-				+ "SUPPLIER_TYPE = ?, "
+				+ "SUPPLIER_TYPE = ? "
 				+ "WHERE SUPPLIER_ID = ?;";
 		
 		try {
@@ -91,7 +93,6 @@ public static Integer update(Supplier supplier) {
 			
 			logger.info(err.getMessage());
 		}
-		
 		return result;
 	}
 	
