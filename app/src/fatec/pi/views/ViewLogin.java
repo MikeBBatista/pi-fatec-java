@@ -1,5 +1,7 @@
 package fatec.pi.views;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -7,6 +9,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import fatec.pi.controllers.UserController;
+import fatec.pi.daos.UserDao;
+import fatec.pi.entities.User;
+
 import javax.swing.BoxLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
@@ -19,6 +26,9 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Insets;
+import java.awt.Window;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ViewLogin extends JFrame {
 
@@ -95,6 +105,15 @@ public class ViewLogin extends JFrame {
 		panel.add(passwordField);
 		
 		JButton btnLogin = new JButton("LOGIN");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				;
+				String password = String.valueOf(passwordField.getPassword());
+				User login = UserController.checkLogin(txtLogin.getText(), password);
+				adminValidate(login);
+				
+			}
+		});
 		btnLogin.setFont(new Font("Arial Narrow", Font.PLAIN, 14));
 		btnLogin.setForeground(Color.WHITE);
 		btnLogin.setBounds(51, 160, 230, 30);
@@ -130,6 +149,19 @@ public class ViewLogin extends JFrame {
 		gbc_lblNewLabelIMG2.gridx = 1;
 		gbc_lblNewLabelIMG2.gridy = 3;
 		contentPane.add(lblNewLabelIMG2, gbc_lblNewLabelIMG2);
+	}
+	
+	public void adminValidate(User adm) {
+		if(adm.getAdmin().equals(true)) {
+			ViewMainAdmin menu = new ViewMainAdmin();
+			menu.setVisible(true);
+			setVisible(false);
+		}
+		else if(adm.getAdmin().equals(false)) {
+			ViewMain menu = new ViewMain();
+			menu.setVisible(true);
+			dispose();
+		}
 	}
 }
 
