@@ -1,6 +1,7 @@
 package fatec.pi.daos;
 
 import java.sql.SQLException;
+import java.util.logging.Logger;
 import java.sql.PreparedStatement;
 import fatec.pi.entities.LightAccount;
 
@@ -70,4 +71,29 @@ public class LightAccountDao {
 		
 		return result;
 	}		
+	
+	public static Integer delete(LightAccount lightAccount) {
+		
+		int result = 0;
+		
+		Logger logger = Logger.getLogger(LightAccountDao.class.getName());
+		
+		String sql = "DELETE FROM LIGHT_ACCOUNT WHERE ID = " + lightAccount.getId() + ";";
+		
+		try {
+			
+			BaseConnection con = new BaseConnection();
+			PreparedStatement updateValues = con.connection.prepareStatement(sql);
+			
+			result = updateValues.executeUpdate();
+			con.connection.close();
+			
+		} catch(SQLException err) {
+			
+			logger.info(err.getMessage());
+		}
+		
+		return result;
+	}
+	
 }
