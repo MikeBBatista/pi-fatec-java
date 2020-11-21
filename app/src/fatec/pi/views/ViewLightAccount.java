@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import fatec.pi.controllers.LightAccountController;
+import fatec.pi.daos.LightAccountDao;
+import fatec.pi.entities.LightAccount;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -522,9 +525,11 @@ public class ViewLightAccount extends JFrame {
 		JButton btn_back = new JButton("VOLTAR");
 		btn_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				LightAccountDao.listLightAccounts();
 	                ViewMain viewMain = new ViewMain();
 	                viewMain.setVisible(true);
 	                setVisible(false);
+	
 			}
 		});
 		btn_back.setFont(new Font("Arial", Font.BOLD, 11));

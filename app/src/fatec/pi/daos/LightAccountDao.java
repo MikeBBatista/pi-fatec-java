@@ -1,7 +1,11 @@
 package fatec.pi.daos;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import fatec.pi.entities.LightAccount;
 
 public class LightAccountDao {
@@ -32,13 +36,13 @@ public class LightAccountDao {
 				+ "ACCOUNT_FINANCIAL_ITEMS, "
 				+ "ACCOUNT_AMOUNT, "
 				+ "ACCOUNT_SUPPLIER_CNPJ) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement saveValues = con.connection.prepareStatement(sql);
 			
-			saveValues.setString(1, light.getIdentCod());
+			saveValues.setInt(1, light.getIdentCod());
 			saveValues.setString(2, light.getMeterNumber());
 			saveValues.setString(3, light.getInvoice());
 			saveValues.setString(4, light.getCurrentDate());
@@ -69,5 +73,52 @@ public class LightAccountDao {
 		}
 		
 		return result;
-	}		
+	}
+	
+	public static List<LightAccount> listLightAccounts(){
+		List<LightAccount> lightList = new ArrayList<>();
+		String sql = "Select * from LIGHT_ACCOUNT";
+		try {
+			BaseConnection con = new BaseConnection();
+			PreparedStatement st = con.connection.prepareStatement(sql);
+			
+			st.executeQuery(sql);
+			ResultSet rs = st.getResultSet();
+			
+			while (rs.next()) {
+				LightAccount light = new LightAccount(
+						rs.getInt("ACCOUNT_ID"),
+						rs.getInt("ACCOUNT_IDENT_COD"),
+						rs.getString("ACCOUNT_METER_NUMBER"),
+						rs.getString("ACCOUNT_INVOICE"),
+						rs.getString("ACCOUNT_CURRENT_DATE"),
+						rs.getString("ACCOUNT_DUE_DATE"),
+						rs.getInt("ACCOUNT_CONSUMPTION_DAYS"),
+						rs.getString("ACCOUNT_FLAG_TYPE"),
+						rs.getBigDecimal("ACCOUNT_CONSUMPTION_VALUE"),
+						rs.getBigDecimal("ACCOUNT_PIS_PERCENTAGE"),
+						rs.getBigDecimal("ACCOUNT_COFINS_PERCENTAGE"),
+						rs.getBigDecimal("ACCOUNT_ICMS_BASIS"),
+						rs.getBigDecimal("ACCOUNT_ICMS_PERCENTAGE"),
+						rs.getBigDecimal("ACCOUNT_ICMS_VALUE"),
+						rs.getBigDecimal("ACCOUNT_PIS_COFINS_BASIS"),
+						rs.getBigDecimal("ACCOUNT_PIS_VALUE"),
+						rs.getBigDecimal("ACCOUNT_COFINS_VALUE"),
+						rs.getBigDecimal("ACCOUNT_FORFEIT_VALUE"),
+						rs.getBigDecimal("ACCOUNT_INTEREST_VALUE"),
+						rs.getBigDecimal("ACCOUNT_OTHER_VALUES"),
+						rs.getBigDecimal("ACCOUNT_SUPPLY_VALUES"),
+						rs.getBigDecimal("ACCOUNT_FINANCIAL_ITEMS"),
+						rs.getBigDecimal("ACCOUNT_AMOUNT"),
+						rs.getString("ACCOUNT_SUPPLIER_CNPJ"),sql);
+				lightList.add(light);
+				
+			}
+		}
+		catch(SQLException err) {
+			System.out.println(err);
+		}
+		return lightList;
+		
+	}
 }
