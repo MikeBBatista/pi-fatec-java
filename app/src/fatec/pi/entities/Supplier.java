@@ -70,10 +70,10 @@ public class Supplier {
 		}
 		return null;
 	}
-	
+
+	@Override
 	public String toString() {
-		String tipo = this.getType() == 0 ? "Luz" : "�gua";
-		String res = "Nome: "+this.getName() + "\nCNPJ: " + this.getCnpj() + "\nTipo: " + tipo;
-		return res;
+		return "Supplier [id=" + id + ", cnpj=" + cnpj + ", name=" + name + ", site=" + site + ", type=" + type + "]";
 	}
+	
 }
