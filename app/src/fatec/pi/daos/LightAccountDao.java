@@ -150,7 +150,8 @@ public class LightAccountDao {
 				+ "ACCOUNT_SUPPLY_VALUES = ?, "
 				+ "ACCOUNT_FINANCIAL_ITEMS = ?, "
 				+ "ACCOUNT_AMOUNT = ?, "
-				+ "ACCOUNT_SUPPLIER_CNPJ = ?)";
+				+ "ACCOUNT_SUPPLIER_CNPJ = ?)"
+				+ "WHERE ACCOUNT_ID = ?;";
 		
 		try {
 			
