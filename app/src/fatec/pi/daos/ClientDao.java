@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import fatec.pi.entities.Client;
@@ -95,7 +96,65 @@ public class ClientDao {
 			System.out.println(err);
 		}
 		return clientList;
-		
+				
 	}
+	
+	public static Integer update(Client client) {
+		int result = 0;
+		
+		Logger logger = Logger.getLogger(ClientDao.class.getName());
+		
+		String sql = "UPDATE CLIENT_REGISTER SET CLIENT_CPF = ?, "
+				+ "CLIENT_NAME = ?, "
+				+ "CLIENT_ZIP_COD = ?, "
+				+ "CLIENT_STREET_NAME = ?, "
+				+ "CLIENT_STREET_NUMBER = ?, "
+				+ "CLIENT_STREET_COMPLEMENT = ?, "
+				+ "CLIENT_CITY = ?, "
+				+ "CLIENT_STATE = ?, "
+				+ "CLIENT_METER_NUMBER = ?, "
+				+ "CLIENT_MEASUREMENT_ORDER = ?,"
+				+ "CLIENT_LIGHT_CLASS = ?,"
+				+ "CLIENT_LIGHT_SUBCLASS = ?,"
+				+ "CLIENT_NORMAL_TAX = ?,"
+				+ "CLIENT_TRIBUTE_TAX = ?,"
+				+ "CLIENT_SUPPLIER_CNPJ = ? "
+				+ "WHERE CLIENT_ID = ?;";
+		
+		try{
+			
+			BaseConnection con = new BaseConnection();
+			PreparedStatement updateValues = con.connection.prepareStatement(sql);
+			
+			updateValues.setString(1, client.getClientCpf());
+			updateValues.setString(2, client.getClientName());
+			updateValues.setString(3, client.getZipCode());
+			updateValues.setString(4, client.getStreetName());
+			updateValues.setInt(5, client.getStreetNumber());
+			updateValues.setString(6, client.getStreetComplement());
+			updateValues.setString(7, client.getCity());
+			updateValues.setString(8, client.getState());
+			updateValues.setString(9, client.getMeterNumber());
+			updateValues.setString(10, client.getMeasurementOrder());
+			updateValues.setString(11, client.getLightClass());
+			updateValues.setString(12, client.getLightSubclass());
+			updateValues.setBigDecimal(13, client.getNormalTax());
+			updateValues.setBigDecimal(14, client.getTributeTax());
+			updateValues.setString(15, client.getSupplierCnpj());
+			updateValues.setInt(16, client.getId());
+			
+			result = updateValues.executeUpdate();
+			con.connection.close();
+			
+		} catch(SQLException err) {
+			
+			logger.info(err.getMessage());
+		}
+		
+		return result;
+		
+			
+		}
+	
 
 }
