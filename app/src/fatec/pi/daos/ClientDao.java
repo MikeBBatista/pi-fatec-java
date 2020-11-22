@@ -1,8 +1,15 @@
 package fatec.pi.daos;
 
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import fatec.pi.entities.Client;
+
+
 
 public class ClientDao {
 	public static Integer save(Client client) {
@@ -45,11 +52,109 @@ public class ClientDao {
 			saveValues.setBigDecimal(14, client.getTributeTax());
 			saveValues.setString(15, client.getSupplierCnpj());
 			
-			result = saveValues.executeUpdate(sql);
+			result = saveValues.executeUpdate();
 		}
 		catch(SQLException err) {
 			System.out.println(err);
 		}
 		return result;
 	}
+	
+	public static List<Client> listClients(){
+		List<Client> clientList = new ArrayList<>();
+		String sql = "Select * from CLIENT_REGISTER";
+		try {
+			BaseConnection con = new BaseConnection();
+			PreparedStatement st = con.connection.prepareStatement(sql);
+			
+			st.executeQuery(sql);
+			ResultSet rs = st.getResultSet();
+			
+			while (rs.next()) {
+				Client clt = new Client(
+						rs.getInt("CLIENT_ID"),
+						rs.getString("CLIENT_CPF"),
+						rs.getString("CLIENT_SUPPLIER_CNPJ"),
+						rs.getString("CLIENT_NAME"),
+						rs.getString("CLIENT_ZIP_COD"),
+						rs.getString("CLIENT_STREET_NAME"),
+						rs.getInt("CLIENT_STREET_NUMBER"),
+						rs.getString("CLIENT_STREET_COMPLEMENT"),
+						rs.getString("CLIENT_CITY"),
+						rs.getString("CLIENT_STATE"),
+						rs.getString("CLIENT_METER_NUMBER"),
+						rs.getString("CLIENT_MEASUREMENT_ORDER"),
+						rs.getString("CLIENT_LIGHT_CLASS"),
+						rs.getString("CLIENT_LIGHT_SUBCLASS"),
+						rs.getBigDecimal("CLIENT_NORMAL_TAX"),
+						rs.getBigDecimal("CLIENT_TRIBUTE_TAX"));
+				clientList.add(clt);
+								
+			}
+		}
+		catch(SQLException err) {
+			System.out.println(err);
+		}
+		return clientList;
+				
+	}
+	
+	public static Integer update(Client client) {
+		int result = 0;
+		
+		Logger logger = Logger.getLogger(ClientDao.class.getName());
+		
+		String sql = "UPDATE CLIENT_REGISTER SET CLIENT_CPF = ?, "
+				+ "CLIENT_NAME = ?, "
+				+ "CLIENT_ZIP_COD = ?, "
+				+ "CLIENT_STREET_NAME = ?, "
+				+ "CLIENT_STREET_NUMBER = ?, "
+				+ "CLIENT_STREET_COMPLEMENT = ?, "
+				+ "CLIENT_CITY = ?, "
+				+ "CLIENT_STATE = ?, "
+				+ "CLIENT_METER_NUMBER = ?, "
+				+ "CLIENT_MEASUREMENT_ORDER = ?,"
+				+ "CLIENT_LIGHT_CLASS = ?,"
+				+ "CLIENT_LIGHT_SUBCLASS = ?,"
+				+ "CLIENT_NORMAL_TAX = ?,"
+				+ "CLIENT_TRIBUTE_TAX = ?,"
+				+ "CLIENT_SUPPLIER_CNPJ = ? "
+				+ "WHERE CLIENT_ID = ?;";
+		
+		try{
+			
+			BaseConnection con = new BaseConnection();
+			PreparedStatement updateValues = con.connection.prepareStatement(sql);
+			
+			updateValues.setString(1, client.getClientCpf());
+			updateValues.setString(2, client.getClientName());
+			updateValues.setString(3, client.getZipCode());
+			updateValues.setString(4, client.getStreetName());
+			updateValues.setInt(5, client.getStreetNumber());
+			updateValues.setString(6, client.getStreetComplement());
+			updateValues.setString(7, client.getCity());
+			updateValues.setString(8, client.getState());
+			updateValues.setString(9, client.getMeterNumber());
+			updateValues.setString(10, client.getMeasurementOrder());
+			updateValues.setString(11, client.getLightClass());
+			updateValues.setString(12, client.getLightSubclass());
+			updateValues.setBigDecimal(13, client.getNormalTax());
+			updateValues.setBigDecimal(14, client.getTributeTax());
+			updateValues.setString(15, client.getSupplierCnpj());
+			updateValues.setInt(16, client.getId());
+			
+			result = updateValues.executeUpdate();
+			con.connection.close();
+			
+		} catch(SQLException err) {
+			
+			logger.info(err.getMessage());
+		}
+		
+		return result;
+		
+			
+		}
+	
+
 }

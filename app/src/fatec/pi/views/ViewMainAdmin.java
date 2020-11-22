@@ -19,7 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
-public class ViewMain extends JFrame {
+public class ViewMainAdmin extends JFrame {
 
 
 	protected static final String frame = null;
@@ -34,7 +34,7 @@ public class ViewMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ViewMain frame = new ViewMain();
+					ViewMainAdmin frame = new ViewMainAdmin();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +46,7 @@ public class ViewMain extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ViewMain() {
+	public ViewMainAdmin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 600);
 		contentPane = new JPanel();
@@ -65,7 +65,7 @@ public class ViewMain extends JFrame {
 		panel_main.add(lblOQueDeseja);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(ViewMain.class.getResource("/img/rsz_poc_verde.png")));
+		lblNewLabel.setIcon(new ImageIcon(ViewMainAdmin.class.getResource("/img/rsz_poc_verde.png")));
 		
 		JButton btnCadastrarCliente = new JButton("CADASTRAR CLIENTE");
 		btnCadastrarCliente.addActionListener(new ActionListener() {
@@ -96,12 +96,18 @@ public class ViewMain extends JFrame {
 		JButton btnGerarRelatrios = new JButton("GERAR RELAT\u00D3RIOS");
 		btnGerarRelatrios.setFont(new Font("Arial", Font.BOLD, 13));
 		
+		JButton btnRelatriosColaboradores = new JButton("RELAT\u00D3RIOS COLABORADORES");
+		btnRelatriosColaboradores.setFont(new Font("Arial", Font.BOLD, 13));
+		
 		JButton btnSair = new JButton("SAIR");
 		btnSair.setFont(new Font("Arial", Font.BOLD, 13));
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				System.exit(0);
+				ViewLogin login = new ViewLogin();
+				login.setVisible(true);
+				System.clearProperty("userId");
+				setVisible(false);
 			}
 		});
 		
@@ -116,6 +122,16 @@ public class ViewMain extends JFrame {
 		});
 		btnCadastrarFornecedor.setFont(new Font("Arial", Font.BOLD, 13));
 		btnCadastrarFornecedor.setMnemonic(KeyEvent.VK_1);
+		
+		JButton btnCadastroColaborator = new JButton("CADASTRO DE COLABORADOR");
+		btnCadastroColaborator.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewEmployeeRegistration user = new ViewEmployeeRegistration();
+				user.setVisible(true);
+				setVisible(false);
+			}
+		});
+		btnCadastroColaborator.setFont(new Font("Arial", Font.BOLD, 13));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -125,11 +141,13 @@ public class ViewMain extends JFrame {
 						.addComponent(panel_main, GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 							.addComponent(btnCadastrarFornecedor, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnRelatriosColaboradores, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
 							.addComponent(btnGerarRelatrios, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
 							.addComponent(btnEditarInformaoCadastrada, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
 							.addComponent(btnCadastrarNovaConta, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
 							.addComponent(btnCadastrarCliente, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnCadastroColaborator, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)))
 					.addGap(320))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap(436, Short.MAX_VALUE)
@@ -151,7 +169,11 @@ public class ViewMain extends JFrame {
 					.addComponent(btnEditarInformaoCadastrada, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnGerarRelatrios, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-					.addGap(120)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnRelatriosColaboradores, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnCadastroColaborator, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addGap(46)
 					.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)

@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import fatec.pi.controllers.LightAccountController;
+import fatec.pi.daos.LightAccountDao;
+import fatec.pi.entities.LightAccount;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -110,9 +113,12 @@ public class ViewLightAccount extends JFrame {
 		lbl_currentDate.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		txt_currentDate = new JTextField();
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
+			txt_currentDate = new javax.swing.JFormattedTextField(format_textField3);
+			} catch (Exception e){}
 		lbl_currentDate.setLabelFor(txt_currentDate);
-		txt_currentDate.setText("00/00/0000");
-		txt_currentDate.setForeground(Color.LIGHT_GRAY);
+		txt_currentDate.setForeground(Color.BLACK);
 		txt_currentDate.setFont(new Font("Arial", Font.PLAIN, 11));
 		txt_currentDate.setColumns(10);
 		
@@ -120,9 +126,12 @@ public class ViewLightAccount extends JFrame {
 		lbl_dueDate.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		txt_dueDate = new JTextField();
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
+			txt_dueDate = new javax.swing.JFormattedTextField(format_textField3);
+			} catch (Exception e){}
 		lbl_dueDate.setLabelFor(txt_dueDate);
-		txt_dueDate.setText("00/00/0000");
-		txt_dueDate.setForeground(Color.LIGHT_GRAY);
+		txt_dueDate.setForeground(Color.BLACK);
 		txt_dueDate.setFont(new Font("Arial", Font.PLAIN, 11));
 		txt_dueDate.setColumns(10);
 		
@@ -479,8 +488,8 @@ public class ViewLightAccount extends JFrame {
 				BigDecimal financialItems = new BigDecimal(txt_financialItems.getText());
 				BigDecimal amount = new BigDecimal(txt_amount.getText());
 				
-				LightAccountController.saveValues( txt_identCod.getText(), txt_meterNumber.getText(), txt_invoice.getText(), txt_currentDate.getText(),
-						txt_dueDate.getText(), consumptionDays, box_flagType.getSelectedItem().toString(), consumptionValue,
+				LightAccountController.saveValues( txt_identCod.getText(), txt_meterNumber.getText(), txt_invoice.getText(), formataDados(txt_currentDate.getText()),
+						formataDados(txt_dueDate.getText()), consumptionDays, box_flagType.getSelectedItem().toString(), consumptionValue,
 						pisPercentage, cofinsPercentage, icmsBasis, icmsPercentage, icmsValue, pisCofinsBasis, pisValue,
 						cofinsValue, forfeitValue, interestValue, otherValues, supplyValue, financialItems, amount,
 						formataDados(txt_supplierCnpj.getText()));
@@ -490,7 +499,7 @@ public class ViewLightAccount extends JFrame {
 				txt_currentDate.setText("");
 				txt_dueDate.setText("");
 				txt_consumptionDays.setText("");
-				box_flagType.setToolTipText("");
+				box_flagType.setSelectedIndex(0);
 				txt_consumptionValue.setText("");
 				txt_pisPercentage.setText("");
 				txt_cofinsPercentage.setText("");
@@ -516,9 +525,11 @@ public class ViewLightAccount extends JFrame {
 		JButton btn_back = new JButton("VOLTAR");
 		btn_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				LightAccountDao.listLightAccounts();
 	                ViewMain viewMain = new ViewMain();
 	                viewMain.setVisible(true);
 	                setVisible(false);
+	
 			}
 		});
 		btn_back.setFont(new Font("Arial", Font.BOLD, 11));

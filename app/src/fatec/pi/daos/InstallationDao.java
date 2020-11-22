@@ -27,7 +27,7 @@ public class InstallationDao {
 			saveValues.setString(5, installation.getMainClass());
 			saveValues.setString(6, installation.getInstallationType());
 			
-			result = saveValues.executeUpdate(sql);
+			result = saveValues.executeUpdate();
 		}
 		catch(SQLException err) {
 			System.out.println(err);

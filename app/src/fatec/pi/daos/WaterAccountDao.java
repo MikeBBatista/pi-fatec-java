@@ -1,8 +1,15 @@
 package fatec.pi.daos;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import fatec.pi.entities.WaterAccount;
+
 
 public class WaterAccountDao {
 	public static Integer save(WaterAccount water) {
@@ -34,11 +41,128 @@ public class WaterAccountDao {
 			saveValues.setBigDecimal(9, water.getOtherValues());
 			saveValues.setString(10, water.getSupplierCnpj());
 			
-			result = saveValues.executeUpdate(sql);
+			result = saveValues.executeUpdate();
+			con.connection.close();
+
 		}
 		catch(SQLException err) {
 			System.out.println(err);
 		}
+		return result;
+	}	
+	
+	public static List<WaterAccount> listWaterAccounts() {
+		
+		String sql = "Select * from WATER_ACCOUNT";
+		List<WaterAccount> WaterAccountList = new ArrayList<>();
+		
+		try {
+			BaseConnection con = new BaseConnection();
+			PreparedStatement st = con.connection.prepareStatement(sql);
+			
+		
+			ResultSet result = st.executeQuery();
+			
+			
+			while(result.next()) {
+				
+				Integer id           = result.getInt("ACCOUNT_ID");
+				String accountNumber = result.getString("ACCOUNT_NUMBER");
+				String      dueDate  = result.getString("ACCOUNT_DUE_DATE");
+				BigDecimal	penalty  = result.getBigDecimal("ACCOUNT_PENALTY");
+				BigDecimal  consumpition = result.getBigDecimal("ACCOUNT_CONSUMPTION");
+				BigDecimal	polluition  = result.getBigDecimal("ACCOUNT_POLLUTION");
+				BigDecimal  sewer = result.getBigDecimal("ACCOUNT_SEWER");
+				BigDecimal	water = result.getBigDecimal("ACCOUNT_WATER");
+				Integer     pis      = result.getInt("ACCOUNT_PIS");
+				BigDecimal	other = result.getBigDecimal("ACCOUNT_OTHERS");
+				String      sup  = result.getString("ACCOUNT_SUPPLIER_CNPJ");
+				
+				
+				WaterAccount wat = new WaterAccount(id,accountNumber, dueDate, penalty,consumpition,polluition,sewer,water,pis,other,sup);
+				WaterAccountList.add(wat);
+				System.out.println(wat.toString());
+				con.connection.close();
+
+			}
+		}
+		catch(SQLException err) {
+			System.out.println(err);
+		}
+		return WaterAccountList;
+	}
+	
+	public static Integer update(WaterAccount water) {
+		
+		int result = 0;
+		
+		Logger logger = Logger.getLogger(WaterAccountDao.class.getName());
+		
+		
+		String sql = "UPDATE WATER_ACCOUNT SET ACCOUNT_NUMBER = ?, "
+				+ "ACCOUNT_DUE_DATE = ?, "
+				+ "ACCOUNT_PENALTY = ?, "
+				+ "ACCOUNT_CONSUMPTION = ?, "
+				+ "ACCOUNT_POLLUTION = ?, "
+				+ "ACCOUNT_SEWER = ?, "
+				+ "ACCOUNT_WATER = ?, "
+				+ "ACCOUNT_PIS = ?, "
+				+ "ACCOUNT_OTHERS = ?, "
+				+ "ACCOUNT_SUPPLIER_CNPJ = ? "
+				+ "WHERE ACCOUNT_ID = ?;";
+		
+		try {
+			
+			BaseConnection con = new BaseConnection();
+			PreparedStatement updateValues = con.connection.prepareStatement(sql);
+			
+			updateValues.setString(1, water.getNumber());
+			updateValues.setString(2, water.getDueDate());
+			updateValues.setBigDecimal(3, water.getPenalty());
+			updateValues.setBigDecimal(4, water.getConsumptionValue());
+			updateValues.setBigDecimal(5, water.getPollutionValue());
+			updateValues.setBigDecimal(6, water.getSewerValue());
+			updateValues.setBigDecimal(7, water.getWaterValue());
+			updateValues.setInt(8, water.getPisPercentage());
+			updateValues.setBigDecimal(9, water.getOtherValues());
+			updateValues.setString(10, water.getSupplierCnpj());
+			updateValues.setInt(11, water.getId());
+			
+			result = updateValues.executeUpdate();
+			con.connection.close();
+			
+		} catch(SQLException err) {
+			
+			logger.info(err.getMessage());
+		}
+		
+		return result;
+	}
+	
+	public static Integer delete(WaterAccount water) {
+		
+		int result = 0;
+		
+		Logger logger = Logger.getLogger(WaterAccountDao.class.getName());
+		
+		String sql = "DELETE FROM WATER_ACCOUNT "
+				+ "WHERE ID = ?;";
+		
+		try {
+			
+			BaseConnection con = new BaseConnection();
+			PreparedStatement updateValues = con.connection.prepareStatement(sql);
+			
+			updateValues.setInt(1, water.getId());
+			
+			result = updateValues.executeUpdate();
+			con.connection.close();
+			
+		} catch(SQLException err) {
+			
+			logger.info(err.getMessage());
+		}
+		
 		return result;
 	}
 }
