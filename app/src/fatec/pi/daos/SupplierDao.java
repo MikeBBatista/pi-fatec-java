@@ -25,6 +25,7 @@ public class SupplierDao {
 			saveValues.setInt(4, supplier.getType());
 			
 			result = saveValues.executeUpdate();
+			con.connection.close();
 
 		}
 		catch(SQLException err) {
