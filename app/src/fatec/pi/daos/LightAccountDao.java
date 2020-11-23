@@ -181,6 +181,7 @@ public class LightAccountDao {
 			updateValues.setBigDecimal(21, light.getFinancialItems());
 			updateValues.setBigDecimal(22, light.getAmount());
 			updateValues.setString(23, light.getSupplierCnpj());
+			updateValues.setInt(24, light.getId());
 			
 			result = updateValues.executeUpdate();
 			con.connection.close();
