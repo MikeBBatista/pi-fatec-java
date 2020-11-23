@@ -76,4 +76,14 @@ public class Supplier {
 		return "Supplier [id=" + id + ", cnpj=" + cnpj + ", name=" + name + ", site=" + site + ", type=" + type + "]";
 	}
 	
+	public String toType() {
+		String result = "";
+		if(this.getType().equals(0)) {
+			result = "Energia";
+		}
+		else {
+			result = "Água";
+		}
+		return result;
+	}
 }

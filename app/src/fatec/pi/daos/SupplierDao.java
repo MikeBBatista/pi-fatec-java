@@ -33,29 +33,60 @@ public class SupplierDao {
 		return result;
 	}
 	
-	public static List<Supplier> listSuppliers() {
+	public static List<Supplier> listSuppliers(String cnpj) {
 		
 		List<Supplier> supplierList = new ArrayList<>();
-		String sql = "Select * from SUPPLIER where SUPPLIER_CNPJ = srch_supplier"; // verificar a cria��o de variavel
-		try {
-			BaseConnection con = new BaseConnection();
-			PreparedStatement st = con.connection.prepareStatement(sql);
+		String sql = "";
+		
+		if(cnpj.equals("")) {
+			sql = "Select * from SUPPLIER";
 			
-			st.executeQuery(sql);
-			ResultSet rs = st.getResultSet();
-			
-			while(rs.next()) {
-				Supplier sup = new Supplier(
-						rs.getString("SUPPLIER_CNPJ"), 
-						rs.getString("SUPPLIER_NAME"), 
-						rs.getString("SUPPLIER_SITE"),
-						rs.getInt("SUPPLIER_ID"),
-						rs.getInt("SUPPLIER_TYPE"));
-				supplierList.add(sup);
+			try {
+				BaseConnection con = new BaseConnection();
+				PreparedStatement st = con.connection.prepareStatement(sql);
+				
+				
+				ResultSet rs = st.executeQuery();
+				
+				while(rs.next()) {
+					Supplier sup = new Supplier(
+							rs.getString("SUPPLIER_CNPJ"), 
+							rs.getString("SUPPLIER_NAME"), 
+							rs.getString("SUPPLIER_SITE"),
+							rs.getInt("SUPPLIER_ID"),
+							rs.getInt("SUPPLIER_TYPE"));
+					supplierList.add(sup);
+				}
 			}
+			catch(SQLException err) {
+				System.out.println(err);
+			}
+			
 		}
-		catch(SQLException err) {
-			System.out.println(err);
+		else {
+			sql = "Select * from SUPPLIER where SUPPLIER_CNPJ = ?";
+			
+			try {
+				BaseConnection con = new BaseConnection();
+				PreparedStatement st = con.connection.prepareStatement(sql);
+				
+				st.setString(1, cnpj);
+				
+				ResultSet rs = st.executeQuery();
+				
+				while(rs.next()) {
+					Supplier sup = new Supplier(
+							rs.getString("SUPPLIER_CNPJ"), 
+							rs.getString("SUPPLIER_NAME"), 
+							rs.getString("SUPPLIER_SITE"),
+							rs.getInt("SUPPLIER_ID"),
+							rs.getInt("SUPPLIER_TYPE"));
+					supplierList.add(sup);
+				}
+			}
+			catch(SQLException err) {
+				System.out.println(err);
+			}
 		}
 		return supplierList;
 	}
