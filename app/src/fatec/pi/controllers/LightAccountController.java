@@ -9,7 +9,7 @@ import fatec.pi.entities.LightAccount;
 
 public class LightAccountController {
 	
-	public static void saveValues(String identCod, String meterNumber, String invoice, String currentDate,
+	public static void saveValues(Integer identCod, String meterNumber, String invoice, String currentDate,
 			String dueDate, Integer consumptionDays, String flagType, BigDecimal consumptionValue, BigDecimal pisPercentage,
 			BigDecimal cofinsPercentage, BigDecimal icmsBasis, BigDecimal icmsPercentage, BigDecimal icmsValue,
 			BigDecimal pisCofinsBasis, BigDecimal pisValue, BigDecimal cofinsValue, BigDecimal forfeitValue,
