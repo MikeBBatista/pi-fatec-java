@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import fatec.pi.controllers.ClientController;
 import fatec.pi.controllers.SupplierController;
 import fatec.pi.daos.ClientDao;
+import fatec.pi.services.CepAPI;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -33,6 +34,7 @@ public class ViewClient extends JFrame {
 	private JPanel contentPane;
 	private JTextField txt_clientName;
 	private JTextField txt_clientCpf;
+	private JTextField txt_clientCpf_1;
 	private JTextField txt_streetName;
 	private JTextField txt_streetNumber;
 	private JTextField txt_streetComplement;
@@ -44,6 +46,7 @@ public class ViewClient extends JFrame {
 	private JTextField txt_tributeTax;
 	private JTextField txt_zipCode;
 	private JTextField txt_supplierCnpj;
+	private JTextField txt_neighborhood;
 
 	/**
 	 * Launch the application.
@@ -122,18 +125,33 @@ public class ViewClient extends JFrame {
 		txt_clientCpf = new JTextField();
 		try {
 			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("###.###.###-##");
-			txt_clientCpf = new javax.swing.JFormattedTextField(format_textField3);
+			txt_clientCpf_1 = new javax.swing.JFormattedTextField(format_textField3);
 			} catch (Exception e){}
-		txt_clientCpf.setForeground(Color.BLACK);
-		txt_clientCpf.setColumns(10);
+		txt_clientCpf_1.setForeground(Color.BLACK);
+		txt_clientCpf_1.setColumns(10);
 		
 		JLabel lbl_zip = new JLabel("CEP");
 		lbl_zip.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		txt_zipCode = new JTextField();
+		try {
+			javax.swing.text.MaskFormatter cepMask = new javax.swing.text.MaskFormatter("##.###-###");
+			txt_zipCode = new javax.swing.JFormattedTextField(cepMask);
+		} catch (Exception e){}
 		txt_zipCode.setColumns(10);
 		
 		JButton btnNewButton_searchcep = new JButton("");
+		btnNewButton_searchcep.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CepAPI adress = new CepAPI("", "", "", "");
+				adress = adress.buscarCep(formataDados(txt_zipCode.getText()));
+				txt_streetName.setText(adress.getLogradouro());
+				txt_neighborhood.setText(adress.getBairro());
+				txt_city.setText(adress.getCidade());
+				txt_state.setText(adress.getUf());
+				
+			}
+		});
 		btnNewButton_searchcep.setIcon(new ImageIcon(ViewClient.class.getResource("/img/rsz_search-icon.png")));
 		
 		JLabel lbl_street = new JLabel("Logradouro");
@@ -198,26 +216,26 @@ public class ViewClient extends JFrame {
 		box_lightSubclass.setBackground(Color.WHITE);
 		box_lightSubclass.addItem("-");
 		box_lightSubclass.addItem("BAIXA RENDA");
-		box_lightSubclass.addItem("BAIXA RENDA INDÍGENA");
-		box_lightSubclass.addItem("BAIXA RENDA BENEFÍCIO PREST CONT");
+		box_lightSubclass.addItem("BAIXA RENDA INDIGENA");
+		box_lightSubclass.addItem("BAIXA RENDA BENEF�CIO PREST CONT");
 		box_lightSubclass.addItem("BAIXA RENDA MULTIFAMILIAR");
-		box_lightSubclass.addItem("SERVIÇO DE TRANSPORTE");
-		box_lightSubclass.addItem("SERVIÇO DE COMUNICAÇÃO");
-		box_lightSubclass.addItem("ASSOCIA. FILANTRÓPICA");
+		box_lightSubclass.addItem("SERVI�O DE TRANSPORTE");
+		box_lightSubclass.addItem("SERVI�O DE COMUNICA��O");
+		box_lightSubclass.addItem("ASSOCIA. FILANTR�PICA");
 		box_lightSubclass.addItem("TEMPLOS RELIGIOSOS");
 		box_lightSubclass.addItem("ADM CONDOMINIAL");
-		box_lightSubclass.addItem("ILUMINAÇÃO RODOVIAS");
-		box_lightSubclass.addItem("SEMÁFAROS, RADARES E CAMERAS");
+		box_lightSubclass.addItem("ILUMINA��O RODOVIAS");
+		box_lightSubclass.addItem("SEM�FAROS, RADARES E CAMERAS");
 		box_lightSubclass.addItem("AGROPECUARIA RURAL");
 		box_lightSubclass.addItem("AGROPECUARIA URBANA");
 		box_lightSubclass.addItem("RESIDENCIAL RURAL");
 		box_lightSubclass.addItem("COOP DE ELETRIF. RURAL");
 		box_lightSubclass.addItem("AGROINDUSTRIAL");
-		box_lightSubclass.addItem("SERVIÇO PUBLI. IRRIGAÇAO RURAL");
+		box_lightSubclass.addItem("SERVIÇO PUBLI. IRRIGA��O RURAL");
 		box_lightSubclass.addItem("ESCOLA AGROTECNICA");
 		box_lightSubclass.addItem("AGRICULTURA");
-		box_lightSubclass.addItem("ILUMINAÇÃO PUBLICA");
-		box_lightSubclass.addItem("SERVIÇO PUBLICO");
+		box_lightSubclass.addItem("ILUMINA��O PUBLICA");
+		box_lightSubclass.addItem("SERVI�O PUBLICO");
 		box_lightSubclass.addItem("CONSUMO PROPRIO");
 		
 		JLabel lbl_normalTax = new JLabel("Tarifa (R$)");
@@ -241,7 +259,7 @@ public class ViewClient extends JFrame {
 				Integer meterNumber = Integer.parseInt(txt_streetNumber.getText());
 				
 				ClientController.saveValues(formataDados(txt_supplierCnpj.getText()), formataDados(txt_clientCpf.getText()), txt_clientName.getText(),
-						txt_zipCode.getText(), meterNumber, txt_streetName.getText(), txt_streetComplement.getText(),
+						formataDados(txt_zipCode.getText()), meterNumber, txt_streetName.getText(), txt_streetComplement.getText(),
 						txt_city.getText(), txt_state.getText(), txt_meterNumber.getText(), txt_measurementOrder.getText(),
 						box_lightClass.getSelectedItem().toString(), box_lightSubclass.getSelectedItem().toString(),
 						normalTax, tributeTax);
@@ -279,6 +297,12 @@ public class ViewClient extends JFrame {
 		btn_back.setFont(new Font("Arial", Font.BOLD, 13));
 		btn_back.setMnemonic(KeyEvent.VK_B);
 		
+		JLabel lbl_neighborhood = new JLabel("Bairro");
+		lbl_neighborhood.setFont(new Font("Arial", Font.BOLD, 11));
+		
+		txt_neighborhood = new JTextField();
+		txt_neighborhood.setColumns(10);
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -311,54 +335,59 @@ public class ViewClient extends JFrame {
 									.addGap(60))
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+										.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
 										.addComponent(lbl_cnpj, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(txt_supplierCnpj, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+											.addComponent(txt_supplierCnpj, GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
 											.addGap(10)
-											.addComponent(btnNewButton_searchcnpj, GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+											.addComponent(btnNewButton_searchcnpj, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
 											.addGap(1))
 										.addComponent(lbl_clientname, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(txt_clientName, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+											.addComponent(txt_clientName, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
 											.addGap(1))
 										.addComponent(lbl_clientcnpjcpf, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(txt_clientCpf, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+											.addComponent(txt_clientCpf_1, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
 											.addGap(1))
 										.addComponent(lbl_zip, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(txt_zipCode, GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+											.addComponent(txt_zipCode, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
 											.addGap(6)
-											.addComponent(btnNewButton_searchcep, GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+											.addComponent(btnNewButton_searchcep, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
 											.addGap(5))
-										.addComponent(lbl_street, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(txt_streetName, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
-											.addGap(1))
 										.addGroup(gl_panel.createSequentialGroup()
 											.addComponent(lbl_num, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 											.addGap(77)
 											.addComponent(lbl_adress, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(txt_streetNumber, GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+											.addComponent(txt_streetNumber, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
 											.addGap(46)
-											.addComponent(txt_streetComplement, GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+											.addComponent(txt_streetComplement, GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
 											.addGap(1))
 										.addGroup(gl_panel.createSequentialGroup()
 											.addComponent(lbl_city, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
-											.addGap(151)
-											.addComponent(lbl_state, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+											.addComponent(lbl_state, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+											.addGap(99))
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(txt_city, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-											.addGap(57)
-											.addComponent(txt_state, 91, 91, 91)
+											.addComponent(txt_city, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(txt_state, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
 											.addGap(1))
 										.addComponent(lbl_meterNumber, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(txt_meterNumber, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
-											.addGap(1)))
-									.addGap(59)))
+											.addComponent(txt_meterNumber, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+											.addGap(1))
+										.addGroup(gl_panel.createSequentialGroup()
+											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+												.addComponent(lbl_street, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+												.addComponent(txt_streetName, GroupLayout.PREFERRED_SIZE, 202, GroupLayout.PREFERRED_SIZE))
+											.addGap(18)
+											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+												.addComponent(lbl_neighborhood, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+												.addComponent(txt_neighborhood, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))))
+									.addGap(13)))
 							.addGap(17)))
 					.addContainerGap())
 		);
@@ -380,7 +409,7 @@ public class ViewClient extends JFrame {
 					.addGap(6)
 					.addComponent(lbl_clientcnpjcpf)
 					.addGap(6)
-					.addComponent(txt_clientCpf, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+					.addComponent(txt_clientCpf_1, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addComponent(lbl_zip)
 					.addGap(6)
@@ -388,10 +417,14 @@ public class ViewClient extends JFrame {
 						.addComponent(txt_zipCode, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnNewButton_searchcep, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
 					.addGap(6)
-					.addComponent(lbl_street)
-					.addGap(6)
-					.addComponent(txt_streetName, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lbl_street)
+						.addComponent(lbl_neighborhood))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txt_streetName, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txt_neighborhood, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lbl_num)
 						.addComponent(lbl_adress))
@@ -403,12 +436,13 @@ public class ViewClient extends JFrame {
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lbl_city)
 						.addComponent(lbl_state))
-					.addGap(6)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(txt_city, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(txt_city, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(lbl_meterNumber))
 						.addComponent(txt_state, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addComponent(lbl_meterNumber)
 					.addGap(6)
 					.addComponent(txt_meterNumber, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)

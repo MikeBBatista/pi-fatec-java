@@ -15,13 +15,14 @@ public class Supplier {
 		this.setType(type);
 	}
 	
-	public Supplier(String cnpj, String name, String site, Integer id, Integer type) {
-		
+	public Supplier(Integer id, String cnpj, String name, String site, Integer type) {
+
+		this.setId(id);
 		this.setCnpj(cnpj);
 		this.setName(name);
 		this.setSite(site);
 		this.setType(type);	
-		this.setId(id);
+
 	}
 	
 	public Integer getId() {
@@ -70,10 +71,10 @@ public class Supplier {
 		}
 		return null;
 	}
-	
+
+	@Override
 	public String toString() {
-		String tipo = this.getType() == 0 ? "Luz" : "�gua";
-		String res = "Nome: "+this.getName() + "\nCNPJ: " + this.getCnpj() + "\nTipo: " + tipo;
-		return res;
+		return "Supplier [id=" + id + ", cnpj=" + cnpj + ", name=" + name + ", site=" + site + ", type=" + type + "]";
 	}
+	
 }

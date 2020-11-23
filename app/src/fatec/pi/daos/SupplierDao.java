@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import fatec.pi.entities.Supplier;
 
@@ -24,6 +25,7 @@ public class SupplierDao {
 			saveValues.setInt(4, supplier.getType());
 			
 			result = saveValues.executeUpdate();
+			con.connection.close();
 
 		}
 		catch(SQLException err) {
@@ -32,23 +34,25 @@ public class SupplierDao {
 		return result;
 	}
 	
-	public static List<Supplier> listSuppliers() {
+	public static List<Supplier> listSuppliers(String supplierCnpj) {
 		
 		List<Supplier> supplierList = new ArrayList<>();
-		String sql = "Select * from SUPPLIER where SUPPLIER_CNPJ = srch_supplier"; // verificar a cria��o de variavel
+		String sql = "Select * from SUPPLIER where SUPPLIER_CNPJ = ?;";
 		try {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement st = con.connection.prepareStatement(sql);
 			
-			st.executeQuery(sql);
+			st.setString(1, supplierCnpj);
+			
+			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			
 			while(rs.next()) {
 				Supplier sup = new Supplier(
+						rs.getInt("SUPPLIER_ID"),
 						rs.getString("SUPPLIER_CNPJ"), 
 						rs.getString("SUPPLIER_NAME"), 
 						rs.getString("SUPPLIER_SITE"),
-						rs.getInt("SUPPLIER_ID"),
 						rs.getInt("SUPPLIER_TYPE"));
 				supplierList.add(sup);
 			}
@@ -58,5 +62,41 @@ public class SupplierDao {
 		}
 		return supplierList;
 	}
+	
+	public static Integer update(Supplier supplier) {
+		
+		int result = 0;
+		
+		Logger logger = Logger.getLogger(SupplierDao.class.getName());
+		
+		
+		String sql = "UPDATE SUPPLIER SET SUPPLIER_CNPJ = ?, "
+				+ "SUPPLIER_NAME = ?, "
+				+ "SUPPLIER_SITE = ?, "
+				+ "SUPPLIER_TYPE = ? "
+				+ "WHERE SUPPLIER_ID = ?;";
+		
+		try {
+			
+			BaseConnection con = new BaseConnection();
+			PreparedStatement updateValues = con.connection.prepareStatement(sql);
+			
+			updateValues.setString(1, supplier.getCnpj());
+			updateValues.setString(2, supplier.getName());
+			updateValues.setString(3, supplier.getSite());
+			updateValues.setInt(4, supplier.getType());
+			updateValues.setInt(5, supplier.getId());
+			
+			result = updateValues.executeUpdate();
+			con.connection.close();
+			
+		} catch(SQLException err) {
+			
+			logger.info(err.getMessage());
+		}
+		return result;
+	}
+	
+	
 	
 }

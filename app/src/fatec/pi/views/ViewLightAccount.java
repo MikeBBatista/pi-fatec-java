@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import fatec.pi.controllers.LightAccountController;
+import fatec.pi.daos.LightAccountDao;
+import fatec.pi.entities.LightAccount;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -468,6 +471,7 @@ public class ViewLightAccount extends JFrame {
 		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				Integer identCod = Integer.parseInt(txt_identCod.getText());
 				Integer consumptionDays = Integer.parseInt(txt_consumptionDays.getText());
 				BigDecimal consumptionValue = new BigDecimal(txt_consumptionValue.getText());
 				BigDecimal pisPercentage = new BigDecimal(txt_pisPercentage.getText());
@@ -485,7 +489,7 @@ public class ViewLightAccount extends JFrame {
 				BigDecimal financialItems = new BigDecimal(txt_financialItems.getText());
 				BigDecimal amount = new BigDecimal(txt_amount.getText());
 				
-				LightAccountController.saveValues( txt_identCod.getText(), txt_meterNumber.getText(), txt_invoice.getText(), formataDados(txt_currentDate.getText()),
+				LightAccountController.saveValues( identCod, txt_meterNumber.getText(), txt_invoice.getText(), formataDados(txt_currentDate.getText()),
 						formataDados(txt_dueDate.getText()), consumptionDays, box_flagType.getSelectedItem().toString(), consumptionValue,
 						pisPercentage, cofinsPercentage, icmsBasis, icmsPercentage, icmsValue, pisCofinsBasis, pisValue,
 						cofinsValue, forfeitValue, interestValue, otherValues, supplyValue, financialItems, amount,
@@ -522,9 +526,11 @@ public class ViewLightAccount extends JFrame {
 		JButton btn_back = new JButton("VOLTAR");
 		btn_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				LightAccountDao.listLightAccounts();
 	                ViewMain viewMain = new ViewMain();
 	                viewMain.setVisible(true);
 	                setVisible(false);
+	
 			}
 		});
 		btn_back.setFont(new Font("Arial", Font.BOLD, 11));
