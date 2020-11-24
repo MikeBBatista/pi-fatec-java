@@ -50,10 +50,10 @@ public class SupplierDao {
 				
 				while(rs.next()) {
 					Supplier sup = new Supplier(
+							rs.getInt("SUPPLIER_ID"),
 							rs.getString("SUPPLIER_CNPJ"), 
 							rs.getString("SUPPLIER_NAME"), 
 							rs.getString("SUPPLIER_SITE"),
-							rs.getInt("SUPPLIER_ID"),
 							rs.getInt("SUPPLIER_TYPE"));
 					supplierList.add(sup);
 				}
@@ -76,10 +76,10 @@ public class SupplierDao {
 				
 				while(rs.next()) {
 					Supplier sup = new Supplier(
+							rs.getInt("SUPPLIER_ID"),
 							rs.getString("SUPPLIER_CNPJ"), 
 							rs.getString("SUPPLIER_NAME"), 
 							rs.getString("SUPPLIER_SITE"),
-							rs.getInt("SUPPLIER_ID"),
 							rs.getInt("SUPPLIER_TYPE"));
 					supplierList.add(sup);
 				}

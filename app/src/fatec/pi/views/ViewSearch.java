@@ -120,10 +120,6 @@ public class ViewSearch extends JFrame {
 		comboBoxBusca.setModel(new DefaultComboBoxModel(new String[] {"Cliente", "Conta", "Fornecedor"}));
 		contentPane.add(comboBoxBusca);
 		
-		JButton btnRelatorio = new JButton("Gerar Relat\u00F3rio");
-		btnRelatorio.setBounds(315, 621, 151, 23);
-		contentPane.add(btnRelatorio);
-		
 		JScrollPane scrollPane_table = new JScrollPane();
 		scrollPane_table.setBounds(209, 378, 524, 220);
 		contentPane.add(scrollPane_table);
@@ -137,6 +133,19 @@ public class ViewSearch extends JFrame {
 		table_data.setModel(dtm);
 		table_data.setBounds(297, 393, 476, 203);
 		DefaultTableModel modelo = (DefaultTableModel) table_data.getModel();
+		
+		JButton btnRelatorio = new JButton("Gerar Relat\u00F3rio");
+		btnRelatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(modelo.getDataVector().elementAt(0).toString());
+			}
+		});
+		btnRelatorio.setBounds(315, 621, 151, 23);
+		contentPane.add(btnRelatorio);
+		
+
+		
+
 		
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setBounds(555, 621, 151, 23);
