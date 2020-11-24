@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import fatec.pi.entities.Supplier;
 
@@ -33,6 +34,7 @@ public class SupplierDao {
 		return result;
 	}
 	
+
 	public static List<Supplier> listSuppliers(String cnpj) {
 		
 		List<Supplier> supplierList = new ArrayList<>();
@@ -90,5 +92,41 @@ public class SupplierDao {
 		}
 		return supplierList;
 	}
+	
+	public static Integer update(Supplier supplier) {
+		
+		int result = 0;
+		
+		Logger logger = Logger.getLogger(SupplierDao.class.getName());
+		
+		
+		String sql = "UPDATE SUPPLIER SET SUPPLIER_CNPJ = ?, "
+				+ "SUPPLIER_NAME = ?, "
+				+ "SUPPLIER_SITE = ?, "
+				+ "SUPPLIER_TYPE = ? "
+				+ "WHERE SUPPLIER_ID = ?;";
+		
+		try {
+			
+			BaseConnection con = new BaseConnection();
+			PreparedStatement updateValues = con.connection.prepareStatement(sql);
+			
+			updateValues.setString(1, supplier.getCnpj());
+			updateValues.setString(2, supplier.getName());
+			updateValues.setString(3, supplier.getSite());
+			updateValues.setInt(4, supplier.getType());
+			updateValues.setInt(5, supplier.getId());
+			
+			result = updateValues.executeUpdate();
+			con.connection.close();
+			
+		} catch(SQLException err) {
+			
+			logger.info(err.getMessage());
+		}
+		return result;
+	}
+	
+	
 	
 }

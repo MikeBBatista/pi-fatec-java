@@ -3,6 +3,7 @@ package fatec.pi.daos;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -73,6 +74,8 @@ public class LightAccountDao {
 		}
 		
 		return result;
+	}		
+	
 	}
 	
 	public static List<LightAccount> listLightAccounts(){
@@ -121,4 +124,98 @@ public class LightAccountDao {
 		return lightList;
 		
 	}
+		public static Integer update(LightAccount light) {
+		
+				String sql = "UPDATE LIGHT_ACCOUNT SET (ACCOUNT_IDENT_COD = ?,"
+				+ "ACCOUNT_CLIENT_METER_NUMBER = ?, "
+				+ "ACCOUNT_INVOICE = ?, "
+				+ "ACCOUNT_CURRENT_DATE = ?, "
+				+ "ACCOUNT_CONSUMPTION_DAYS= ?, "
+				+ "ACCOUNT_FLAG_TYPE, = ?, "
+				+ "ACCOUNT_CONSUMPTION_VALUE = ?, "
+				+ "ACCOUNT_PIS_PERCENTAGE = ?, "
+				+ "ACCOUNT_COFINS_PERCENTAGE = ?, "
+				+ "ACCOUNT_ICMS_BASIS = ? "
+				+ "ACCOUNT_ICMS_PERCENTAGE = ?,"
+				+ "ACCOUNT_ICMS_VALUE = ?, "
+				+ "ACCOUNT_PIS_COFINS_BASIS = ?, "
+				+ "ACCOUNT_PIS_VALUE = ?, "
+				+ "ACCOUNT_COFINS_VALUE = ?, "
+				+ "ACCOUNT_FORFEIT_VALUE = ?, "
+				+ "ACCOUNT_INTEREST_VALUE = ?, "
+				+ "ACCOUNT_OTHER_VALUES = ?, "
+				+ "ACCOUNT_SUPPLY_VALUES = ?, "
+				+ "ACCOUNT_FINANCIAL_ITEMS = ?, "
+				+ "ACCOUNT_AMOUNT = ?, "
+				+ "ACCOUNT_SUPPLIER_CNPJ = ?)"
+				+ "WHERE ACCOUNT_ID = ?;";
+		
+		try {
+			
+			BaseConnection con = new BaseConnection();
+			PreparedStatement updateValues = con.connection.prepareStatement(sql);
+			
+			updateValues.setInt(1, id);
+			updateValues.setInt(1, light.getIdentCod());
+			updateValues.setString(2, light.getMeterNumber());
+			updateValues.setString(3, light.getInvoice());
+			updateValues.setString(4, light.getCurrentDate());
+			updateValues.setString(5, light.getDueDate());
+			updateValues.setInt(6, light.getConsumptionDays());
+			updateValues.setString(7, light.getFlagType());
+			updateValues.setBigDecimal(8, light.getConsumptionValue());
+			updateValues.setBigDecimal(9, light.getPisPercentage());
+			updateValues.setBigDecimal(10, light.getCofinsPercentage());
+			updateValues.setBigDecimal(11, light.getIcmsBasis());
+			updateValues.setBigDecimal(12, light.getIcmsPercentage());
+			updateValues.setBigDecimal(13, light.getIcmsValue());
+			updateValues.setBigDecimal(14, light.getPisCofinsBasis());
+			updateValues.setBigDecimal(15, light.getPisValue());
+			updateValues.setBigDecimal(16, light.getCofinsValue());
+			updateValues.setBigDecimal(17, light.getForfeitValue());
+			updateValues.setBigDecimal(18, light.getInterestValue());
+			updateValues.setBigDecimal(19, light.getOtherValues());
+			updateValues.setBigDecimal(20, light.getSupplyValue());
+			updateValues.setBigDecimal(21, light.getFinancialItems());
+			updateValues.setBigDecimal(22, light.getAmount());
+			updateValues.setString(23, light.getSupplierCnpj());
+			updateValues.setInt(24, light.getId());
+			
+			result = updateValues.executeUpdate();
+			con.connection.close();
+			
+		} catch(SQLException err) {
+			
+			logger.info(err.getMessage());
+		}
+		
+		return result;
+	}
+
+public static Integer delete(Integer id) {
+		
+		int result = 0;
+		
+		Logger logger = Logger.getLogger(LightAccountDao.class.getName());
+		
+		String sql = "DELETE FROM LIGHT_ACCOUNT WHERE ACCOUNT_ID = ?;";
+		
+		try {
+			
+			BaseConnection con = new BaseConnection();
+			PreparedStatement updateValues = con.connection.prepareStatement(sql);
+			
+			updateValues.setInt(1, id);
+			
+			result = updateValues.executeUpdate();
+			con.connection.close();
+			
+		} catch(SQLException err) {
+			
+			logger.info(err.getMessage());
+		}
+		
+		return result;
+	}
+
 }

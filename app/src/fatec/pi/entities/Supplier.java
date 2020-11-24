@@ -15,13 +15,14 @@ public class Supplier {
 		this.setType(type);
 	}
 	
-	public Supplier(String cnpj, String name, String site, Integer id, Integer type) {
-		
+	public Supplier(Integer id, String cnpj, String name, String site, Integer type) {
+
+		this.setId(id);
 		this.setCnpj(cnpj);
 		this.setName(name);
 		this.setSite(site);
 		this.setType(type);	
-		this.setId(id);
+
 	}
 	
 	public Integer getId() {
