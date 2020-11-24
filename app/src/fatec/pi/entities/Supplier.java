@@ -16,7 +16,6 @@ public class Supplier {
 	}
 	
 	public Supplier( Integer id, String cnpj, String name, String site, Integer type) {
-		
 		this.setId(id);
 		this.setCnpj(cnpj);
 		this.setName(name);

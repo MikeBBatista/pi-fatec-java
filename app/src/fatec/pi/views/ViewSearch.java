@@ -120,6 +120,7 @@ public class ViewSearch extends JFrame {
 		comboBoxBusca.setModel(new DefaultComboBoxModel(new String[] {"Cliente", "Conta", "Fornecedor"}));
 		contentPane.add(comboBoxBusca);
 		
+
 		JScrollPane scrollPane_table = new JScrollPane();
 		scrollPane_table.setBounds(209, 378, 524, 220);
 		contentPane.add(scrollPane_table);
@@ -142,10 +143,6 @@ public class ViewSearch extends JFrame {
 		});
 		btnRelatorio.setBounds(315, 621, 151, 23);
 		contentPane.add(btnRelatorio);
-		
-
-		
-
 		
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setBounds(555, 621, 151, 23);
