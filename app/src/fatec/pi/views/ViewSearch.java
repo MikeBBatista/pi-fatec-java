@@ -29,6 +29,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -47,6 +48,7 @@ public class ViewSearch extends JFrame {
 	private JTextField textFieldNOME;
 	private DefaultTableModel dtm = new DefaultTableModel();;
 	private JTable table_data;
+	private String type = "";
 	/**
 	 * Launch the application.
 	 */
@@ -120,10 +122,7 @@ public class ViewSearch extends JFrame {
 		comboBoxBusca.setModel(new DefaultComboBoxModel(new String[] {"Cliente", "Conta", "Fornecedor"}));
 		contentPane.add(comboBoxBusca);
 		
-		JButton btnRelatorio = new JButton("Gerar Relat\u00F3rio");
-		btnRelatorio.setBounds(315, 621, 151, 23);
-		contentPane.add(btnRelatorio);
-		
+
 		JScrollPane scrollPane_table = new JScrollPane();
 		scrollPane_table.setBounds(209, 378, 524, 220);
 		contentPane.add(scrollPane_table);
@@ -138,18 +137,26 @@ public class ViewSearch extends JFrame {
 		table_data.setBounds(297, 393, 476, 203);
 		DefaultTableModel modelo = (DefaultTableModel) table_data.getModel();
 		
+		JButton btnRelatorio = new JButton("Gerar Relat\u00F3rio");
+		btnRelatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnRelatorio.setBounds(209, 621, 151, 23);
+		contentPane.add(btnRelatorio);
+		
 		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setBounds(555, 621, 151, 23);
+		btnVoltar.setBounds(582, 621, 151, 23);
 		contentPane.add(btnVoltar);
 		
 		JButton btnPesquisa = new JButton("Pesquisar");
 		btnPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				modelo.setNumRows(0);
-				String search = comboBoxBusca.getSelectedItem().toString();
+				type = comboBoxBusca.getSelectedItem().toString();
 				String cnpj = formataDados(textFieldCNPJ_1.getText());
-				dtm.setColumnIdentifiers(searchTitles(search));
-				searchResult(modelo, search, cnpj);
+				dtm.setColumnIdentifiers(searchTitles(type));
+				searchResult(modelo, type, cnpj);
 				textFieldCNPJ_1.setText("");
 				
 				
@@ -185,6 +192,16 @@ public class ViewSearch extends JFrame {
 		JLabel LabelBusca = new JLabel("Buscar por");
 		LabelBusca.setBounds(315, 109, 74, 20);
 		contentPane.add(LabelBusca);
+		
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				updateData(table_data, modelo, type);
+			}
+		});
+		btnUpdate.setBounds(402, 621, 151, 23);
+		contentPane.add(btnUpdate);
 		
 
 		
@@ -222,5 +239,26 @@ public class ViewSearch extends JFrame {
 				}
 			}
 			
+		}
+		
+		public static void updateData(JTable table, DefaultTableModel modelTable, String type){
+			
+			Integer row = table.getSelectedRow();
+			String rowValues = modelTable.getDataVector().elementAt(row).toString();
+			rowValues = rowValues.replaceAll("\\[", "");
+			rowValues = rowValues.replaceAll("\\]", "");
+			String[] objectValues = rowValues.split(", ");
+			
+			if(type.equals("Fornecedor")) {
+				Integer supType = 3;
+				if(objectValues[4].equals("Energia")) {
+					supType = 0;
+				}
+				else if (objectValues[4].equals("Água")) {
+					supType = 1;
+				}
+				Supplier sup = new Supplier(Integer.parseInt(objectValues[0]),Integer.parseInt(objectValues[1]), objectValues[2], objectValues[3], supType);
+				SupplierController.updateValues(sup);
+			}
 		}
 }
