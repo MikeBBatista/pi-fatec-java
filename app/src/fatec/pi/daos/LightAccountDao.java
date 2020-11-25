@@ -76,8 +76,6 @@ public class LightAccountDao {
 		return result;
 	}		
 	
-	}
-	
 	public static List<LightAccount> listLightAccounts(){
 		List<LightAccount> lightList = new ArrayList<>();
 		String sql = "Select * from LIGHT_ACCOUNT";
@@ -125,7 +123,10 @@ public class LightAccountDao {
 		
 	}
 		public static Integer update(LightAccount light) {
-		
+				
+				Integer result = 0;
+				Logger logger = Logger.getLogger(SupplierDao.class.getName());
+				
 				String sql = "UPDATE LIGHT_ACCOUNT SET (ACCOUNT_IDENT_COD = ?,"
 				+ "ACCOUNT_CLIENT_METER_NUMBER = ?, "
 				+ "ACCOUNT_INVOICE = ?, "
@@ -155,7 +156,7 @@ public class LightAccountDao {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement updateValues = con.connection.prepareStatement(sql);
 			
-			updateValues.setInt(1, id);
+			
 			updateValues.setInt(1, light.getIdentCod());
 			updateValues.setString(2, light.getMeterNumber());
 			updateValues.setString(3, light.getInvoice());

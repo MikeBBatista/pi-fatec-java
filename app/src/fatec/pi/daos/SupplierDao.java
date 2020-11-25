@@ -19,7 +19,7 @@ public class SupplierDao {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement saveValues = con.connection.prepareStatement(sql);
 			
-			saveValues.setString(1, supplier.getCnpj());
+			saveValues.setInt(1, supplier.getCnpj());
 			saveValues.setString(2, supplier.getName());
 			saveValues.setString(3, supplier.getSite());
 			saveValues.setInt(4, supplier.getType());
@@ -53,7 +53,7 @@ public class SupplierDao {
 				while(rs.next()) {
 					Supplier sup = new Supplier(
 							rs.getInt("SUPPLIER_ID"),
-							rs.getString("SUPPLIER_CNPJ"), 
+							rs.getInt("SUPPLIER_CNPJ"), 
 							rs.getString("SUPPLIER_NAME"), 
 							rs.getString("SUPPLIER_SITE"),
 							rs.getInt("SUPPLIER_TYPE"));
@@ -79,7 +79,7 @@ public class SupplierDao {
 				while(rs.next()) {
 					Supplier sup = new Supplier(
 							rs.getInt("SUPPLIER_ID"),
-							rs.getString("SUPPLIER_CNPJ"), 
+							rs.getInt("SUPPLIER_CNPJ"), 
 							rs.getString("SUPPLIER_NAME"), 
 							rs.getString("SUPPLIER_SITE"),
 							rs.getInt("SUPPLIER_TYPE"));
@@ -95,7 +95,7 @@ public class SupplierDao {
 	
 	public static Integer update(Supplier supplier) {
 		
-		int result = 0;
+		Integer result = 0;
 		
 		Logger logger = Logger.getLogger(SupplierDao.class.getName());
 		
@@ -111,7 +111,7 @@ public class SupplierDao {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement updateValues = con.connection.prepareStatement(sql);
 			
-			updateValues.setString(1, supplier.getCnpj());
+			updateValues.setInt(1, supplier.getCnpj());
 			updateValues.setString(2, supplier.getName());
 			updateValues.setString(3, supplier.getSite());
 			updateValues.setInt(4, supplier.getType());
