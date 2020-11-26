@@ -172,7 +172,6 @@ public class ViewWaterAccount extends JFrame {
 		JButton btnVoltar = new JButton("VOLTAR");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WaterAccountDao.listWaterAccounts();
 				ViewMain voltamenu = new ViewMain();
 				voltamenu.setVisible(true);
 				setVisible(false);

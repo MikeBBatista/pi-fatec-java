@@ -108,6 +108,7 @@ public class ViewSearch extends JFrame {
 		comboBoxConta.setModel(new DefaultComboBoxModel(new String[] {"\u00C1gua", "Luz"}));
 		contentPane.add(comboBoxConta);
 		
+		
 		JLabel LabelTipodeConta = new JLabel("Tipo de conta");
 		LabelTipodeConta.setBounds(308, 247, 94, 17);
 		contentPane.add(LabelTipodeConta);
@@ -154,8 +155,9 @@ public class ViewSearch extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				modelo.setNumRows(0);
 				type = comboBoxBusca.getSelectedItem().toString();
+				String accountType = comboBoxConta.getSelectedItem().toString(); 
 				String cnpj = formataDados(textFieldCNPJ_1.getText());
-				dtm.setColumnIdentifiers(searchTitles(type));
+				dtm.setColumnIdentifiers(searchTitles(type, accountType));
 				searchResult(modelo, type, cnpj);
 				textFieldCNPJ_1.setText("");
 				
@@ -217,15 +219,30 @@ public class ViewSearch extends JFrame {
 			   return dado.replaceAll("[^0-9]+", "");
 			}
 		
-		public static String[] searchTitles(String search) {
+	
+		public static String[] searchTitles(String search, String accountType) {
 			String[] result = {"", "", "", "", ""};
 			if(search.equals("Fornecedor")) {
 				result = new String[]{"ID", "CNPJ", "NAME", "SITE", "TYPE"};
 			}
-			else if (search.equals("Fornecedor")) {
+			else if (search.equals("Cliente")) {
+				result = new String[]{"ID", "CPF/CNPJ", "NAME", "ZIP COD", "STREET NAME", "STREET NUMBER", "STREET COMPLEMENT", "CITY", "STATE" +
+						"METER NUMBER", "MEASUREMENT ORDER", "LIGHT CLASS ", "LIGHT SUBCLASS", "NORMAL TAX", "TRIBUTE TAX ", "SUPPLIER CNPJ"};
+			}
+			else if (search.equals("Conta")) { // CONTA AGUA e LUZ
+
+				if(accountType.equals("LUZ")) {
+					result = new String[]{"ID", "IDENT COD", "METERNUMBER", "INVOICE", "CURRENT DATE","DUE DATE","CONSUMPTION DAYS" +
+				"FLAG TYPE","CONSUMPTION VALUE","PIS PERCENTAGE","COFINS PERCENTAGE","ICMS BASIS","ICMS PERCENTAGE","ICMS VALUE" +
+					"PIS COFINS BASIS","PIS VALUE","COFINS VALUE","FORFEIT VALUE","INTEREST VALUE", "OTHER VALUES", "SUPPLY VALUES" +
+				"FINANCIAL ITEMS", "ACCOUNT AMOUNT", "SUPPLIER CNPJ"};
+				}
+				
+				else {
+					result = new String[]{"ID", "NUMBER", "DUA DATE", "PENALTY", "CONSUMPTION", "POLLUTION", "SEWER", "WATER", "PIS", "OTHERS","SUPPLIER CNPJ"};
+				}
 				
 			}
-			
 			return result;
 		}
 		
