@@ -2,12 +2,12 @@ package fatec.pi.entities;
 
 public class Supplier {
 	private Integer id;
-	private String cnpj;
+	private Integer cnpj;
 	private String name;
 	private String site;
 	private Integer type;
 	
-	public Supplier(String cnpj, String name, String site, Integer type) {
+	public Supplier(Integer cnpj, String name, String site, Integer type) {
 		
 		this.setCnpj(cnpj);
 		this.setName(name);
@@ -15,14 +15,12 @@ public class Supplier {
 		this.setType(type);
 	}
 	
-	public Supplier(Integer id, String cnpj, String name, String site, Integer type) {
-
+	public Supplier( Integer id, Integer cnpj, String name, String site, Integer type) {
 		this.setId(id);
 		this.setCnpj(cnpj);
 		this.setName(name);
 		this.setSite(site);
-		this.setType(type);	
-
+		this.setType(type);
 	}
 	
 	public Integer getId() {
@@ -33,12 +31,12 @@ public class Supplier {
 		this.id = id;
 	}
 
-	public String getCnpj() {
+	public Integer getCnpj() {
 		return cnpj;
 	}
 
-	public void setCnpj(String cnpj) {
-		this.cnpj = validateCnpj(cnpj);
+	public void setCnpj(Integer cnpj) {
+		this.cnpj = cnpj;
 	}
 
 	public String getName() {
@@ -63,13 +61,6 @@ public class Supplier {
 
 	public void setType(Integer type) {
 		this.type = type;
-	}
-	
-	public String validateCnpj(String cnpj) {
-		if (cnpj.length() == 14) {
-			return cnpj;
-		}
-		return null;
 	}
 
 	@Override
