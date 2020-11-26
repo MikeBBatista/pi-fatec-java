@@ -45,7 +45,7 @@ public class ViewSearch extends JFrame {
 	private JTextField textFieldCNPJ_1;
 	private JTextField textFieldCPF;
 	private JTextField textFieldCPF_1;
-	private JTextField textFieldNOME;
+	private JTextField textField_Account;
 	private DefaultTableModel dtm = new DefaultTableModel();;
 	private JTable table_data;
 	private String type = "";
@@ -91,25 +91,25 @@ public class ViewSearch extends JFrame {
 		txtPesquisa.setColumns(10);
 		
 		JLabel LabelCNPJ = new JLabel("CNPJ");
-		LabelCNPJ.setBounds(315, 140, 94, 25);
+		LabelCNPJ.setBounds(308, 140, 94, 25);
 		contentPane.add(LabelCNPJ);
 		
 		textFieldCNPJ = new JTextField();
 		try {
 			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##.###.###/####-##");
 			textFieldCNPJ_1= new javax.swing.JFormattedTextField(format_textField3);
-			textFieldCNPJ_1.setBounds(407, 140, 192, 25);
+			textFieldCNPJ_1.setBounds(346, 140, 273, 25);
 			} catch (Exception e){}
 		contentPane.add(textFieldCNPJ_1);
 		textFieldCNPJ_1.setColumns(10);
 		
 		JComboBox comboBoxConta = new JComboBox();
-		comboBoxConta.setBounds(407, 245, 94, 20);
+		comboBoxConta.setBounds(407, 245, 212, 20);
 		comboBoxConta.setModel(new DefaultComboBoxModel(new String[] {"\u00C1gua", "Luz"}));
 		contentPane.add(comboBoxConta);
 		
 		JLabel LabelTipodeConta = new JLabel("Tipo de conta");
-		LabelTipodeConta.setBounds(315, 247, 94, 17);
+		LabelTipodeConta.setBounds(308, 247, 94, 17);
 		contentPane.add(LabelTipodeConta);
 		
 		JLabel LabelLogo = new JLabel("");
@@ -118,7 +118,7 @@ public class ViewSearch extends JFrame {
 		contentPane.add(LabelLogo);
 		
 		JComboBox comboBoxBusca = new JComboBox();
-		comboBoxBusca.setBounds(407, 109, 94, 20);
+		comboBoxBusca.setBounds(370, 109, 249, 20);
 		comboBoxBusca.setModel(new DefaultComboBoxModel(new String[] {"Cliente", "Conta", "Fornecedor"}));
 		contentPane.add(comboBoxBusca);
 		
@@ -166,31 +166,31 @@ public class ViewSearch extends JFrame {
 		contentPane.add(btnPesquisa);
 		
 		JLabel lblCpf = new JLabel("CPF");
-		lblCpf.setBounds(315, 176, 94, 25);
+		lblCpf.setBounds(308, 176, 94, 25);
 		contentPane.add(lblCpf);
 		
 		textFieldCPF = new JTextField();
 		try {
 			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("###.###.###.-##");
 			textFieldCPF_1 = new javax.swing.JFormattedTextField(format_textField3);
-			textFieldCPF_1.setBounds(407, 176, 192, 25);
+			textFieldCPF_1.setBounds(346, 176, 273, 25);
 			} catch (Exception e){}
 		textFieldCPF_1.setColumns(10);
 		contentPane.add(textFieldCPF_1);
 		
-		JLabel lblNome = new JLabel("Nome");
-		lblNome.setBounds(315, 211, 94, 25);
-		contentPane.add(lblNome);
+		JLabel lblAccount = new JLabel("Hidr\u00F4metro / Medidor");
+		lblAccount.setBounds(308, 211, 108, 25);
+		contentPane.add(lblAccount);
 		
-		textFieldNOME = new JTextField();
-		textFieldNOME.setBounds(407, 212, 192, 25);
-		textFieldNOME.setColumns(10);
-		contentPane.add(textFieldNOME);
+		textField_Account = new JTextField();
+		textField_Account.setBounds(427, 212, 192, 25);
+		textField_Account.setColumns(10);
+		contentPane.add(textField_Account);
 		
 
 		
 		JLabel LabelBusca = new JLabel("Buscar por");
-		LabelBusca.setBounds(315, 109, 74, 20);
+		LabelBusca.setBounds(308, 109, 74, 20);
 		contentPane.add(LabelBusca);
 		
 		JButton btnUpdate = new JButton("Update");
@@ -222,6 +222,10 @@ public class ViewSearch extends JFrame {
 			if(search.equals("Fornecedor")) {
 				result = new String[]{"ID", "CNPJ", "NAME", "SITE", "TYPE"};
 			}
+			else if (search.equals("Fornecedor")) {
+				
+			}
+			
 			return result;
 		}
 		
@@ -254,7 +258,7 @@ public class ViewSearch extends JFrame {
 				if(objectValues[4].equals("Energia")) {
 					supType = 0;
 				}
-				else if (objectValues[4].equals("Água")) {
+				else if (objectValues[4].equals("Ã�gua")) {
 					supType = 1;
 				}
 				Supplier sup = new Supplier(Integer.parseInt(objectValues[0]),Integer.parseInt(objectValues[1]), objectValues[2], objectValues[3], supType);
