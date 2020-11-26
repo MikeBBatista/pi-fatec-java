@@ -3,12 +3,18 @@ package fatec.pi.views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import fatec.pi.controllers.SupplierController;
+import fatec.pi.entities.Supplier;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
@@ -16,10 +22,16 @@ import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
+import java.awt.event.ActionEvent;
 
 public class ViewSearch extends JFrame {
 
@@ -30,8 +42,13 @@ public class ViewSearch extends JFrame {
 	Color jpanel = new Color(95, 158, 160);
 	private JTextField txtPesquisa;
 	private JTextField textFieldCNPJ;
+	private JTextField textFieldCNPJ_1;
 	private JTextField textFieldCPF;
+	private JTextField textFieldCPF_1;
 	private JTextField textFieldNOME;
+	private DefaultTableModel dtm = new DefaultTableModel();;
+	private JTable table_data;
+	private String type = "";
 	/**
 	 * Launch the application.
 	 */
@@ -63,11 +80,11 @@ public class ViewSearch extends JFrame {
 		contentPane.setLayout(null);
 		
 		txtPesquisa = new JTextField();
+		txtPesquisa.setBounds(209, 46, 524, 38);
 		txtPesquisa.setEditable(false);
 		txtPesquisa.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPesquisa.setText("Pesquisa ");
 		txtPesquisa.setForeground(Color.WHITE);
-		txtPesquisa.setBounds(315, 46, 418, 38);
 		txtPesquisa.setBackground(jpanel);
 		txtPesquisa.setFont(new Font("Arial", Font.BOLD, 12));
 		contentPane.add(txtPesquisa);
@@ -80,15 +97,15 @@ public class ViewSearch extends JFrame {
 		textFieldCNPJ = new JTextField();
 		try {
 			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##.###.###/####-##");
-			textFieldCNPJ= new javax.swing.JFormattedTextField(format_textField3);
+			textFieldCNPJ_1= new javax.swing.JFormattedTextField(format_textField3);
+			textFieldCNPJ_1.setBounds(407, 140, 192, 25);
 			} catch (Exception e){}
-		textFieldCNPJ.setBounds(407, 140, 192, 25);
-		contentPane.add(textFieldCNPJ);
-		textFieldCNPJ.setColumns(10);
+		contentPane.add(textFieldCNPJ_1);
+		textFieldCNPJ_1.setColumns(10);
 		
 		JComboBox comboBoxConta = new JComboBox();
-		comboBoxConta.setModel(new DefaultComboBoxModel(new String[] {"\u00C1gua", "Luz"}));
 		comboBoxConta.setBounds(407, 245, 94, 20);
+		comboBoxConta.setModel(new DefaultComboBoxModel(new String[] {"\u00C1gua", "Luz"}));
 		contentPane.add(comboBoxConta);
 		
 		JLabel LabelTipodeConta = new JLabel("Tipo de conta");
@@ -96,25 +113,57 @@ public class ViewSearch extends JFrame {
 		contentPane.add(LabelTipodeConta);
 		
 		JLabel LabelLogo = new JLabel("");
-		LabelLogo.setIcon(new ImageIcon(ViewSearch.class.getResource("/img/rsz_poc_verde.png")));
 		LabelLogo.setBounds(473, 689, 126, 71);
+		LabelLogo.setIcon(new ImageIcon(ViewSearch.class.getResource("/img/rsz_poc_verde.png")));
 		contentPane.add(LabelLogo);
 		
+		JComboBox comboBoxBusca = new JComboBox();
+		comboBoxBusca.setBounds(407, 109, 94, 20);
+		comboBoxBusca.setModel(new DefaultComboBoxModel(new String[] {"Cliente", "Conta", "Fornecedor"}));
+		contentPane.add(comboBoxBusca);
+		
+
+		JScrollPane scrollPane_table = new JScrollPane();
+		scrollPane_table.setBounds(209, 378, 524, 220);
+		contentPane.add(scrollPane_table);
+		
+		table_data = new JTable();
+		scrollPane_table.setViewportView(table_data);
+		String[] rows = {"ID", "Name", "Site", "Type"};
+		dtm.setColumnIdentifiers(rows);
+		JScrollPane forTable = new JScrollPane();
+		getContentPane().add(forTable);
+		table_data.setModel(dtm);
+		table_data.setBounds(297, 393, 476, 203);
+		DefaultTableModel modelo = (DefaultTableModel) table_data.getModel();
+		
 		JButton btnRelatorio = new JButton("Gerar Relat\u00F3rio");
-		btnRelatorio.setBounds(350, 621, 151, 23);
+		btnRelatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnRelatorio.setBounds(209, 621, 151, 23);
 		contentPane.add(btnRelatorio);
 		
 		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setBounds(555, 621, 151, 23);
+		btnVoltar.setBounds(582, 621, 151, 23);
 		contentPane.add(btnVoltar);
 		
 		JButton btnPesquisa = new JButton("Pesquisar");
+		btnPesquisa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				modelo.setNumRows(0);
+				type = comboBoxBusca.getSelectedItem().toString();
+				String cnpj = formataDados(textFieldCNPJ_1.getText());
+				dtm.setColumnIdentifiers(searchTitles(type));
+				searchResult(modelo, type, cnpj);
+				textFieldCNPJ_1.setText("");
+				
+				
+			}
+		});
 		btnPesquisa.setBounds(625, 344, 108, 23);
 		contentPane.add(btnPesquisa);
-		
-		JSpinner spinner = new JSpinner();
-		spinner.setBounds(315, 394, 418, 147);
-		contentPane.add(spinner);
 		
 		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setBounds(315, 176, 94, 25);
@@ -123,29 +172,41 @@ public class ViewSearch extends JFrame {
 		textFieldCPF = new JTextField();
 		try {
 			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("###.###.###.-##");
-			textFieldCPF = new javax.swing.JFormattedTextField(format_textField3);
+			textFieldCPF_1 = new javax.swing.JFormattedTextField(format_textField3);
+			textFieldCPF_1.setBounds(407, 176, 192, 25);
 			} catch (Exception e){}
-		textFieldCPF.setColumns(10);
-		textFieldCPF.setBounds(407, 176, 192, 25);
-		contentPane.add(textFieldCPF);
+		textFieldCPF_1.setColumns(10);
+		contentPane.add(textFieldCPF_1);
 		
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setBounds(315, 211, 94, 25);
 		contentPane.add(lblNome);
 		
 		textFieldNOME = new JTextField();
-		textFieldNOME.setColumns(10);
 		textFieldNOME.setBounds(407, 212, 192, 25);
+		textFieldNOME.setColumns(10);
 		contentPane.add(textFieldNOME);
 		
-		JComboBox comboBoxBusca = new JComboBox();
-		comboBoxBusca.setModel(new DefaultComboBoxModel(new String[] {"Cliente", "Conta", "Fornecedor"}));
-		comboBoxBusca.setBounds(407, 109, 94, 20);
-		contentPane.add(comboBoxBusca);
+
 		
 		JLabel LabelBusca = new JLabel("Buscar por");
 		LabelBusca.setBounds(315, 109, 74, 20);
 		contentPane.add(LabelBusca);
+		
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				updateData(table_data, modelo, type);
+			}
+		});
+		btnUpdate.setBounds(402, 621, 151, 23);
+		contentPane.add(btnUpdate);
+		
+
+		
+		
+
 		
 	
 		
@@ -155,4 +216,49 @@ public class ViewSearch extends JFrame {
 			
 			   return dado.replaceAll("[^0-9]+", "");
 			}
+		
+		public static String[] searchTitles(String search) {
+			String[] result = {"", "", "", "", ""};
+			if(search.equals("Fornecedor")) {
+				result = new String[]{"ID", "CNPJ", "NAME", "SITE", "TYPE"};
+			}
+			return result;
+		}
+		
+		public static void searchResult(DefaultTableModel table, String type, String cnpj) {
+			if(type.equals("Fornecedor")) {
+				List<Supplier> sup = SupplierController.getValues(cnpj);
+				for(Supplier sp: sup) {
+					table.addRow(new Object[] {
+							sp.getId(),
+							sp.getCnpj(),
+							sp.getName(),
+							sp.getSite(),
+							sp.toType()
+					});
+				}
+			}
+			
+		}
+		
+		public static void updateData(JTable table, DefaultTableModel modelTable, String type){
+			
+			Integer row = table.getSelectedRow();
+			String rowValues = modelTable.getDataVector().elementAt(row).toString();
+			rowValues = rowValues.replaceAll("\\[", "");
+			rowValues = rowValues.replaceAll("\\]", "");
+			String[] objectValues = rowValues.split(", ");
+			
+			if(type.equals("Fornecedor")) {
+				Integer supType = 3;
+				if(objectValues[4].equals("Energia")) {
+					supType = 0;
+				}
+				else if (objectValues[4].equals("Água")) {
+					supType = 1;
+				}
+				Supplier sup = new Supplier(Integer.parseInt(objectValues[0]),Integer.parseInt(objectValues[1]), objectValues[2], objectValues[3], supType);
+				SupplierController.updateValues(sup);
+			}
+		}
 }
