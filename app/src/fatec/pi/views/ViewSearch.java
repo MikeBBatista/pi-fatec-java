@@ -12,7 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import fatec.pi.controllers.ClientController;
 import fatec.pi.controllers.SupplierController;
+import fatec.pi.entities.Client;
 import fatec.pi.entities.Supplier;
 
 import javax.swing.JTextField;
@@ -31,6 +33,7 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.ScrollPaneConstants;
 
 public class ViewSearch extends JFrame {
 
@@ -125,13 +128,12 @@ public class ViewSearch extends JFrame {
 		contentPane.add(btnRelatorio);
 		
 		JScrollPane scrollPane_table = new JScrollPane();
+		scrollPane_table.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane_table.setBounds(209, 378, 524, 220);
 		contentPane.add(scrollPane_table);
 		
 		table_data = new JTable();
 		scrollPane_table.setViewportView(table_data);
-		String[] rows = {"ID", "Name", "Site", "Type"};
-		dtm.setColumnIdentifiers(rows);
 		JScrollPane forTable = new JScrollPane();
 		getContentPane().add(forTable);
 		table_data.setModel(dtm);
@@ -141,22 +143,6 @@ public class ViewSearch extends JFrame {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setBounds(555, 621, 151, 23);
 		contentPane.add(btnVoltar);
-		
-		JButton btnPesquisa = new JButton("Pesquisar");
-		btnPesquisa.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				modelo.setNumRows(0);
-				String search = comboBoxBusca.getSelectedItem().toString();
-				String cnpj = formataDados(textFieldCNPJ_1.getText());
-				dtm.setColumnIdentifiers(searchTitles(search));
-				searchResult(modelo, search, cnpj);
-				textFieldCNPJ_1.setText("");
-				
-				
-			}
-		});
-		btnPesquisa.setBounds(625, 344, 108, 23);
-		contentPane.add(btnPesquisa);
 		
 		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setBounds(315, 176, 94, 25);
@@ -171,6 +157,24 @@ public class ViewSearch extends JFrame {
 		textFieldCPF_1.setColumns(10);
 		contentPane.add(textFieldCPF_1);
 		
+		JButton btnPesquisa = new JButton("Pesquisar");
+		btnPesquisa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				modelo.setNumRows(0);
+				
+				String search = comboBoxBusca.getSelectedItem().toString();
+				String cnpj = formataDados(textFieldCNPJ_1.getText());
+				String clientCpf = formataDados(textFieldCPF_1.getText());
+				dtm.setColumnIdentifiers(searchTitles(search));
+				searchResult(modelo, search, cnpj, clientCpf);
+				textFieldCNPJ_1.setText("");
+								
+			}
+		});
+		btnPesquisa.setBounds(625, 344, 108, 23);
+		contentPane.add(btnPesquisa);
+		
+				
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setBounds(315, 211, 94, 25);
 		contentPane.add(lblNome);
@@ -188,11 +192,6 @@ public class ViewSearch extends JFrame {
 		
 
 		
-		
-
-		
-	
-		
 	}
 	//Func Trata Dados
 		public static String formataDados(String dado){
@@ -205,10 +204,16 @@ public class ViewSearch extends JFrame {
 			if(search.equals("Fornecedor")) {
 				result = new String[]{"ID", "CNPJ", "NAME", "SITE", "TYPE"};
 			}
+			else if (search.equals("Cliente")) {
+				result = new String[]{"ID", "CPF", "FORNECEDOR_CNPJ", "NAME", "CEP", "NOME_RUA",
+						"NUMERO", "COMPLEMENTO", "CIDADE", "ESTADO", "MEDIDOR", "ROTEIRO", "CLASSE",
+						"SUBCLASSE", "TAXA", "TAXA_IMPOSTO"};
+				}
 			return result;
 		}
-		
-		public static void searchResult(DefaultTableModel table, String type, String cnpj) {
+			
+				
+		public static void searchResult(DefaultTableModel table, String type, String cnpj, String clientCpf) {
 			if(type.equals("Fornecedor")) {
 				List<Supplier> sup = SupplierController.getValues(cnpj);
 				for(Supplier sp: sup) {
@@ -220,6 +225,30 @@ public class ViewSearch extends JFrame {
 							sp.toType()
 					});
 				}
+			}
+			if(type.contentEquals("Cliente")) {
+				List<Client> clt = ClientController.getValues(clientCpf);
+				for(Client cl: clt) {
+					table.addRow(new Object[] {
+							cl.getId(),
+							cl.getClientCpf(),
+							cl.getSupplierCnpj(),
+							cl.getClientName(),
+							cl.getZipCode(),
+							cl.getStreetName(),
+							cl.getStreetNumber(),
+							cl.getStreetComplement(),
+							cl.getCity(),
+							cl.getState(),
+							cl.getMeterNumber(),
+							cl.getMeasurementOrder(),
+							cl.getClass(),
+							cl.getLightSubclass(),
+							cl.getNormalTax(),
+							cl.getTributeTax()
+					});
+				}
+				
 			}
 			
 		}

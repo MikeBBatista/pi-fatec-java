@@ -258,14 +258,14 @@ public class ViewClient extends JFrame {
 				BigDecimal tributeTax = new BigDecimal(txt_tributeTax.getText());
 				Integer meterNumber = Integer.parseInt(txt_streetNumber.getText());
 				
-				ClientController.saveValues(formataDados(txt_supplierCnpj.getText()), formataDados(txt_clientCpf.getText()), txt_clientName.getText(),
+				ClientController.saveValues(formataDados(txt_supplierCnpj.getText()), formataDados(txt_clientCpf_1.getText()), txt_clientName.getText(),
 						formataDados(txt_zipCode.getText()), meterNumber, txt_streetName.getText(), txt_streetComplement.getText(),
 						txt_city.getText(), txt_state.getText(), txt_meterNumber.getText(), txt_measurementOrder.getText(),
 						box_lightClass.getSelectedItem().toString(), box_lightSubclass.getSelectedItem().toString(),
 						normalTax, tributeTax);
 				txt_supplierCnpj.setText("");
-				txt_clientName.setText("");
 				txt_clientCpf.setText("");
+				txt_clientName.setText("");
 				txt_zipCode.setText("");
 				txt_streetName.setText("");
 				txt_streetComplement.setText("");
