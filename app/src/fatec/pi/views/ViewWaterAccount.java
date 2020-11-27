@@ -27,7 +27,9 @@ public class ViewWaterAccount extends JFrame {
 	private JPanel contentPane;
 	private JTextField text_numhidro;
 	private JTextField text_dateleitura;
+	private JTextField text_dateleitura_1;
 	private JTextField text_datevencimento;
+	private JTextField text_datevencimento_1;
 	private JTextField text_consumo;
 	private JTextField text_watervalue;
 	private JTextField text_sewervalue;
@@ -73,7 +75,7 @@ public class ViewWaterAccount extends JFrame {
 		lblCadastroConta.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(lblCadastroConta);
 		
-		JLabel lbl_hNumber = new JLabel("Hidr\u00F4metro");
+		JLabel lbl_hNumber = new JLabel("N\u00FAmero de Instala\u00E7\u00E3o (Hidr\u00F4metro)");
 		lbl_hNumber.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		text_numhidro = new JTextField();
@@ -82,11 +84,11 @@ public class ViewWaterAccount extends JFrame {
 		text_dateleitura = new JTextField();
 		try {
 			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
-			text_dateleitura = new javax.swing.JFormattedTextField(format_textField3);
+			text_dateleitura_1 = new javax.swing.JFormattedTextField(format_textField3);
 			} catch (Exception e){}
-		text_dateleitura.setForeground(Color.BLACK);
-		text_dateleitura.setFont(new Font("Arial", Font.PLAIN, 11));
-		text_dateleitura.setColumns(10);
+		text_dateleitura_1.setForeground(Color.BLACK);
+		text_dateleitura_1.setFont(new Font("Arial", Font.PLAIN, 11));
+		text_dateleitura_1.setColumns(10);
 		
 		JLabel lbl_dueDate = new JLabel("Leitura Atual");
 		lbl_dueDate.setFont(new Font("Arial", Font.BOLD, 11));
@@ -97,11 +99,11 @@ public class ViewWaterAccount extends JFrame {
 		text_datevencimento = new JTextField();
 		try {
 			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
-			text_datevencimento = new javax.swing.JFormattedTextField(format_textField3);
+			text_datevencimento_1 = new javax.swing.JFormattedTextField(format_textField3);
 			} catch (Exception e){}
-		text_datevencimento.setForeground(Color.BLACK);
-		text_datevencimento.setFont(new Font("Arial", Font.PLAIN, 11));
-		text_datevencimento.setColumns(10);
+		text_datevencimento_1.setForeground(Color.BLACK);
+		text_datevencimento_1.setFont(new Font("Arial", Font.PLAIN, 11));
+		text_datevencimento_1.setColumns(10);
 		
 		JLabel lbl_consumption = new JLabel("Consumo (m\u00B3)");
 		lbl_consumption.setFont(new Font("Arial", Font.BOLD, 11));
@@ -173,7 +175,6 @@ public class ViewWaterAccount extends JFrame {
 		JButton btnVoltar = new JButton("VOLTAR");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WaterAccountDao.listWaterAccounts();
 				ViewMain voltamenu = new ViewMain();
 				voltamenu.setVisible(true);
 				setVisible(false);
@@ -195,8 +196,8 @@ public class ViewWaterAccount extends JFrame {
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(331)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -243,18 +244,16 @@ public class ViewWaterAccount extends JFrame {
 														.addComponent(text_consumo, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
 														.addGap(33)
 														.addComponent(text_watervalue, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
-													.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-														.addComponent(lbl_hNumber, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-														.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-															.addGroup(gl_contentPane.createSequentialGroup()
-																.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-																	.addComponent(lbl_dueDate, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-																	.addComponent(text_dateleitura, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
-																.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-																.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-																	.addComponent(lbl_pDate, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-																	.addComponent(text_datevencimento, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)))
-															.addComponent(text_numhidro, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)))))))
+													.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+														.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+															.addComponent(lbl_dueDate, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+															.addComponent(text_dateleitura_1, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
+														.addPreferredGap(ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+														.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+															.addComponent(lbl_pDate, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+															.addComponent(text_datevencimento_1, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)))
+													.addComponent(text_numhidro, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
+													.addComponent(lbl_hNumber, GroupLayout.PREFERRED_SIZE, 194, GroupLayout.PREFERRED_SIZE)))))
 									.addGap(320))))))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -266,20 +265,20 @@ public class ViewWaterAccount extends JFrame {
 					.addComponent(lbl_Supplier)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(text_SupplierCnpj, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+					.addGap(24)
 					.addComponent(lbl_hNumber)
-					.addGap(6)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addComponent(text_numhidro, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(lbl_dueDate)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(text_dateleitura, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+							.addComponent(text_dateleitura_1, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(lbl_pDate)
 							.addGap(6)
-							.addComponent(text_datevencimento, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(text_datevencimento_1, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(lbl_consumption)

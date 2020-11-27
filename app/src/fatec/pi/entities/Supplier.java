@@ -2,6 +2,7 @@ package fatec.pi.entities;
 
 public class Supplier {
 	private Integer id;
+
 	private Long cnpj;
 	private String name;
 	private String site;
@@ -9,6 +10,7 @@ public class Supplier {
 	private Integer createdBy;
 	private Integer alterBy;
 	
+
 	public Supplier(Long cnpj, String name, String site, Integer type, Integer createdBy, Integer alterBy) {
 		
 		this.setCnpj(cnpj);
@@ -19,6 +21,7 @@ public class Supplier {
 		this.setAlterBy(alterBy);
 	}
 	
+
 	public Supplier( Integer id, Long cnpj, String name, String site, Integer type, Integer alterBy) {
 		this.setId(id);
 		this.setCnpj(cnpj);
@@ -35,6 +38,7 @@ public class Supplier {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 
 	public Long getCnpj() {
 		return cnpj;
@@ -68,6 +72,7 @@ public class Supplier {
 		this.type = type;
 	}
 
+
 	public Integer getCreatedBy() {
 		return createdBy;
 	}
@@ -80,6 +85,7 @@ public class Supplier {
 	public Integer getAlterBy() {
 		return alterBy;
 	}
+
 
 	public void setAlterBy(Integer alterBy) {
 		this.alterBy = alterBy;

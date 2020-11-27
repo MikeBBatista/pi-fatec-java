@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import fatec.pi.entities.Supplier;
 import fatec.pi.entities.WaterAccount;
 
 
@@ -55,21 +56,19 @@ public class WaterAccountDao {
 		return result;
 	}	
 	
-	public static List<WaterAccount> listWaterAccounts() {
+	public static List<WaterAccount> listWaterAccounts(Integer hidroNum) {
 		
-		String sql = "Select * from WATER_ACCOUNT";
 		List<WaterAccount> WaterAccountList = new ArrayList<>();
+		String sql = "";
 		
-		try {
-			BaseConnection con = new BaseConnection();
-			PreparedStatement st = con.connection.prepareStatement(sql);
+		if(hidroNum.equals("")) {
+			sql = "Select * from WATER_ACCOUNT;";
 			
-		
-			ResultSet result = st.executeQuery();
-			
-			
-			while(result.next()) {
+			try {
+				BaseConnection con = new BaseConnection();
+				PreparedStatement st = con.connection.prepareStatement(sql);
 				
+
 				Integer id           = result.getInt("ACCOUNT_ID");
 				Integer accountNumber = result.getInt("ACCOUNT_NUMBER");
 				String      dueDate  = result.getString("ACCOUNT_DUE_DATE");
@@ -89,11 +88,47 @@ public class WaterAccountDao {
 				System.out.println(wat.toString());
 				con.connection.close();
 
+				}
+			}
+			
+			catch(SQLException err) {
+				System.out.println(err);
+			}	
+		
+		}
+		else {
+			sql = "Select * from WATER_ACCOUNT where ACCOUNT_NUMBER = ?;" ;
+		
+			try {
+				BaseConnection con = new BaseConnection();
+				PreparedStatement st = con.connection.prepareStatement(sql);
+				
+				st.setInt(1, hidroNum);
+				
+				ResultSet rs = st.executeQuery();
+				
+				while(rs.next()) {
+					WaterAccount wat = new WaterAccount(
+							rs.getInt("ACCOUNT_ID"),
+							rs.getString("ACCOUNT_NUMBER"),
+							rs.getString("ACCOUNT_DUE_DATE"),
+							rs.getBigDecimal("ACCOUNT_PENALTY"),
+							rs.getBigDecimal("ACCOUNT_CONSUMPTION"),
+							rs.getBigDecimal("ACCOUNT_POLLUTION"),
+							rs.getBigDecimal("ACCOUNT_SEWER"),
+							rs.getBigDecimal("ACCOUNT_WATER"),
+							rs.getInt("ACCOUNT_PIS"),
+							rs.getBigDecimal("ACCOUNT_OTHERS"),
+							rs.getString("ACCOUNT_SUPPLIER_CNPJ"));				
+												
+					WaterAccountList.add(wat);
+				}
+			}
+			catch(SQLException err) {
+				System.out.println(err);
 			}
 		}
-		catch(SQLException err) {
-			System.out.println(err);
-		}
+				
 		return WaterAccountList;
 	}
 	
