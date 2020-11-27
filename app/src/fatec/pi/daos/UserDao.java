@@ -11,7 +11,7 @@ import fatec.pi.entities.User;
 public class UserDao {
 	public static Integer save(User user) {
 		Integer result = 0;
-		String sql = "Insert into USER(USER_NAME, USER_EMAIL, USER_PASSWORD, USER_ADMIN) VALUES (?, ?, ?, ?)";
+		String sql = "Insert into PIUSER(USER_NAME, USER_EMAIL, USER_PASSWORD, USER_ADMIN) VALUES (?, ?, ?, ?)";
 		
 		try {
 			BaseConnection con = new BaseConnection();
@@ -33,7 +33,7 @@ public class UserDao {
 	
 	public static User login(String email, String password) {
 
-		String sql = "Select * from USER WHERE USER_EMAIL = ? AND USER_PASSWORD = ?";
+		String sql = "Select * from PIUSER WHERE USER_EMAIL = ? AND USER_PASSWORD = ?";
 		User user = new User();
 		
 		try {

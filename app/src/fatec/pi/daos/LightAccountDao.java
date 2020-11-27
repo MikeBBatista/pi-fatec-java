@@ -14,37 +14,39 @@ public class LightAccountDao {
 	public static Integer save(LightAccount light) {
 		
 		Integer result = 0;
-		String sql = "Insert into LIGHT_ACCOUNT (ACCOUNT_IDENT_COD, "
-				+ "ACCOUNT_CLIENT_METER_NUMBER, "
-				+ "ACCOUNT_INVOICE, "
-				+ "ACCOUNT_CURRENT_DATE, "
-				+ "ACCOUNT_DUE_DATE, "
-				+ "ACCOUNT_CONSUMPTION_DAYS, "
-				+ "ACCOUNT_FLAG_TYPE, "
-				+ "ACCOUNT_CONSUMPTION_VALUE, "
-				+ "ACCOUNT_PIS_PERCENTAGE, "
-				+ "ACCOUNT_COFINS_PERCENTAGE, "
-				+ "ACCOUNT_ICMS_BASIS, "
-				+ "ACCOUNT_ICMS_PERCENTAGE, "
-				+ "ACCOUNT_ICMS_VALUE, "
-				+ "ACCOUNT_PIS_COFINS_BASIS, "
-				+ "ACCOUNT_PIS_VALUE, "
-				+ "ACCOUNT_COFINS_VALUE, "
-				+ "ACCOUNT_FORFEIT_VALUE, "
-				+ "ACCOUNT_INTEREST_VALUE, "
-				+ "ACCOUNT_OTHER_VALUES, "
-				+ "ACCOUNT_SUPPLY_VALUES, "
-				+ "ACCOUNT_FINANCIAL_ITEMS, "
-				+ "ACCOUNT_AMOUNT, "
-				+ "ACCOUNT_SUPPLIER_CNPJ) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "Insert into LIGHT_ACCOUNT (LIGHT_IDENT_COD, "
+				+ "LIGHT_METER_NUMBER, "
+				+ "LIGHT_INVOICE, "
+				+ "LIGHT_CURRENT_DATE, "
+				+ "LIGHT_DUE_DATE, "
+				+ "LIGHT_CONSUMPTION_DAYS, "
+				+ "LIGHT_FLAG_TYPE, "
+				+ "LIGHT_CONSUMPTION_VALUE, "
+				+ "LIGHT_PIS_PERCENTAGE, "
+				+ "LIGHT_COFINS_PERCENTAGE, "
+				+ "LIGHT_ICMS_BASIS, "
+				+ "LIGHT_ICMS_PERCENTAGE, "
+				+ "LIGHT_ICMS_VALUE, "
+				+ "LIGHT_PIS_COFINS_BASIS, "
+				+ "LIGHT_PIS_VALUE, "
+				+ "LIGHT_COFINS_VALUE, "
+				+ "LIGHT_FORFEIT_VALUE, "
+				+ "LIGHT_INTEREST_VALUE, "
+				+ "LIGHT_OTHER_VALUES, "
+				+ "LIGHT_SUPPLY_VALUES, "
+				+ "LIGHT_FINANCIAL_ITEMS, "
+				+ "LIGHT_AMOUNT, "
+				+ "LIGHT_SUPPLIER_CNPJ,"
+				+ "LIGHT_USER_ID,"
+				+ "LIGHT_ALTER_BY) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement saveValues = con.connection.prepareStatement(sql);
 			
 			saveValues.setInt(1, light.getIdentCod());
-			saveValues.setString(2, light.getMeterNumber());
+			saveValues.setInt(2, light.getMeterNumber());
 			saveValues.setString(3, light.getInvoice());
 			saveValues.setString(4, light.getCurrentDate());
 			saveValues.setString(5, light.getDueDate());
@@ -65,7 +67,9 @@ public class LightAccountDao {
 			saveValues.setBigDecimal(20, light.getSupplyValue());
 			saveValues.setBigDecimal(21, light.getFinancialItems());
 			saveValues.setBigDecimal(22, light.getAmount());
-			saveValues.setString(23, light.getSupplierCnpj());
+			saveValues.setLong(23, light.getSupplierCnpj());
+			saveValues.setInt(24, light.getCreatedBy());
+			saveValues.setInt(25, light.getAlterBy());
 			
 			result = saveValues.executeUpdate();
 		}
@@ -83,35 +87,36 @@ public class LightAccountDao {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement st = con.connection.prepareStatement(sql);
 			
-			st.executeQuery(sql);
+			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			
 			while (rs.next()) {
 				LightAccount light = new LightAccount(
-						rs.getInt("ACCOUNT_ID"),
-						rs.getInt("ACCOUNT_IDENT_COD"),
-						rs.getString("ACCOUNT_METER_NUMBER"),
-						rs.getString("ACCOUNT_INVOICE"),
-						rs.getString("ACCOUNT_CURRENT_DATE"),
-						rs.getString("ACCOUNT_DUE_DATE"),
-						rs.getInt("ACCOUNT_CONSUMPTION_DAYS"),
-						rs.getString("ACCOUNT_FLAG_TYPE"),
-						rs.getBigDecimal("ACCOUNT_CONSUMPTION_VALUE"),
-						rs.getBigDecimal("ACCOUNT_PIS_PERCENTAGE"),
-						rs.getBigDecimal("ACCOUNT_COFINS_PERCENTAGE"),
-						rs.getBigDecimal("ACCOUNT_ICMS_BASIS"),
-						rs.getBigDecimal("ACCOUNT_ICMS_PERCENTAGE"),
-						rs.getBigDecimal("ACCOUNT_ICMS_VALUE"),
-						rs.getBigDecimal("ACCOUNT_PIS_COFINS_BASIS"),
-						rs.getBigDecimal("ACCOUNT_PIS_VALUE"),
-						rs.getBigDecimal("ACCOUNT_COFINS_VALUE"),
-						rs.getBigDecimal("ACCOUNT_FORFEIT_VALUE"),
-						rs.getBigDecimal("ACCOUNT_INTEREST_VALUE"),
-						rs.getBigDecimal("ACCOUNT_OTHER_VALUES"),
-						rs.getBigDecimal("ACCOUNT_SUPPLY_VALUES"),
-						rs.getBigDecimal("ACCOUNT_FINANCIAL_ITEMS"),
-						rs.getBigDecimal("ACCOUNT_AMOUNT"),
-						rs.getString("ACCOUNT_SUPPLIER_CNPJ"),sql);
+						rs.getInt("LIGHT_ID"),
+						rs.getInt("LIGHT_IDENT_COD"),
+						rs.getInt("LIGHT_METER_NUMBER"),
+						rs.getString("LIGHT_INVOICE"),
+						rs.getString("LIGHT_CURRENT_DATE"),
+						rs.getString("LIGHT_DUE_DATE"),
+						rs.getInt("LIGHT_CONSUMPTION_DAYS"),
+						rs.getString("LIGHT_FLAG_TYPE"),
+						rs.getBigDecimal("LIGHT_CONSUMPTION_VALUE"),
+						rs.getBigDecimal("LIGHT_PIS_PERCENTAGE"),
+						rs.getBigDecimal("LIGHT_COFINS_PERCENTAGE"),
+						rs.getBigDecimal("LIGHT_ICMS_BASIS"),
+						rs.getBigDecimal("LIGHT_ICMS_PERCENTAGE"),
+						rs.getBigDecimal("LIGHT_ICMS_VALUE"),
+						rs.getBigDecimal("LIGHT_PIS_COFINS_BASIS"),
+						rs.getBigDecimal("LIGHT_PIS_VALUE"),
+						rs.getBigDecimal("LIGHT_COFINS_VALUE"),
+						rs.getBigDecimal("LIGHT_FORFEIT_VALUE"),
+						rs.getBigDecimal("LIGHT_INTEREST_VALUE"),
+						rs.getBigDecimal("LIGHT_OTHER_VALUES"),
+						rs.getBigDecimal("LIGHT_SUPPLY_VALUES"),
+						rs.getBigDecimal("LIGHT_FINANCIAL_ITEMS"),
+						rs.getBigDecimal("LIGHT_AMOUNT"),
+						rs.getLong("LIGHT_SUPPLIER_CNPJ"),
+						rs.getInt("LIGHT_ALTER_BY"));
 				lightList.add(light);
 				
 			}
@@ -124,34 +129,34 @@ public class LightAccountDao {
 	}
 		public static Integer update(LightAccount light) {
 
-				
 				Integer result = 0;
 				Logger logger = Logger.getLogger(SupplierDao.class.getName());
 				
 
-				String sql = "UPDATE LIGHT_ACCOUNT SET (ACCOUNT_IDENT_COD = ?,"
-				+ "ACCOUNT_CLIENT_METER_NUMBER = ?, "
-				+ "ACCOUNT_INVOICE = ?, "
-				+ "ACCOUNT_CURRENT_DATE = ?, "
-				+ "ACCOUNT_CONSUMPTION_DAYS= ?, "
-				+ "ACCOUNT_FLAG_TYPE, = ?, "
-				+ "ACCOUNT_CONSUMPTION_VALUE = ?, "
-				+ "ACCOUNT_PIS_PERCENTAGE = ?, "
-				+ "ACCOUNT_COFINS_PERCENTAGE = ?, "
-				+ "ACCOUNT_ICMS_BASIS = ? "
-				+ "ACCOUNT_ICMS_PERCENTAGE = ?,"
-				+ "ACCOUNT_ICMS_VALUE = ?, "
-				+ "ACCOUNT_PIS_COFINS_BASIS = ?, "
-				+ "ACCOUNT_PIS_VALUE = ?, "
-				+ "ACCOUNT_COFINS_VALUE = ?, "
-				+ "ACCOUNT_FORFEIT_VALUE = ?, "
-				+ "ACCOUNT_INTEREST_VALUE = ?, "
-				+ "ACCOUNT_OTHER_VALUES = ?, "
-				+ "ACCOUNT_SUPPLY_VALUES = ?, "
-				+ "ACCOUNT_FINANCIAL_ITEMS = ?, "
-				+ "ACCOUNT_AMOUNT = ?, "
-				+ "ACCOUNT_SUPPLIER_CNPJ = ?)"
-				+ "WHERE ACCOUNT_ID = ?;";
+				String sql = "UPDATE LIGHT_LIGHT SET (LIGHT_IDENT_COD = ?,"
+				+ "LIGHT_METER_NUMBER = ?, "
+				+ "LIGHT_INVOICE = ?, "
+				+ "LIGHT_CURRENT_DATE = ?, "
+				+ "LIGHT_CONSUMPTION_DAYS= ?, "
+				+ "LIGHT_FLAG_TYPE, = ?, "
+				+ "LIGHT_CONSUMPTION_VALUE = ?, "
+				+ "LIGHT_PIS_PERCENTAGE = ?, "
+				+ "LIGHT_COFINS_PERCENTAGE = ?, "
+				+ "LIGHT_ICMS_BASIS = ? "
+				+ "LIGHT_ICMS_PERCENTAGE = ?,"
+				+ "LIGHT_ICMS_VALUE = ?, "
+				+ "LIGHT_PIS_COFINS_BASIS = ?, "
+				+ "LIGHT_PIS_VALUE = ?, "
+				+ "LIGHT_COFINS_VALUE = ?, "
+				+ "LIGHT_FORFEIT_VALUE = ?, "
+				+ "LIGHT_INTEREST_VALUE = ?, "
+				+ "LIGHT_OTHER_VALUES = ?, "
+				+ "LIGHT_SUPPLY_VALUES = ?, "
+				+ "LIGHT_FINANCIAL_ITEMS = ?, "
+				+ "LIGHT_AMOUNT = ?, "
+				+ "LIGHT_SUPPLIER_CNPJ = ?,"
+				+ "LIGHT_ALTER_BY = ?) "
+				+ "WHERE LIGHT_ID = ?;";
 		
 		try {
 			
@@ -159,7 +164,7 @@ public class LightAccountDao {
 			PreparedStatement updateValues = con.connection.prepareStatement(sql);
 
 			updateValues.setInt(1, light.getIdentCod());
-			updateValues.setString(2, light.getMeterNumber());
+			updateValues.setInt(2, light.getMeterNumber());
 			updateValues.setString(3, light.getInvoice());
 			updateValues.setString(4, light.getCurrentDate());
 			updateValues.setString(5, light.getDueDate());
@@ -180,8 +185,9 @@ public class LightAccountDao {
 			updateValues.setBigDecimal(20, light.getSupplyValue());
 			updateValues.setBigDecimal(21, light.getFinancialItems());
 			updateValues.setBigDecimal(22, light.getAmount());
-			updateValues.setString(23, light.getSupplierCnpj());
-			updateValues.setInt(24, light.getId());
+			updateValues.setLong(23, light.getSupplierCnpj());
+			updateValues.setInt(24, light.getAlterBy());
+			updateValues.setInt(25, light.getId());
 			
 			result = updateValues.executeUpdate();
 			con.connection.close();

@@ -10,12 +10,12 @@ import fatec.pi.entities.WaterAccount;
 import fatec.pi.views.ViewAccountType;
 
 public class WaterAccountController {
-	public static void saveValues(String number, String dueDate, BigDecimal penalty, BigDecimal consumptionValue,
+	public static void saveValues(Integer number, String dueDate, BigDecimal penalty, BigDecimal consumptionValue,
 			BigDecimal pollutionValue, BigDecimal sewerValue, BigDecimal waterValue, Integer pisPercentage,
-			BigDecimal otherValues, String supplierCnpj) {
+			BigDecimal otherValues, Long supplierCnpj, Integer createdBy, Integer alterBy) {
 		
 		WaterAccount water = new WaterAccount(number, dueDate, penalty, consumptionValue, pollutionValue, sewerValue,
-				waterValue, pisPercentage, otherValues, supplierCnpj);
+				waterValue, pisPercentage, otherValues, supplierCnpj, createdBy, alterBy);
 		
 		if(WaterAccountDao.save(water) == 1) {
 			showMessageDialog(null, "Dados cadastrados com Sucesso!");
