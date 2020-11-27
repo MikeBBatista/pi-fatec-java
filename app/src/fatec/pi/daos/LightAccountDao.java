@@ -123,10 +123,12 @@ public class LightAccountDao {
 		
 	}
 		public static Integer update(LightAccount light) {
+
 				
 				Integer result = 0;
 				Logger logger = Logger.getLogger(SupplierDao.class.getName());
 				
+
 				String sql = "UPDATE LIGHT_ACCOUNT SET (ACCOUNT_IDENT_COD = ?,"
 				+ "ACCOUNT_CLIENT_METER_NUMBER = ?, "
 				+ "ACCOUNT_INVOICE = ?, "
@@ -155,8 +157,7 @@ public class LightAccountDao {
 			
 			BaseConnection con = new BaseConnection();
 			PreparedStatement updateValues = con.connection.prepareStatement(sql);
-			
-			
+
 			updateValues.setInt(1, light.getIdentCod());
 			updateValues.setString(2, light.getMeterNumber());
 			updateValues.setString(3, light.getInvoice());
@@ -188,35 +189,36 @@ public class LightAccountDao {
 		} catch(SQLException err) {
 			
 			logger.info(err.getMessage());
+			
 		}
 		
 		return result;
 	}
 
-public static Integer delete(Integer id) {
+		public static Integer delete(Integer id) {
 		
-		int result = 0;
+			int result = 0;
 		
-		Logger logger = Logger.getLogger(LightAccountDao.class.getName());
+			Logger logger = Logger.getLogger(LightAccountDao.class.getName());
 		
-		String sql = "DELETE FROM LIGHT_ACCOUNT WHERE ACCOUNT_ID = ?;";
+			String sql = "DELETE FROM LIGHT_ACCOUNT WHERE ACCOUNT_ID = ?;";
 		
-		try {
+			try {
 			
-			BaseConnection con = new BaseConnection();
-			PreparedStatement updateValues = con.connection.prepareStatement(sql);
+				BaseConnection con = new BaseConnection();
+				PreparedStatement updateValues = con.connection.prepareStatement(sql);
 			
-			updateValues.setInt(1, id);
+				updateValues.setInt(1, id);
+				
+				result = updateValues.executeUpdate();
+				con.connection.close();
 			
-			result = updateValues.executeUpdate();
-			con.connection.close();
+			} catch(SQLException err) {
 			
-		} catch(SQLException err) {
-			
-			logger.info(err.getMessage());
+				logger.info(err.getMessage());
+			}
+		
+			return result;
 		}
-		
-		return result;
-	}
 
 }
