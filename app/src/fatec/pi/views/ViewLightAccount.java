@@ -488,12 +488,21 @@ public class ViewLightAccount extends JFrame {
 				BigDecimal supplyValue = new BigDecimal(txt_supplyValue.getText());
 				BigDecimal financialItems = new BigDecimal(txt_financialItems.getText());
 				BigDecimal amount = new BigDecimal(txt_amount.getText());
+				Integer user = Integer.parseInt(System.getProperty("UserID"));
 				
-				LightAccountController.saveValues( identCod, txt_meterNumber.getText(), txt_invoice.getText(), formataDados(txt_currentDate.getText()),
+				LightAccount teste = new LightAccount(identCod, Integer.parseInt(txt_meterNumber.getText()), txt_invoice.getText(), formataDados(txt_currentDate.getText()),
 						formataDados(txt_dueDate.getText()), consumptionDays, box_flagType.getSelectedItem().toString(), consumptionValue,
 						pisPercentage, cofinsPercentage, icmsBasis, icmsPercentage, icmsValue, pisCofinsBasis, pisValue,
 						cofinsValue, forfeitValue, interestValue, otherValues, supplyValue, financialItems, amount,
-						formataDados(txt_supplierCnpj.getText()));
+						Long.parseLong(formataDados(txt_supplierCnpj.getText())), user, user);
+				System.out.println(teste);
+				
+				LightAccountController.saveValues( identCod, Integer.parseInt(txt_meterNumber.getText()), txt_invoice.getText(), formataDados(txt_currentDate.getText()),
+						formataDados(txt_dueDate.getText()), consumptionDays, box_flagType.getSelectedItem().toString(), consumptionValue,
+						pisPercentage, cofinsPercentage, icmsBasis, icmsPercentage, icmsValue, pisCofinsBasis, pisValue,
+						cofinsValue, forfeitValue, interestValue, otherValues, supplyValue, financialItems, amount,
+						Long.parseLong(formataDados(txt_supplierCnpj.getText())), user, user);
+
 				txt_identCod.setText("");
 				txt_meterNumber.setText("");
 				txt_invoice.setText("");

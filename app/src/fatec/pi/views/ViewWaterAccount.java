@@ -144,7 +144,7 @@ public class ViewWaterAccount extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Integer teste = 0;
 				
-				WaterAccountController.saveValues(text_numhidro.getText(),
+				WaterAccountController.saveValues(Integer.parseInt(text_numhidro.getText()),
 						text_datevencimento.getText(), 
 						new BigDecimal(teste), new BigDecimal(text_consumo.getText()),
 						new BigDecimal(text_pollution.getText()),
@@ -152,7 +152,8 @@ public class ViewWaterAccount extends JFrame {
 						new BigDecimal (text_watervalue.getText()),
 						Integer.parseInt(text_PISCOFINS.getText()),
 						new BigDecimal (text_othervalue.getText()),
-						formataDados(text_SupplierCnpj.getText()));
+						Long.parseLong(formataDados(text_SupplierCnpj.getText())), Integer.parseInt(System.getProperty("UserID")), 
+						Integer.parseInt(System.getProperty("UserID")));
 				
 				text_numhidro.setText("");
 				text_dateleitura.setText("");

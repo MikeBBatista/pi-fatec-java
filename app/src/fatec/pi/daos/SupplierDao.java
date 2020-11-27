@@ -13,16 +13,18 @@ import fatec.pi.entities.Supplier;
 public class SupplierDao {
 	public static Integer save(Supplier supplier) {
 		Integer result = 0;
-		String sql = "Insert into SUPPLIER (SUPPLIER_CNPJ, SUPPLIER_NAME, SUPPLIER_SITE, SUPPLIER_TYPE) VALUES (?, ?, ?, ?)";
+		String sql = "Insert into SUPPLIER (SUPPLIER_CNPJ, SUPPLIER_NAME, SUPPLIER_SITE, SUPPLIER_TYPE, SUPPLIER_USER_ID, SUPPLIER_ALTER_BY) VALUES (?, ?, ?, ?, ?, ?)";
 		
 		try {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement saveValues = con.connection.prepareStatement(sql);
 			
-			saveValues.setInt(1, supplier.getCnpj());
+			saveValues.setLong(1, supplier.getCnpj());
 			saveValues.setString(2, supplier.getName());
 			saveValues.setString(3, supplier.getSite());
 			saveValues.setInt(4, supplier.getType());
+			saveValues.setInt(5, supplier.getCreatedBy());
+			saveValues.setInt(6, supplier.getAlterBy());
 			
 			result = saveValues.executeUpdate();
 			con.connection.close();
@@ -53,10 +55,11 @@ public class SupplierDao {
 				while(rs.next()) {
 					Supplier sup = new Supplier(
 							rs.getInt("SUPPLIER_ID"),
-							rs.getInt("SUPPLIER_CNPJ"), 
+							rs.getLong("SUPPLIER_CNPJ"), 
 							rs.getString("SUPPLIER_NAME"), 
 							rs.getString("SUPPLIER_SITE"),
-							rs.getInt("SUPPLIER_TYPE"));
+							rs.getInt("SUPPLIER_TYPE"),
+							rs.getInt("SUPPLIER_ALTER_BY"));
 					supplierList.add(sup);
 				}
 			}
@@ -79,10 +82,11 @@ public class SupplierDao {
 				while(rs.next()) {
 					Supplier sup = new Supplier(
 							rs.getInt("SUPPLIER_ID"),
-							rs.getInt("SUPPLIER_CNPJ"), 
+							rs.getLong("SUPPLIER_CNPJ"), 
 							rs.getString("SUPPLIER_NAME"), 
 							rs.getString("SUPPLIER_SITE"),
-							rs.getInt("SUPPLIER_TYPE"));
+							rs.getInt("SUPPLIER_TYPE"),
+							rs.getInt("SUPPLIER_ALTER_BY"));
 					supplierList.add(sup);
 				}
 			}
@@ -103,7 +107,8 @@ public class SupplierDao {
 		String sql = "UPDATE SUPPLIER SET SUPPLIER_CNPJ = ?, "
 				+ "SUPPLIER_NAME = ?, "
 				+ "SUPPLIER_SITE = ?, "
-				+ "SUPPLIER_TYPE = ? "
+				+ "SUPPLIER_TYPE = ?,"
+				+ "SUPPLIER_ALTER_BY = ? "
 				+ "WHERE SUPPLIER_ID = ?;";
 		
 		try {
@@ -111,11 +116,12 @@ public class SupplierDao {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement updateValues = con.connection.prepareStatement(sql);
 			
-			updateValues.setInt(1, supplier.getCnpj());
+			updateValues.setLong(1, supplier.getCnpj());
 			updateValues.setString(2, supplier.getName());
 			updateValues.setString(3, supplier.getSite());
 			updateValues.setInt(4, supplier.getType());
-			updateValues.setInt(5, supplier.getId());
+			updateValues.setInt(5, supplier.getAlterBy());
+			updateValues.setInt(6, supplier.getId());
 			
 			result = updateValues.executeUpdate();
 			con.connection.close();

@@ -257,7 +257,7 @@ public class ViewSearch extends JFrame {
 				else if (objectValues[4].equals("Água")) {
 					supType = 1;
 				}
-				Supplier sup = new Supplier(Integer.parseInt(objectValues[0]),Integer.parseInt(objectValues[1]), objectValues[2], objectValues[3], supType);
+				Supplier sup = new Supplier(Integer.parseInt(objectValues[0]),Long.parseLong(objectValues[1]), objectValues[2], objectValues[3], supType, Integer.parseInt(System.getProperty("UserID")));
 				SupplierController.updateValues(sup);
 			}
 		}

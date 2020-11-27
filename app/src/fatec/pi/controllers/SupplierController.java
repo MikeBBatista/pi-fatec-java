@@ -9,8 +9,8 @@ import fatec.pi.entities.Supplier;
 import fatec.pi.views.ViewAccountType;
 
 public class SupplierController {
-	public static void saveValues(Integer cnpj, String name, String site, Integer type) {
-		Supplier sup = new Supplier(cnpj, name, site, type);
+	public static void saveValues(Long cnpj, String name, String site, Integer type, Integer createdBy, Integer alterBy) {
+		Supplier sup = new Supplier(cnpj, name, site, type, createdBy, alterBy);
 		if(SupplierDao.save(sup) == 1) {
 			showMessageDialog(null, "Dados cadastrados com Sucesso!");
 		}
