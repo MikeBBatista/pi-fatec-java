@@ -68,8 +68,12 @@ public class WaterAccountDao {
 				BaseConnection con = new BaseConnection();
 				PreparedStatement st = con.connection.prepareStatement(sql);
 				
+				ResultSet result = st.executeQuery();
+				
+				
+				while(result.next()) {
 
-				Integer id           = result.getInt("ACCOUNT_ID");
+				Integer id = result.getInt("ACCOUNT_ID");
 				Integer accountNumber = result.getInt("ACCOUNT_NUMBER");
 				String      dueDate  = result.getString("ACCOUNT_DUE_DATE");
 				BigDecimal	penalty  = result.getBigDecimal("ACCOUNT_PENALTY");
@@ -119,7 +123,7 @@ public class WaterAccountDao {
 							rs.getBigDecimal("ACCOUNT_WATER"),
 							rs.getInt("ACCOUNT_PIS"),
 							rs.getBigDecimal("ACCOUNT_OTHERS"),
-							rs.getString("ACCOUNT_SUPPLIER_CNPJ"));				
+							rs.getLong("ACCOUNT_SUPPLIER_CNPJ"));				
 												
 					WaterAccountList.add(wat);
 				}
