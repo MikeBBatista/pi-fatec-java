@@ -217,7 +217,7 @@ public class ViewLightAccount extends JFrame {
 		txt_meterNumber = new JTextField();
 		txt_meterNumber.setColumns(10);
 		
-		JLabel lbl_meterNumber = new JLabel("N\u00FAmero do Medidor");
+		JLabel lbl_meterNumber = new JLabel("N\u00FAmero de Instala\u00E7\u00E3o");
 		lbl_meterNumber.setLabelFor(txt_meterNumber);
 		lbl_meterNumber.setFont(new Font("Arial", Font.BOLD, 11));
 		GroupLayout gl_pnl_register = new GroupLayout(pnl_register);
