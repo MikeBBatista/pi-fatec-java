@@ -15,7 +15,5 @@ public class main {
 		//for(Supplier i: edp) {
 		//	SupplierDao.save(i);
 		//}
-		List<Supplier> teste = SupplierDao.listSuppliers();
-		System.out.println(teste);
 	}
 }

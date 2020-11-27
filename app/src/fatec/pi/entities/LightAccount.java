@@ -6,7 +6,7 @@ public class LightAccount {
 	
 	private Integer id;
 	private Integer identCod;
-	private String meterNumber;
+	private Integer meterNumber;
 	private String invoice;
 	private String currentDate;
 	private String dueDate;
@@ -27,15 +27,16 @@ public class LightAccount {
 	private BigDecimal supplyValue;
 	private BigDecimal financialItems;
 	private BigDecimal amount;
-	private String supplierCnpj;
-	private String clientCpf;
+	private Long supplierCnpj;
+	private Integer createdBy;
+	private Integer alterBy;
 	
-	public LightAccount(Integer identCod, String meterNumber, String invoice, String currentDate, String dueDate,
+	public LightAccount(Integer identCod, Integer meterNumber, String invoice, String currentDate, String dueDate,
 			Integer consumptionDays, String flagType, BigDecimal consumptionValue, BigDecimal pisPercentage,
 			BigDecimal cofinsPercentage, BigDecimal icmsBasis, BigDecimal icmsPercentage, BigDecimal icmsValue,
 			BigDecimal pisCofinsBasis, BigDecimal pisValue, BigDecimal cofinsValue, BigDecimal forfeitValue,
 			BigDecimal interestValue, BigDecimal otherValues, BigDecimal supplyValue, BigDecimal financialItems,
-			BigDecimal amount, String supplierCnpj) {
+			BigDecimal amount, Long supplierCnpj, Integer createdBy, Integer alterBy) {
 		
 		this.setIdentCod(identCod);
 		this.setMeterNumber(meterNumber);
@@ -60,18 +61,19 @@ public class LightAccount {
 		this.setFinancialItems(financialItems);
 		this.setAmount(amount);
 		this.setSupplierCnpj(supplierCnpj);
-		this.setClientCpf(clientCpf);
+		this.setCreatedBy(createdBy);
+		this.setAlterBy(alterBy);
 	}
 	
 	
 	
 	
-	public LightAccount(Integer id, Integer identCod, String meterNumber, String invoice, String currentDate,
+	public LightAccount(Integer id, Integer identCod, Integer meterNumber, String invoice, String currentDate,
 			String dueDate, Integer consumptionDays, String flagType, BigDecimal consumptionValue,
 			BigDecimal pisPercentage, BigDecimal cofinsPercentage, BigDecimal icmsBasis, BigDecimal icmsPercentage,
 			BigDecimal icmsValue, BigDecimal pisCofinsBasis, BigDecimal pisValue, BigDecimal cofinsValue,
 			BigDecimal forfeitValue, BigDecimal interestValue, BigDecimal otherValues, BigDecimal supplyValue,
-			BigDecimal financialItems, BigDecimal amount, String supplierCnpj, String clientCpf) {
+			BigDecimal financialItems, BigDecimal amount, Long supplierCnpj, Integer alterBy) {
 		this.setId(id);
 		this.setIdentCod(identCod);
 		this.setMeterNumber(meterNumber);
@@ -96,7 +98,7 @@ public class LightAccount {
 		this.setFinancialItems(financialItems);
 		this.setAmount(amount);
 		this.setSupplierCnpj(supplierCnpj);
-		this.setClientCpf(clientCpf);
+		this.setAlterBy(alterBy);
 	}
 
 	public Integer getId() {
@@ -112,10 +114,10 @@ public class LightAccount {
 		this.identCod = identCod;
 	}
 
-	public String getMeterNumber() {
+	public Integer getMeterNumber() {
 		return meterNumber;
 	}
-	public void setMeterNumber(String meterNumber) {
+	public void setMeterNumber(Integer meterNumber) {
 		this.meterNumber = meterNumber;
 	}
 	public String getInvoice() {
@@ -238,20 +240,35 @@ public class LightAccount {
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
-	public String getSupplierCnpj() {
+	public Long getSupplierCnpj() {
 		return supplierCnpj;
 	}
-	public void setSupplierCnpj(String supplierCnpj) {
+	public void setSupplierCnpj(Long supplierCnpj) {
 		this.supplierCnpj = supplierCnpj;
 	}
-	public String getClientCpf() {
-		return clientCpf;
-	}
-	public void setClientCpf(String clientCpf) {
-		this.clientCpf = clientCpf;
+	
+	public Integer getCreatedBy() {
+		return createdBy;
 	}
 
-	
+	public void setCreatedBy(Integer createdBy) {
+		this.createdBy = createdBy;
+	}
+
+
+	public Integer getAlterBy() {
+		return alterBy;
+	}
+
+
+	public void setAlterBy(Integer alterBy) {
+		this.alterBy = alterBy;
+	}
+
+
+
+
+	@Override
 	public String toString() {
 		return "LightAccount [id=" + id + ", identCod=" + identCod + ", meterNumber=" + meterNumber + ", invoice="
 				+ invoice + ", currentDate=" + currentDate + ", dueDate=" + dueDate + ", consumptionDays="
@@ -261,8 +278,10 @@ public class LightAccount {
 				+ pisCofinsBasis + ", pisValue=" + pisValue + ", cofinsValue=" + cofinsValue + ", forfeitValue="
 				+ forfeitValue + ", interestValue=" + interestValue + ", otherValues=" + otherValues + ", supplyValue="
 				+ supplyValue + ", financialItems=" + financialItems + ", amount=" + amount + ", supplierCnpj="
-				+ supplierCnpj + ", clientCpf=" + clientCpf + "]";
+				+ supplierCnpj + ", CreatedBy=" + createdBy + ", alterBy=" + alterBy + "]";
 	}
+
+
 	
 	
 }

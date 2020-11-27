@@ -2,26 +2,33 @@ package fatec.pi.entities;
 
 public class Supplier {
 	private Integer id;
-	private String cnpj;
+
+	private Long cnpj;
 	private String name;
 	private String site;
 	private Integer type;
+	private Integer createdBy;
+	private Integer alterBy;
 	
-	public Supplier(String cnpj, String name, String site, Integer type) {
+
+	public Supplier(Long cnpj, String name, String site, Integer type, Integer createdBy, Integer alterBy) {
 		
 		this.setCnpj(cnpj);
 		this.setName(name);
 		this.setSite(site);
 		this.setType(type);
+		this.setCreatedBy(createdBy);
+		this.setAlterBy(alterBy);
 	}
 	
-	public Supplier(String cnpj, String name, String site, Integer id, Integer type) {
-		
+
+	public Supplier( Integer id, Long cnpj, String name, String site, Integer type, Integer alterBy) {
+		this.setId(id);
 		this.setCnpj(cnpj);
 		this.setName(name);
 		this.setSite(site);
-		this.setType(type);	
-		this.setId(id);
+		this.setType(type);
+		this.setAlterBy(alterBy);
 	}
 	
 	public Integer getId() {
@@ -32,12 +39,13 @@ public class Supplier {
 		this.id = id;
 	}
 
-	public String getCnpj() {
+
+	public Long getCnpj() {
 		return cnpj;
 	}
 
-	public void setCnpj(String cnpj) {
-		this.cnpj = validateCnpj(cnpj);
+	public void setCnpj(Long cnpj) {
+		this.cnpj = cnpj;
 	}
 
 	public String getName() {
@@ -63,17 +71,41 @@ public class Supplier {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-	
-	public String validateCnpj(String cnpj) {
-		if (cnpj.length() == 14) {
-			return cnpj;
-		}
-		return null;
+
+
+	public Integer getCreatedBy() {
+		return createdBy;
 	}
 
-	@Override
-	public String toString() {
-		return "Supplier [id=" + id + ", cnpj=" + cnpj + ", name=" + name + ", site=" + site + ", type=" + type + "]";
+	public void setCreatedBy(Integer createdBy) {
+		this.createdBy = createdBy;
 	}
 	
+
+	public Integer getAlterBy() {
+		return alterBy;
+	}
+
+
+	public void setAlterBy(Integer alterBy) {
+		this.alterBy = alterBy;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Supplier [id=" + id + ", cnpj=" + cnpj + ", name=" + name + ", site=" + site + ", type=" + type
+				+ ", createdBy=" + createdBy + ", alterBy=" + alterBy + "]";
+	}
+
+	public String toType() {
+		String result = "";
+		if(this.getType().equals(0)) {
+			result = "Energia";
+		}
+		else {
+			result = "Água";
+		}
+		return result;
+	}
 }

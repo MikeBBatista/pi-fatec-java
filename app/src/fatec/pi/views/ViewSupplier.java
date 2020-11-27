@@ -25,6 +25,7 @@ import javax.swing.ButtonGroup;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.math.BigInteger;
 
 import javax.swing.JRadioButton;
 
@@ -111,7 +112,8 @@ public class ViewSupplier extends JFrame {
 		JButton btnNewButton = new JButton("SALVAR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SupplierController.saveValues(formataDados(text_CNPJ_1.getText()), text_companyname.getText(),text_site.getText(), supplierType(bgt.getSelection().getActionCommand()));
+
+				SupplierController.saveValues(Long.parseLong(formataDados(text_CNPJ_1.getText())), text_companyname.getText(),text_site.getText(), supplierType(bgt.getSelection().getActionCommand()), Integer.parseInt(System.getProperty("UserID")), Integer.parseInt(System.getProperty("UserID")));
 				text_CNPJ_1.setText("");
 				text_companyname.setText("");
 				text_site.setText("");
