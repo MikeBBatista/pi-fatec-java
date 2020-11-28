@@ -19,7 +19,7 @@ public class UserController {
 			showMessageDialog(null, "Login realizado com sucesso!");
 		}
 		else {
-			showMessageDialog(null, "Email ou senha inv·lidos!");
+			showMessageDialog(null, "Email ou senha inv√°lidos!");
 		}
 		System.setProperty("userId", login.getId().toString());
 		return login;

@@ -11,15 +11,15 @@ import fatec.pi.views.ViewClient;
 
 public class ClientController {
 
-	public static void saveValues(String supplierCnpj, String clientCpf, String clientName, String zipCode, 
+	public static void saveValues(Long supplierCnpj, Long clientCpf, String clientName, String zipCode, 
 			Integer streetNumber, String streetName,
-			String streetComplement, String city, String state, String meterNumber, String measurementOrder, 
+			String streetComplement, String city, String state, Integer meterNumber, String measurementOrder, 
 			String lightClass, String lightSubclass,
-			BigDecimal normalTax, BigDecimal tributeTax) {
+			BigDecimal normalTax, BigDecimal tributeTax, Integer createdBy, Integer alterBy) {
 		
 		Client client = new Client(supplierCnpj, clientCpf, clientName, zipCode, streetName, streetNumber,
 				streetComplement, city, state, meterNumber, measurementOrder, lightClass, lightSubclass,
-				normalTax, tributeTax);
+				normalTax, tributeTax, createdBy, alterBy);
 		
 		if(ClientDao.save(client) == 1) {
 			showMessageDialog(null, "Dados cadastrados com Sucesso!");

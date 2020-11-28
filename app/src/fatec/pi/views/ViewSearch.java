@@ -45,6 +45,7 @@ public class ViewSearch extends JFrame {
 	private JTextField textFieldCNPJ_1;
 	private JTextField textFieldCPF;
 	private JTextField textFieldCPF_1;
+	private JTextField textField_Account;
 	private JTextField textFieldNOME;
 	private DefaultTableModel dtm = new DefaultTableModel();;
 	private JTable table_data;
@@ -91,7 +92,7 @@ public class ViewSearch extends JFrame {
 		txtPesquisa.setColumns(10);
 		
 		JLabel LabelCNPJ = new JLabel("CNPJ");
-		LabelCNPJ.setBounds(315, 140, 94, 25);
+		LabelCNPJ.setBounds(308, 140, 94, 25);
 		contentPane.add(LabelCNPJ);
 		
 		textFieldCNPJ = new JTextField();
@@ -108,8 +109,9 @@ public class ViewSearch extends JFrame {
 		comboBoxConta.setModel(new DefaultComboBoxModel(new String[] {"\u00C1gua", "Luz"}));
 		contentPane.add(comboBoxConta);
 		
+		
 		JLabel LabelTipodeConta = new JLabel("Tipo de conta");
-		LabelTipodeConta.setBounds(315, 247, 94, 17);
+		LabelTipodeConta.setBounds(308, 247, 94, 17);
 		contentPane.add(LabelTipodeConta);
 		
 		JLabel LabelLogo = new JLabel("");
@@ -154,8 +156,9 @@ public class ViewSearch extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				modelo.setNumRows(0);
 				type = comboBoxBusca.getSelectedItem().toString();
+				String accountType = comboBoxConta.getSelectedItem().toString(); 
 				String cnpj = formataDados(textFieldCNPJ_1.getText());
-				dtm.setColumnIdentifiers(searchTitles(type));
+				dtm.setColumnIdentifiers(searchTitles(type, accountType));
 				searchResult(modelo, type, cnpj);
 				textFieldCNPJ_1.setText("");
 				
@@ -166,7 +169,7 @@ public class ViewSearch extends JFrame {
 		contentPane.add(btnPesquisa);
 		
 		JLabel lblCpf = new JLabel("CPF");
-		lblCpf.setBounds(315, 176, 94, 25);
+		lblCpf.setBounds(308, 176, 94, 25);
 		contentPane.add(lblCpf);
 		
 		textFieldCPF = new JTextField();
@@ -178,19 +181,18 @@ public class ViewSearch extends JFrame {
 		textFieldCPF_1.setColumns(10);
 		contentPane.add(textFieldCPF_1);
 		
-		JLabel lblNome = new JLabel("Nome");
-		lblNome.setBounds(315, 211, 94, 25);
-		contentPane.add(lblNome);
+		JLabel lblAccount = new JLabel("Hidr\u00F4metro / Medidor");
+		lblAccount.setBounds(308, 211, 108, 25);
+		contentPane.add(lblAccount);
 		
 		textFieldNOME = new JTextField();
 		textFieldNOME.setBounds(407, 212, 192, 25);
 		textFieldNOME.setColumns(10);
 		contentPane.add(textFieldNOME);
-		
 
 		
 		JLabel LabelBusca = new JLabel("Buscar por");
-		LabelBusca.setBounds(315, 109, 74, 20);
+		LabelBusca.setBounds(308, 109, 74, 20);
 		contentPane.add(LabelBusca);
 		
 		JButton btnUpdate = new JButton("Update");
@@ -217,11 +219,34 @@ public class ViewSearch extends JFrame {
 			   return dado.replaceAll("[^0-9]+", "");
 			}
 		
-		public static String[] searchTitles(String search) {
+
+	
+		public static String[] searchTitles(String search, String accountType) {
+
 			String[] result = {"", "", "", "", ""};
 			if(search.equals("Fornecedor")) {
 				result = new String[]{"ID", "CNPJ", "NAME", "SITE", "TYPE"};
 			}
+
+			else if (search.equals("Cliente")) {
+				result = new String[]{"ID", "CPF/CNPJ", "NAME", "ZIP COD", "STREET NAME", "STREET NUMBER", "STREET COMPLEMENT", "CITY", "STATE" +
+						"METER NUMBER", "MEASUREMENT ORDER", "LIGHT CLASS ", "LIGHT SUBCLASS", "NORMAL TAX", "TRIBUTE TAX ", "SUPPLIER CNPJ"};
+			}
+			else if (search.equals("Conta")) { // CONTA AGUA e LUZ
+
+				if(accountType.equals("LUZ")) {
+					result = new String[]{"ID", "IDENT COD", "METERNUMBER", "INVOICE", "CURRENT DATE","DUE DATE","CONSUMPTION DAYS" +
+				"FLAG TYPE","CONSUMPTION VALUE","PIS PERCENTAGE","COFINS PERCENTAGE","ICMS BASIS","ICMS PERCENTAGE","ICMS VALUE" +
+					"PIS COFINS BASIS","PIS VALUE","COFINS VALUE","FORFEIT VALUE","INTEREST VALUE", "OTHER VALUES", "SUPPLY VALUES" +
+				"FINANCIAL ITEMS", "ACCOUNT AMOUNT", "SUPPLIER CNPJ"};
+				}
+				
+				else {
+					result = new String[]{"ID", "NUMBER", "DUA DATE", "PENALTY", "CONSUMPTION", "POLLUTION", "SEWER", "WATER", "PIS", "OTHERS","SUPPLIER CNPJ"};
+				}
+				
+			}
+
 			return result;
 		}
 		
@@ -254,10 +279,11 @@ public class ViewSearch extends JFrame {
 				if(objectValues[4].equals("Energia")) {
 					supType = 0;
 				}
+
 				else if (objectValues[4].equals("Água")) {
 					supType = 1;
 				}
-				Supplier sup = new Supplier(Integer.parseInt(objectValues[0]),Integer.parseInt(objectValues[1]), objectValues[2], objectValues[3], supType);
+				Supplier sup = new Supplier(Integer.parseInt(objectValues[0]),Long.parseLong(objectValues[1]), objectValues[2], objectValues[3], supType, Integer.parseInt(System.getProperty("UserID")));
 				SupplierController.updateValues(sup);
 			}
 		}

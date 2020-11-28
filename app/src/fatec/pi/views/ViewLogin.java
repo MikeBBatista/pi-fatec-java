@@ -107,9 +107,9 @@ public class ViewLogin extends JFrame {
 		JButton btnLogin = new JButton("LOGIN");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				;
 				String password = String.valueOf(passwordField.getPassword());
 				User login = UserController.checkLogin(txtLogin.getText(), password);
+				System.setProperty("UserID", login.getId().toString());
 				adminValidate(login);
 				
 			}

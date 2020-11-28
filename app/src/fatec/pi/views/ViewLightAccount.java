@@ -217,7 +217,7 @@ public class ViewLightAccount extends JFrame {
 		txt_meterNumber = new JTextField();
 		txt_meterNumber.setColumns(10);
 		
-		JLabel lbl_meterNumber = new JLabel("N\u00FAmero do Medidor");
+		JLabel lbl_meterNumber = new JLabel("N\u00FAmero de Instala\u00E7\u00E3o");
 		lbl_meterNumber.setLabelFor(txt_meterNumber);
 		lbl_meterNumber.setFont(new Font("Arial", Font.BOLD, 11));
 		GroupLayout gl_pnl_register = new GroupLayout(pnl_register);
@@ -488,12 +488,21 @@ public class ViewLightAccount extends JFrame {
 				BigDecimal supplyValue = new BigDecimal(txt_supplyValue.getText());
 				BigDecimal financialItems = new BigDecimal(txt_financialItems.getText());
 				BigDecimal amount = new BigDecimal(txt_amount.getText());
+				Integer user = Integer.parseInt(System.getProperty("UserID"));
 				
-				LightAccountController.saveValues( identCod, txt_meterNumber.getText(), txt_invoice.getText(), formataDados(txt_currentDate.getText()),
+				LightAccount teste = new LightAccount(identCod, Integer.parseInt(txt_meterNumber.getText()), txt_invoice.getText(), formataDados(txt_currentDate.getText()),
 						formataDados(txt_dueDate.getText()), consumptionDays, box_flagType.getSelectedItem().toString(), consumptionValue,
 						pisPercentage, cofinsPercentage, icmsBasis, icmsPercentage, icmsValue, pisCofinsBasis, pisValue,
 						cofinsValue, forfeitValue, interestValue, otherValues, supplyValue, financialItems, amount,
-						formataDados(txt_supplierCnpj.getText()));
+						Long.parseLong(formataDados(txt_supplierCnpj.getText())), user, user);
+				System.out.println(teste);
+				
+				LightAccountController.saveValues( identCod, Integer.parseInt(txt_meterNumber.getText()), txt_invoice.getText(), formataDados(txt_currentDate.getText()),
+						formataDados(txt_dueDate.getText()), consumptionDays, box_flagType.getSelectedItem().toString(), consumptionValue,
+						pisPercentage, cofinsPercentage, icmsBasis, icmsPercentage, icmsValue, pisCofinsBasis, pisValue,
+						cofinsValue, forfeitValue, interestValue, otherValues, supplyValue, financialItems, amount,
+						Long.parseLong(formataDados(txt_supplierCnpj.getText())), user, user);
+
 				txt_identCod.setText("");
 				txt_meterNumber.setText("");
 				txt_invoice.setText("");

@@ -9,7 +9,7 @@ public class BaseConnection {
 	String mydatabase = "pijava"; //nome do seu banco de dados
 	String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
 	String username = "root"; //nome de um usuário de seu BD
-	String password = "admin"; //sua senha de acesso
+	String password = "PuccaBang242"; //sua senha de acesso
 	Connection connection;
 
 	BaseConnection() throws SQLException{

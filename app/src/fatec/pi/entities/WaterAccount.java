@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class WaterAccount {
 	private Integer id;
-	private String number;
+	private Integer number;
 	private String dueDate;
 	private BigDecimal penalty;
 	private BigDecimal consumptionValue;
@@ -13,12 +13,14 @@ public class WaterAccount {
 	private BigDecimal waterValue;
 	private Integer pisPercentage;
 	private BigDecimal otherValues;
-	private String supplierCnpj;
+	private Long supplierCnpj;
 	private String clientCpf;
+	private Integer createdBy;
+	private Integer alterBy;
 	
-	public WaterAccount(String number, String dueDate, BigDecimal penalty, BigDecimal consumptionValue,
+	public WaterAccount(Integer number, String dueDate, BigDecimal penalty, BigDecimal consumptionValue,
 			BigDecimal pollutionValue, BigDecimal sewerValue, BigDecimal waterValue, Integer pisPercentage,
-			BigDecimal otherValues, String supplierCnpj) {
+			BigDecimal otherValues, Long supplierCnpj, Integer createdBy, Integer alterBy) {
 		super();
 		this.setNumber(number);
 		this.setDueDate(dueDate);
@@ -30,11 +32,13 @@ public class WaterAccount {
 		this.setPisPercentage(pisPercentage);
 		this.setOtherValues(otherValues);
 		this.setSupplierCnpj(supplierCnpj);
+		this.setCreatedBy(createdBy);
+		this.setAlterBy(alterBy);
 	}
 	
-	public WaterAccount(Integer id,String number, String dueDate, BigDecimal penalty, BigDecimal consumptionValue,
+	public WaterAccount(Integer id,Integer number, String dueDate, BigDecimal penalty, BigDecimal consumptionValue,
 			BigDecimal pollutionValue, BigDecimal sewerValue, BigDecimal waterValue, Integer pisPercentage,
-			BigDecimal otherValues, String supplierCnpj) {
+			BigDecimal otherValues, Long supplierCnpj, Integer alterBy) {
 		this.setId(id);
 		this.setNumber(number);
 		this.setDueDate(dueDate);
@@ -46,6 +50,7 @@ public class WaterAccount {
 		this.setPisPercentage(pisPercentage);
 		this.setOtherValues(otherValues);
 		this.setSupplierCnpj(supplierCnpj);
+		this.setAlterBy(alterBy);
 	}
 	
 	public Integer getId() {
@@ -54,10 +59,10 @@ public class WaterAccount {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
-	public void setNumber(String number) {
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 	public String getDueDate() {
@@ -108,10 +113,10 @@ public class WaterAccount {
 	public void setOtherValues(BigDecimal otherValues) {
 		this.otherValues = otherValues;
 	}
-	public String getSupplierCnpj() {
+	public Long getSupplierCnpj() {
 		return supplierCnpj;
 	}
-	public void setSupplierCnpj(String supplierCnpj) {
+	public void setSupplierCnpj(Long supplierCnpj) {
 		this.supplierCnpj = supplierCnpj;
 	}
 	public String getClientCpf() {
@@ -120,13 +125,32 @@ public class WaterAccount {
 	public void setClientCpf(String clientCpf) {
 		this.clientCpf = clientCpf;
 	}
+	
+
+	public Integer getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Integer createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Integer getAlterBy() {
+		return alterBy;
+	}
+
+	public void setAlterBy(Integer alterBy) {
+		this.alterBy = alterBy;
+	}
 
 	@Override
 	public String toString() {
 		return "WaterAccount [id=" + id + ", number=" + number + ", dueDate=" + dueDate + ", penalty=" + penalty
 				+ ", consumptionValue=" + consumptionValue + ", pollutionValue=" + pollutionValue + ", sewerValue="
 				+ sewerValue + ", waterValue=" + waterValue + ", pisPercentage=" + pisPercentage + ", otherValues="
-				+ otherValues + ", supplierCnpj=" + supplierCnpj + ", clientCpf=" + clientCpf + "]";
+				+ otherValues + ", supplierCnpj=" + supplierCnpj + ", clientCpf=" + clientCpf + ", createdBy="
+				+ createdBy + ", alterBy=" + alterBy + "]";
 	}
+
 	
 }

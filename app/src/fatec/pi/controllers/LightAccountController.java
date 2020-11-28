@@ -9,17 +9,17 @@ import fatec.pi.entities.LightAccount;
 
 public class LightAccountController {
 	
-	public static void saveValues(Integer identCod, String meterNumber, String invoice, String currentDate,
+	public static void saveValues(Integer identCod, Integer meterNumber, String invoice, String currentDate,
 			String dueDate, Integer consumptionDays, String flagType, BigDecimal consumptionValue, BigDecimal pisPercentage,
 			BigDecimal cofinsPercentage, BigDecimal icmsBasis, BigDecimal icmsPercentage, BigDecimal icmsValue,
 			BigDecimal pisCofinsBasis, BigDecimal pisValue, BigDecimal cofinsValue, BigDecimal forfeitValue,
 			BigDecimal interestValue, BigDecimal otherValues, BigDecimal supplyValue, BigDecimal financialItems,
-			BigDecimal amount, String supplierCnpj) {
+			BigDecimal amount, Long supplierCnpj, Integer createdBy, Integer alterBy) {
 		
 		LightAccount light = new LightAccount(identCod, meterNumber, invoice, currentDate, dueDate, consumptionDays,
 				flagType, consumptionValue, pisPercentage, cofinsPercentage, icmsBasis, icmsPercentage, icmsValue,
 				pisCofinsBasis, pisValue, cofinsValue, forfeitValue, interestValue, otherValues, supplyValue,
-				financialItems, amount, supplierCnpj);
+				financialItems, amount, supplierCnpj, createdBy, alterBy);
 		
 		
 		if(LightAccountDao.save(light) == 1) {
