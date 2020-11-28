@@ -93,9 +93,12 @@ public class LightAccountDao {
 		try {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement st = con.connection.prepareStatement(sql);
+
 			
-			
-			ResultSet rs = st.executeQuery();
+
+
+			st.executeQuery();
+			ResultSet rs = st.getResultSet();
 
 			
 			while (rs.next()) {

@@ -12,9 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+
 import fatec.pi.controllers.LightAccountController;
-import fatec.pi.controllers.SupplierController;
 import fatec.pi.entities.LightAccount;
+import fatec.pi.controllers.ClientController;
+import fatec.pi.controllers.SupplierController;
 import fatec.pi.entities.Supplier;
 import fatec.pi.services.TableColumnAdjuster;
 
@@ -32,9 +34,11 @@ import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.ScrollPaneConstants;
 
 public class ViewSearch extends JFrame {
 
@@ -129,6 +133,7 @@ public class ViewSearch extends JFrame {
 		
 
 		JScrollPane scrollPane_table = new JScrollPane();
+		scrollPane_table.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane_table.setBounds(209, 378, 524, 220);
 		contentPane.add(scrollPane_table);
 		
@@ -161,6 +166,7 @@ public class ViewSearch extends JFrame {
 		btnVoltar.setBounds(582, 621, 151, 23);
 		contentPane.add(btnVoltar);
 		
+
 		JButton btnPesquisa = new JButton("Pesquisar");
 		btnPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -168,19 +174,25 @@ public class ViewSearch extends JFrame {
 				type = comboBoxBusca.getSelectedItem().toString();
 				String accountType = comboBoxConta.getSelectedItem().toString(); 
 				String cnpj = formataDados(textFieldCNPJ_1.getText());
-				String identCod = textFieldNOME.getText();
+
+				
+
+				String clientCpf = formataDados(textFieldCPF_1.getText());
+        String identCod = textFieldNOME.getText();
 				dtm.setColumnIdentifiers(searchTitles(type, accountType));
-				searchResult(modelo, type, cnpj, identCod, accountType);
+				searchResult(modelo, type, cnpj, clientCpf, accountType);
 				tca.adjustColumns();
 				textFieldCNPJ_1.setText("");
-				textFieldNOME.setText("");
-				
+				textFieldCPF_1.setText("");
+        textFieldNOME.setText("");
+
 				
 			}
 		});
 		btnPesquisa.setBounds(625, 344, 108, 23);
 		contentPane.add(btnPesquisa);
 		
+
 		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setBounds(308, 176, 94, 25);
 		contentPane.add(lblCpf);
@@ -194,10 +206,11 @@ public class ViewSearch extends JFrame {
 		textFieldCPF_1.setColumns(10);
 		contentPane.add(textFieldCPF_1);
 		
+
 		JLabel lblAccount = new JLabel("Número de Instalação");
 		lblAccount.setBounds(263, 212, 135, 25);
 		contentPane.add(lblAccount);
-		
+
 		textFieldNOME = new JTextField();
 		textFieldNOME.setBounds(407, 212, 192, 25);
 		textFieldNOME.setColumns(10);
@@ -220,9 +233,7 @@ public class ViewSearch extends JFrame {
 		
 
 		
-		
 
-		
 	}
 	//Func Trata Dados
 		public static String formataDados(String dado){
@@ -239,9 +250,10 @@ public class ViewSearch extends JFrame {
 				result = new String[]{"ID", "CNPJ", "NAME", "SITE", "TYPE"};
 			}
 
+
 			else if (search.equals("Cliente")) {
-				result = new String[]{"ID", "CPF/CNPJ", "NAME", "ZIP COD", "STREET NAME", "STREET NUMBER", "STREET COMPLEMENT", "CITY", "STATE" +
-						"METER NUMBER", "MEASUREMENT ORDER", "LIGHT CLASS ", "LIGHT SUBCLASS", "NORMAL TAX", "TRIBUTE TAX ", "SUPPLIER CNPJ"};
+				result = new String[]{"ID","SUPPLIER CNPJ", "CPF", "NAME", "ZIP COD", "STREET NAME", "STREET NUMBER", "STREET COMPLEMENT", "CITY", "STATE",
+						"METER NUMBER", "MEASUREMENT ORDER", "LIGHT CLASS ", "LIGHT SUBCLASS", "NORMAL TAX", "TRIBUTE TAX "};
 			}
 			else if (search.equals("Conta")) { // CONTA AGUA e LUZ
 
@@ -258,10 +270,16 @@ public class ViewSearch extends JFrame {
 				
 			}
 
+
 			return result;
 		}
+
 		
-		public static void searchResult(DefaultTableModel table, String type, String cnpj, String identCod, String accountType) {
+	
+
+				
+		public static void searchResult(DefaultTableModel table, String type, String cnpj, String clientCpf, String accountType) {
+
 			if(type.equals("Fornecedor")) {
 				List<Supplier> sup = SupplierController.getValues(cnpj);
 				for(Supplier sp: sup) {
@@ -307,6 +325,36 @@ public class ViewSearch extends JFrame {
 					});
 				}
 			}
+
+
+			if(type.contentEquals("Cliente")) {
+				List<Client> clt = ClientController.getValues(clientCpf);
+				for(Client cl: clt) {
+					table.addRow(new Object[] {
+							cl.getId(),
+							cl.getSupplierCnpj(),
+							cl.getClientCpf(),
+							cl.getClientName(),
+							cl.getZipCode(),
+							cl.getStreetName(),
+							cl.getStreetNumber(),
+							cl.getStreetComplement(),
+							cl.getCity(),
+							cl.getState(),
+							cl.getMeterNumber(),
+							cl.getMeasurementOrder(),
+							cl.getLightClass(),
+							cl.getLightSubclass(),
+							cl.getNormalTax(),
+							cl.getTributeTax()
+						
+							
+					});
+				}
+				
+			}
+			
+
 		}
 	}
 		
@@ -329,6 +377,15 @@ public class ViewSearch extends JFrame {
 				}
 				Supplier sup = new Supplier(Integer.parseInt(objectValues[0]),Long.parseLong(objectValues[1]), objectValues[2], objectValues[3], supType, Integer.parseInt(System.getProperty("UserID")));
 				SupplierController.updateValues(sup);
+				
+			} else if (type.equals("Cliente")) {
+				BigDecimal normalTax = new BigDecimal(objectValues[14]);
+				BigDecimal tributeTax = new BigDecimal(objectValues[15]);
+				
+				Client clt = new Client(Integer.parseInt(objectValues[0]), Long.parseLong(objectValues[1]),Long.parseLong(objectValues[2]), objectValues[3], objectValues[4], objectValues[5],
+						Integer.parseInt(objectValues[6]), objectValues[7], objectValues[8], objectValues[9], Integer.parseInt(objectValues[10]), objectValues[11], objectValues[12], objectValues[13], 
+						normalTax, tributeTax, Integer.parseInt(System.getProperty("UserID")));
+				ClientController.updateValues(clt);
 			}
 		}
 }
