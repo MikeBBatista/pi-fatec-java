@@ -56,13 +56,14 @@ public class WaterAccountDao {
 		return result;
 	}	
 	
-	public static List<WaterAccount> listWaterAccounts(Integer hidroNum) {
+	public static List<WaterAccount> listWaterAccounts(String installation) {
 		
 		List<WaterAccount> WaterAccountList = new ArrayList<>();
 		String sql = "";
 		
-		String hidroNumString = Integer.toString(hidroNum);
-		if(hidroNumString.equals("")) {
+
+		if(installation.equals("")) {
+
 			sql = "Select * from WATER_ACCOUNT;";
 			
 			try {
@@ -73,20 +74,19 @@ public class WaterAccountDao {
 				
 				
 				while(result.next()) {
-
-				Integer id = result.getInt("ACCOUNT_ID");
-				Integer accountNumber = result.getInt("ACCOUNT_NUMBER");
-				String      dueDate  = result.getString("ACCOUNT_DUE_DATE");
-				BigDecimal	penalty  = result.getBigDecimal("ACCOUNT_PENALTY");
-				BigDecimal  consumpition = result.getBigDecimal("ACCOUNT_CONSUMPTION");
-				BigDecimal	polluition  = result.getBigDecimal("ACCOUNT_POLLUTION");
-				BigDecimal  sewer = result.getBigDecimal("ACCOUNT_SEWER");
-				BigDecimal	water = result.getBigDecimal("ACCOUNT_WATER");
-				Integer     pis      = result.getInt("ACCOUNT_PIS");
-				BigDecimal	other = result.getBigDecimal("ACCOUNT_OTHERS");
-				Long      sup  = result.getLong("ACCOUNT_SUPPLIER_CNPJ");
-				Integer alterBy = result.getInt("ACCOUNT_ALTER_BY");
 				
+					Integer id           = result.getInt("ACCOUNT_ID");
+					Integer accountNumber = result.getInt("ACCOUNT_NUMBER");
+					String      dueDate  = result.getString("ACCOUNT_DUE_DATE");
+					BigDecimal	penalty  = result.getBigDecimal("ACCOUNT_PENALTY");
+					BigDecimal  consumpition = result.getBigDecimal("ACCOUNT_CONSUMPTION");
+					BigDecimal	polluition  = result.getBigDecimal("ACCOUNT_POLLUTION");
+					BigDecimal  sewer = result.getBigDecimal("ACCOUNT_SEWER");
+					BigDecimal	water = result.getBigDecimal("ACCOUNT_WATER");
+					Integer     pis      = result.getInt("ACCOUNT_PIS");
+					BigDecimal	other = result.getBigDecimal("ACCOUNT_OTHERS");
+					Long      sup  = result.getLong("ACCOUNT_SUPPLIER_CNPJ");
+					Integer alterBy = result.getInt("ACCOUNT_ALTER_BY");
 				
 				WaterAccount wat = new WaterAccount(id,accountNumber, dueDate, penalty,consumpition,polluition,sewer,water,pis,other,sup, alterBy);
 				WaterAccountList.add(wat);
@@ -108,7 +108,7 @@ public class WaterAccountDao {
 				BaseConnection con = new BaseConnection();
 				PreparedStatement st = con.connection.prepareStatement(sql);
 				
-				st.setInt(1, hidroNum);
+				st.setString(1, installation);
 				
 				ResultSet rs = st.executeQuery();
 				
@@ -120,7 +120,7 @@ public class WaterAccountDao {
 							rs.getBigDecimal("ACCOUNT_PENALTY"),
 							rs.getBigDecimal("ACCOUNT_CONSUMPTION"),
 							rs.getBigDecimal("ACCOUNT_POLLUTION"),
-							rs.getBigDecimal("ACCOUNT_SEWER"),
+							rs.getBigDecimal("ACCOUNT_SEWER"),					
 							rs.getBigDecimal("ACCOUNT_WATER"),
 							rs.getInt("ACCOUNT_PIS"),
 							rs.getBigDecimal("ACCOUNT_OTHERS"),

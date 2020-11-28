@@ -18,7 +18,13 @@ import fatec.pi.entities.Client;
 import fatec.pi.entities.LightAccount;
 import fatec.pi.controllers.ClientController;
 import fatec.pi.controllers.SupplierController;
+
+
+import fatec.pi.controllers.WaterAccountController;
+
 import fatec.pi.entities.Supplier;
+import fatec.pi.entities.WaterAccount;
+import fatec.pi.entities.Client;
 import fatec.pi.services.TableColumnAdjuster;
 
 import javax.swing.JTextField;
@@ -167,6 +173,11 @@ public class ViewSearch extends JFrame {
 		btnVoltar.setBounds(582, 621, 151, 23);
 		contentPane.add(btnVoltar);
 		
+		textFieldNOME = new JTextField();
+		textFieldNOME.setBounds(407, 212, 192, 25);
+		textFieldNOME.setColumns(10);
+		contentPane.add(textFieldNOME);		
+		
 
 		JButton btnPesquisa = new JButton("Pesquisar");
 		btnPesquisa.addActionListener(new ActionListener() {
@@ -175,13 +186,12 @@ public class ViewSearch extends JFrame {
 				type = comboBoxBusca.getSelectedItem().toString();
 				String accountType = comboBoxConta.getSelectedItem().toString(); 
 				String cnpj = formataDados(textFieldCNPJ_1.getText());
-
-				
-
-				String clientCpf = formataDados(textFieldCPF_1.getText());
-				String identCod = textFieldNOME.getText();
+				String installation = textFieldNOME.getText();
+				System.out.println(installation);
 				dtm.setColumnIdentifiers(searchTitles(type, accountType));
-				searchResult(modelo, type, cnpj, clientCpf, accountType, identCod);
+				String clientCpf = formataDados(textFieldCPF_1.getText());
+				searchResult(modelo, type, cnpj, clientCpf, installation, accountType );
+        		String identCod = textFieldNOME.getText();
 				tca.adjustColumns();
 				textFieldCNPJ_1.setText("");
 				textFieldCPF_1.setText("");
@@ -212,12 +222,7 @@ public class ViewSearch extends JFrame {
 		lblAccount.setBounds(263, 212, 135, 25);
 		contentPane.add(lblAccount);
 
-		textFieldNOME = new JTextField();
-		textFieldNOME.setBounds(407, 212, 192, 25);
-		textFieldNOME.setColumns(10);
-		contentPane.add(textFieldNOME);
 
-		
 		JLabel LabelBusca = new JLabel("Buscar por");
 		LabelBusca.setBounds(308, 109, 74, 20);
 		contentPane.add(LabelBusca);
@@ -225,7 +230,7 @@ public class ViewSearch extends JFrame {
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String accountType = comboBoxConta.getSelectedItem().toString(); 
+				String accountType = comboBoxConta.getSelectedItem().toString();
 				updateData(table_data, modelo, type, accountType);
 			}
 		});
@@ -275,11 +280,9 @@ public class ViewSearch extends JFrame {
 			return result;
 		}
 
-		
-	
 
-				
-		public static void searchResult(DefaultTableModel table, String type, String cnpj, String clientCpf, String accountType, String identCod) {
+		//search
+		public static void searchResult(DefaultTableModel table, String type, String cnpj, String clientCpf, String installation, String accountType) {
 
 			if(type.equals("Fornecedor")) {
 				List<Supplier> sup = SupplierController.getValues(cnpj);
@@ -326,8 +329,6 @@ public class ViewSearch extends JFrame {
 					});
 				}
 			}
-
-
 			if(type.contentEquals("Cliente")) {
 				List<Client> clt = ClientController.getValues(clientCpf);
 				for(Client cl: clt) {
@@ -351,16 +352,33 @@ public class ViewSearch extends JFrame {
 						
 							
 					});
-				}
-				
+				}		
 			}
-			
+			if(type.equals("Conta")) {
+				if(accountType.equals("Água")) {
+					List<WaterAccount> wtr = WaterAccountController.getValues(installation);
+					for(WaterAccount wt: wtr) {
+						table.addRow(new Object[] {
+							wt.getId(),
+							wt.getNumber(),
+							wt.getDueDate(),
+							wt.getPenalty(),
+							wt.getConsumptionValue(),
+							wt.getPollutionValue(),
+							wt.getSewerValue(),
+							wt.getWaterValue(),
+							wt.getPisPercentage(),
+							wt.getOtherValues(),
+							wt.getSupplierCnpj()
+						});
+					}
+				}
+			}
 
-		}
-	}
-		
+        
+		//update
 		public static void updateData(JTable table, DefaultTableModel modelTable, String type, String accountType){
-			
+		
 			Integer row = table.getSelectedRow();
 			String rowValues = modelTable.getDataVector().elementAt(row).toString();
 			rowValues = rowValues.replaceAll("\\[", "");
@@ -415,6 +433,21 @@ public class ViewSearch extends JFrame {
 						LightAccountController.updateValues(lght);
 					}
 
+			}
+			
+			else if(type.equals("Conta")) {
+				if(accountType.equals("Água")) {
+					BigDecimal penalty = new BigDecimal(objectValues[3]); 
+					BigDecimal consumptionValue = new BigDecimal(objectValues[4]);
+					BigDecimal pollutionValue = new BigDecimal(objectValues[5]);
+					BigDecimal sewerValue = new BigDecimal(objectValues[6]); 
+					BigDecimal waterValue = new BigDecimal(objectValues[7]);
+					BigDecimal otherValues = new BigDecimal(objectValues[9]);
+					WaterAccount nWaterAccount = new WaterAccount(Integer.parseInt(objectValues[0]), Integer.parseInt(objectValues[1]), objectValues[2], penalty, consumptionValue, pollutionValue, sewerValue, waterValue, Integer.parseInt(objectValues[8]),
+							otherValues, Long.parseLong(objectValues[10]), Integer.parseInt(System.getProperty("UserID")));
+					WaterAccountController.updateValues(nWaterAccount);
+				}
+				
 			}
 		}
 	}	
