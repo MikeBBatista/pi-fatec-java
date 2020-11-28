@@ -4,8 +4,11 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 import java.math.BigDecimal;
 
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
 import fatec.pi.daos.SupplierDao;
 import fatec.pi.daos.WaterAccountDao;
+import fatec.pi.entities.Supplier;
 import fatec.pi.entities.WaterAccount;
 import fatec.pi.views.ViewAccountType;
 
@@ -21,5 +24,19 @@ public class WaterAccountController {
 			showMessageDialog(null, "Dados cadastrados com Sucesso!");
 		}
 		
+	}
+	public static List<WaterAccount> getValues(Integer hNumber){
+		List<WaterAccount> waterAccount = WaterAccountDao.listWaterAccounts(hNumber);
+		return waterAccount;
+	}
+	
+	
+	public static void updateValues(WaterAccount wateraccount) {
+		if(WaterAccountDao.update(wateraccount) == 1) {
+			showMessageDialog(null, "Dados alterados com sucesso!");
+		}
+		else {
+			showMessageDialog(null, "Dados do tipo incorreto, verifique e tente novamente");
+		}	
 	}
 }

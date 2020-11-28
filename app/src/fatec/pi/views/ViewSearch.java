@@ -13,7 +13,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import fatec.pi.controllers.SupplierController;
+import fatec.pi.controllers.WaterAccountController;
 import fatec.pi.entities.Supplier;
+import fatec.pi.entities.WaterAccount;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -29,6 +31,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -285,6 +288,21 @@ public class ViewSearch extends JFrame {
 				}
 				Supplier sup = new Supplier(Integer.parseInt(objectValues[0]),Long.parseLong(objectValues[1]), objectValues[2], objectValues[3], supType, Integer.parseInt(System.getProperty("UserID")));
 				SupplierController.updateValues(sup);
+			}
+			
+			else if(type.equals("Conta")) {
+				if(objectValues[4].equals("Água")) {
+					BigDecimal penalty = new BigDecimal(objectValues[3]); 
+					BigDecimal consumptionValue = new BigDecimal(objectValues[4]);
+					BigDecimal pollutionValue = new BigDecimal(objectValues[5]);
+					BigDecimal sewerValue = new BigDecimal(objectValues[6]); 
+					BigDecimal waterValue = new BigDecimal(objectValues[7]);
+					BigDecimal otherValues = new BigDecimal(objectValues[9]);
+					WaterAccount nWaterAccount = new WaterAccount(Integer.parseInt(objectValues[0]), objectValues[2], penalty, consumptionValue, pollutionValue, sewerValue, waterValue, Integer.parseInt(objectValues[8]),
+							otherValues, Long.parseLong(objectValues[10]), Integer.parseInt(objectValues[11]), Integer.parseInt(objectValues[12]));
+					WaterAccountController.updateValues(nWaterAccount);
+				}
+				
 			}
 		}
 }
