@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 public class Client {
 	
 	private Integer id;
-	private String supplierCnpj;
-	private String clientCpf;
+	private Long supplierCnpj;
+	private Long clientCpf;
 	private String clientName;
 	private String zipCode;
 	private String streetName;
@@ -14,16 +14,18 @@ public class Client {
 	private String streetComplement;
 	private String city;
 	private String state;
-	private String meterNumber;
+	private Integer meterNumber;
 	private String measurementOrder; //Roteiro de Leitura
 	private String lightClass;
 	private String lightSubclass;
 	private BigDecimal normalTax; //Tarifa sem imposto
 	private BigDecimal tributeTax; //Tarifa com imposto
+	private Integer createdBy;
+	private Integer alterBy;
 	
-	public Client(String supplierCnpj, String clientCpf, String clientName, String zipCode, String streetName, Integer streetNumber,
-			String streetComplement, String city, String state, String meterNumber, String measurementOrder, String lightClass, String lightSubclass,
-			BigDecimal normalTax, BigDecimal tributeTax) {
+	public Client(Long supplierCnpj, Long clientCpf, String clientName, String zipCode, String streetName, Integer streetNumber,
+			String streetComplement, String city, String state, Integer meterNumber, String measurementOrder, String lightClass, String lightSubclass,
+			BigDecimal normalTax, BigDecimal tributeTax, Integer createdBy, Integer alterBy) {
 		this.setSupplierCnpj(supplierCnpj);
 		this.setClientCpf(clientCpf);
 		this.setClientName(clientName);
@@ -39,14 +41,16 @@ public class Client {
 		this.setLightSubclass(lightSubclass);
 		this.setNormalTax(normalTax);
 		this.setTributeTax(tributeTax);
+		this.setCreatedBy(createdBy);
+		this.setAlterBy(alterBy);
 	}
 	
 	
 	
-	public Client(Integer id, String supplierCnpj, String clientCpf, String clientName, String zipCode,
+	public Client(Integer id, Long supplierCnpj, Long clientCpf, String clientName, String zipCode,
 			String streetName, Integer streetNumber, String streetComplement, String city, String state,
-			String meterNumber, String measurementOrder, String lightClass, String lightSubclass, BigDecimal normalTax,
-			BigDecimal tributeTax) {
+			Integer meterNumber, String measurementOrder, String lightClass, String lightSubclass, BigDecimal normalTax,
+			BigDecimal tributeTax, Integer alterBy) {
 		this.setId(id);
 		this.setSupplierCnpj(supplierCnpj);
 		this.setClientCpf(clientCpf);
@@ -63,6 +67,7 @@ public class Client {
 		this.setLightSubclass(lightSubclass);
 		this.setNormalTax(normalTax);
 		this.setTributeTax(tributeTax);
+		this.setAlterBy(alterBy);
 	}
 
 
@@ -73,16 +78,16 @@ public class Client {
 	public void setId(Integer id) {
 		this.id=id;
 	}
-	public String getSupplierCnpj() {
+	public Long getSupplierCnpj() {
 		return supplierCnpj;
 	}
-	public void setSupplierCnpj(String supplierCnpj) {
+	public void setSupplierCnpj(Long supplierCnpj) {
 		this.supplierCnpj = supplierCnpj;
 	}
-	public String getClientCpf() {
+	public Long getClientCpf() {
 		return clientCpf;
 	}
-	public void setClientCpf(String clientCpf) {
+	public void setClientCpf(Long clientCpf) {
 		this.clientCpf = clientCpf;
 	}
 	public String getClientName() {
@@ -127,10 +132,10 @@ public class Client {
 	public void setState(String state) {
 		this.state=state;
 	}
-	public String getMeterNumber() {
+	public Integer getMeterNumber() {
 		return meterNumber;
 	}
-	public void setMeterNumber(String meterNumber) {
+	public void setMeterNumber(Integer meterNumber) {
 		this.meterNumber=meterNumber;
 	}
 	public String getMeasurementOrder() {
@@ -163,6 +168,26 @@ public class Client {
 	public void setTributeTax(BigDecimal tributeTax) {
 		this.tributeTax=tributeTax;
 	}
+	
+
+	public Integer getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Integer createdBy) {
+		this.createdBy = createdBy;
+	}
+
+
+	public Integer getAlterBy() {
+		return alterBy;
+	}
+
+	public void setAlterBy(Integer alterBy) {
+		this.alterBy = alterBy;
+	}
+
+
 
 	@Override
 	public String toString() {
@@ -170,9 +195,12 @@ public class Client {
 				+ clientName + ", zipCode=" + zipCode + ", streetName=" + streetName + ", streetNumber=" + streetNumber
 				+ ", streetComplement=" + streetComplement + ", city=" + city + ", state=" + state + ", meterNumber="
 				+ meterNumber + ", measurementOrder=" + measurementOrder + ", lightClass=" + lightClass
-				+ ", lightSubclass=" + lightSubclass + ", normalTax=" + normalTax + ", tributeTax=" + tributeTax + "]";
+				+ ", lightSubclass=" + lightSubclass + ", normalTax=" + normalTax + ", tributeTax=" + tributeTax
+				+ ", createdBy=" + createdBy + ", alterBy=" + alterBy + "]";
 	}
-	
+
+
+
 	
 
 }

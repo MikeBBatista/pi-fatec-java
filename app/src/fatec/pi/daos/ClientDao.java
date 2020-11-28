@@ -20,7 +20,7 @@ public class ClientDao {
 				+ "CLIENT_ZIP_COD, "
 				+ "CLIENT_STREET_NAME, "
 				+ "CLIENT_STREET_NUMBER, "
-				+ "CLIENT_STREET_COMPLEMENT, "
+				+ "CLIENT_STREET_COMPLEMENT,"
 				+ "CLIENT_CITY, "
 				+ "CLIENT_STATE, "
 				+ "CLIENT_METER_NUMBER, "
@@ -29,15 +29,17 @@ public class ClientDao {
 				+ "CLIENT_LIGHT_SUBCLASS,"
 				+ "CLIENT_NORMAL_TAX,"
 				+ "CLIENT_TRIBUTE_TAX,"
-				+ "CLIENT_SUPPLIER_CNPJ) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "CLIENT_SUPPLIER_CNPJ,"
+				+ "CLIENT_USER_ID,"
+				+ "CLIENT_ALTER_BY) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement saveValues = con.connection.prepareStatement(sql); // mudança de Statement para PreparedStatement
 			
 			// usar o method set do preparedStatement para tratar os dados fornecidos pelo usuário antes de mandar para o SQL
-			saveValues.setString(1, client.getClientCpf());
+			saveValues.setLong(1, client.getClientCpf());
 			saveValues.setString(2, client.getClientName());
 			saveValues.setString(3, client.getZipCode());
 			saveValues.setString(4, client.getStreetName());
@@ -45,13 +47,15 @@ public class ClientDao {
 			saveValues.setString(6, client.getStreetComplement());
 			saveValues.setString(7, client.getCity());
 			saveValues.setString(8, client.getState());
-			saveValues.setString(9, client.getMeterNumber());
+			saveValues.setInt(9, client.getMeterNumber());
 			saveValues.setString(10, client.getMeasurementOrder());
 			saveValues.setString(11, client.getLightClass());
 			saveValues.setString(12, client.getLightSubclass());
 			saveValues.setBigDecimal(13, client.getNormalTax());
 			saveValues.setBigDecimal(14, client.getTributeTax());
-			saveValues.setString(15, client.getSupplierCnpj());
+			saveValues.setLong(15, client.getSupplierCnpj());
+			saveValues.setInt(16, client.getCreatedBy());
+			saveValues.setInt(17, client.getAlterBy());
 			
 			result = saveValues.executeUpdate();
 		}
@@ -83,8 +87,8 @@ public class ClientDao {
 			while (rs.next()) {
 				Client clt = new Client(
 						rs.getInt("CLIENT_ID"),
-						rs.getString("CLIENT_CPF"),
-						rs.getString("CLIENT_SUPPLIER_CNPJ"),
+						rs.getLong("CLIENT_SUPPLIER_CNPJ"),
+						rs.getLong("CLIENT_CPF"),
 						rs.getString("CLIENT_NAME"),
 						rs.getString("CLIENT_ZIP_COD"),
 						rs.getString("CLIENT_STREET_NAME"),
@@ -92,12 +96,13 @@ public class ClientDao {
 						rs.getString("CLIENT_STREET_COMPLEMENT"),
 						rs.getString("CLIENT_CITY"),
 						rs.getString("CLIENT_STATE"),
-						rs.getString("CLIENT_METER_NUMBER"),
+						rs.getInt("CLIENT_METER_NUMBER"),
 						rs.getString("CLIENT_MEASUREMENT_ORDER"),
 						rs.getString("CLIENT_LIGHT_CLASS"),
 						rs.getString("CLIENT_LIGHT_SUBCLASS"),
 						rs.getBigDecimal("CLIENT_NORMAL_TAX"),
-						rs.getBigDecimal("CLIENT_TRIBUTE_TAX"));
+						rs.getBigDecimal("CLIENT_TRIBUTE_TAX"),
+						rs.getInt("CLIENT_ALTER_BY"));
 				clientList.add(clt);
 			}
 		}
@@ -168,7 +173,8 @@ return clientList;
 				+ "CLIENT_LIGHT_SUBCLASS = ?,"
 				+ "CLIENT_NORMAL_TAX = ?,"
 				+ "CLIENT_TRIBUTE_TAX = ?,"
-				+ "CLIENT_SUPPLIER_CNPJ = ? "
+				+ "CLIENT_SUPPLIER_CNPJ = ?, "
+				+ "CLIENT_ALTER_BY = ?"
 				+ "WHERE CLIENT_ID = ?;";
 		
 		try{
@@ -176,7 +182,7 @@ return clientList;
 			BaseConnection con = new BaseConnection();
 			PreparedStatement updateValues = con.connection.prepareStatement(sql);
 			
-			updateValues.setString(1, client.getClientCpf());
+			updateValues.setLong(1, client.getClientCpf());
 			updateValues.setString(2, client.getClientName());
 			updateValues.setString(3, client.getZipCode());
 			updateValues.setString(4, client.getStreetName());
@@ -184,14 +190,15 @@ return clientList;
 			updateValues.setString(6, client.getStreetComplement());
 			updateValues.setString(7, client.getCity());
 			updateValues.setString(8, client.getState());
-			updateValues.setString(9, client.getMeterNumber());
+			updateValues.setInt(9, client.getMeterNumber());
 			updateValues.setString(10, client.getMeasurementOrder());
 			updateValues.setString(11, client.getLightClass());
 			updateValues.setString(12, client.getLightSubclass());
 			updateValues.setBigDecimal(13, client.getNormalTax());
 			updateValues.setBigDecimal(14, client.getTributeTax());
-			updateValues.setString(15, client.getSupplierCnpj());
-			updateValues.setInt(16, client.getId());
+			updateValues.setLong(15, client.getSupplierCnpj());
+			updateValues.setInt(16, client.getAlterBy());
+			updateValues.setInt(17, client.getId());
 			
 			result = updateValues.executeUpdate();
 			con.connection.close();

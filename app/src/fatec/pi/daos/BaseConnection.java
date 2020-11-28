@@ -8,7 +8,7 @@ public class BaseConnection {
 	String serverName = "localhost"; //caminho do servidor
 	String mydatabase = "pijava"; //nome do seu banco de dados
 	String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
-	String username = "root"; //nome de um usuário de seu BD
+	String username = "root"; //nome de um usuï¿½rio de seu BD
 	String password = "admin"; //sua senha de acesso
 	Connection connection;
 

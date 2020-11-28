@@ -91,6 +91,13 @@ public class ViewMainAdmin extends JFrame {
 		btnCadastrarNovaConta.setMnemonic(KeyEvent.VK_3);
 		
 		JButton btnEditarInformaoCadastrada = new JButton("EDITAR INFORMA\u00C7\u00C3O CADASTRADA");
+		btnEditarInformaoCadastrada.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewSearch viewSearch = new ViewSearch();
+				viewSearch.setVisible(true);
+				setVisible(false);
+			}
+		});
 		btnEditarInformaoCadastrada.setFont(new Font("Arial", Font.BOLD, 13));
 		
 		JButton btnGerarRelatrios = new JButton("GERAR RELAT\u00D3RIOS");

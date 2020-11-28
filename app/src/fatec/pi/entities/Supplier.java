@@ -2,25 +2,33 @@ package fatec.pi.entities;
 
 public class Supplier {
 	private Integer id;
-	private Integer cnpj;
+
+	private Long cnpj;
 	private String name;
 	private String site;
 	private Integer type;
+	private Integer createdBy;
+	private Integer alterBy;
 	
-	public Supplier(Integer cnpj, String name, String site, Integer type) {
+
+	public Supplier(Long cnpj, String name, String site, Integer type, Integer createdBy, Integer alterBy) {
 		
 		this.setCnpj(cnpj);
 		this.setName(name);
 		this.setSite(site);
 		this.setType(type);
+		this.setCreatedBy(createdBy);
+		this.setAlterBy(alterBy);
 	}
 	
-	public Supplier( Integer id, Integer cnpj, String name, String site, Integer type) {
+
+	public Supplier( Integer id, Long cnpj, String name, String site, Integer type, Integer alterBy) {
 		this.setId(id);
 		this.setCnpj(cnpj);
 		this.setName(name);
 		this.setSite(site);
 		this.setType(type);
+		this.setAlterBy(alterBy);
 	}
 	
 	public Integer getId() {
@@ -31,11 +39,12 @@ public class Supplier {
 		this.id = id;
 	}
 
-	public Integer getCnpj() {
+
+	public Long getCnpj() {
 		return cnpj;
 	}
 
-	public void setCnpj(Integer cnpj) {
+	public void setCnpj(Long cnpj) {
 		this.cnpj = cnpj;
 	}
 
@@ -63,11 +72,32 @@ public class Supplier {
 		this.type = type;
 	}
 
-	@Override
-	public String toString() {
-		return "Supplier [id=" + id + ", cnpj=" + cnpj + ", name=" + name + ", site=" + site + ", type=" + type + "]";
+
+	public Integer getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Integer createdBy) {
+		this.createdBy = createdBy;
 	}
 	
+
+	public Integer getAlterBy() {
+		return alterBy;
+	}
+
+
+	public void setAlterBy(Integer alterBy) {
+		this.alterBy = alterBy;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Supplier [id=" + id + ", cnpj=" + cnpj + ", name=" + name + ", site=" + site + ", type=" + type
+				+ ", createdBy=" + createdBy + ", alterBy=" + alterBy + "]";
+	}
+
 	public String toType() {
 		String result = "";
 		if(this.getType().equals(0)) {
