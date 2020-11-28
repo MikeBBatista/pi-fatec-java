@@ -29,8 +29,8 @@ public class LightAccountController {
 		}
 	}
 			public static List <LightAccount> getValues (String identCod){
-				List <LightAccount> lightAccount = LightAccountDao.listLightAccounts(identCod);
-				return lightAccount;
+				List <LightAccount> lightAccounts = LightAccountDao.listLightAccounts(identCod);
+				return lightAccounts;
 			}
 
 }

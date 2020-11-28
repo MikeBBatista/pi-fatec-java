@@ -80,20 +80,21 @@ public class LightAccountDao {
 		return result;
 	}		
 	
-	public static List <LightAccount> listLightAccounts(String supplierCnpj){
+	public static List <LightAccount> listLightAccounts(String identCod){
 		
 		List<LightAccount> lightList = new ArrayList<>();
 		
 		String sql = "";
 		
-		if(supplierCnpj.equals("")) {
+		if(identCod.equals("")) {
+			
 			sql = "Select * from LIGHT_ACCOUNT";
 		
 		try {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement st = con.connection.prepareStatement(sql);
 			
-
+			
 			ResultSet rs = st.executeQuery();
 
 			
@@ -133,12 +134,12 @@ public class LightAccountDao {
 			}
 		}
 		else {
-			sql = "Select * from LIGHT_ACCOUNT where LIGHT_SUPPLIER_CNPJ = ?";
+			sql = "Select * from LIGHT_ACCOUNT where  LIGHT_IDENT_COD = ?";
 		try {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement st = con.connection.prepareStatement(sql);
 			
-			st.setString(1, supplierCnpj);
+			st.setString(1, identCod);
 			ResultSet rs = st.executeQuery();
 			
 			while (rs.next()) {

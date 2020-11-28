@@ -168,10 +168,12 @@ public class ViewSearch extends JFrame {
 				type = comboBoxBusca.getSelectedItem().toString();
 				String accountType = comboBoxConta.getSelectedItem().toString(); 
 				String cnpj = formataDados(textFieldCNPJ_1.getText());
+				String identCod = textFieldNOME.getText();
 				dtm.setColumnIdentifiers(searchTitles(type, accountType));
-				searchResult(modelo, type, cnpj);
+				searchResult(modelo, type, cnpj, identCod, accountType);
 				tca.adjustColumns();
 				textFieldCNPJ_1.setText("");
+				textFieldNOME.setText("");
 				
 				
 			}
@@ -259,7 +261,7 @@ public class ViewSearch extends JFrame {
 			return result;
 		}
 		
-		public static void searchResult(DefaultTableModel table, String type, String cnpj) {
+		public static void searchResult(DefaultTableModel table, String type, String cnpj, String identCod, String accountType) {
 			if(type.equals("Fornecedor")) {
 				List<Supplier> sup = SupplierController.getValues(cnpj);
 				for(Supplier sp: sup) {
@@ -271,8 +273,9 @@ public class ViewSearch extends JFrame {
 							sp.toType()
 					});
 				}
-			}else if (type.contentEquals("Luz")) {
-				List <LightAccount> lgh = LightAccountController.getValues(cnpj);
+			}else if (type.equals("Conta")) {
+				if (accountType.equals("Luz")) {
+				List <LightAccount> lgh = LightAccountController.getValues(identCod);
 				for(LightAccount la: lgh) {
 					table.addRow(new Object[] {
 							la.getId(),
@@ -299,12 +302,13 @@ public class ViewSearch extends JFrame {
 							la.getSupplyValue(),
 							la.getFinancialItems(),
 							la.getAmount(),
-							la.getSupplierCnpj()
+							la.getSupplierCnpj(),
 							
 					});
 				}
 			}
 		}
+	}
 		
 		public static void updateData(JTable table, DefaultTableModel modelTable, String type){
 			
