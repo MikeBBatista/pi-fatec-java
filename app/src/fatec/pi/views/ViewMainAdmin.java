@@ -93,8 +93,8 @@ public class ViewMainAdmin extends JFrame {
 		JButton btnEditarInformaoCadastrada = new JButton("EDITAR INFORMA\u00C7\u00C3O CADASTRADA");
 		btnEditarInformaoCadastrada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ViewSearch view = new ViewSearch();
-				view.setVisible(true);
+				ViewSearch viewSearch = new ViewSearch();
+				viewSearch.setVisible(true);
 				setVisible(false);
 			}
 		});

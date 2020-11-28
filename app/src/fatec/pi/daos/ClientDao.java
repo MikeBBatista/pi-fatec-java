@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import fatec.pi.entities.Client;
+import fatec.pi.entities.Supplier;
 
 
 
@@ -64,15 +65,24 @@ public class ClientDao {
 		return result;
 	}
 	
-	public static List<Client> listClients(){
+	
+
+	public static List<Client> listClients(String clientCpf){
+		
 		List<Client> clientList = new ArrayList<>();
-		String sql = "Select * from CLIENT_REGISTER";
+		
+		String sql = "";
+		
+		if(clientCpf.equals("")) {
+			sql = "Select * from CLIENT_REGISTER";
+		
+		
 		try {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement st = con.connection.prepareStatement(sql);
 			
-			st.executeQuery(sql);
-			ResultSet rs = st.getResultSet();
+			
+			ResultSet rs = st.executeQuery();
 			
 			while (rs.next()) {
 				Client clt = new Client(
@@ -94,16 +104,57 @@ public class ClientDao {
 						rs.getBigDecimal("CLIENT_TRIBUTE_TAX"),
 						rs.getInt("CLIENT_ALTER_BY"));
 				clientList.add(clt);
-								
 			}
 		}
-		catch(SQLException err) {
-			System.out.println(err);
+			catch(SQLException err) {
+				System.out.println(err);
+			}
 		}
-		return clientList;
-				
+	
+	else {
+		sql = "Select * from CLIENT_REGISTER where CLIENT_CPF = ?";
+	
+	
+	try {
+		BaseConnection con = new BaseConnection();
+		PreparedStatement st = con.connection.prepareStatement(sql);
+		
+		st.setString(1, clientCpf);
+		
+		ResultSet rs = st.executeQuery();
+		
+		while (rs.next()) {
+			Client clt = new Client(
+					rs.getInt("CLIENT_ID"),
+					rs.getLong("CLIENT_SUPPLIER_CNPJ"),
+					rs.getLong("CLIENT_CPF"),
+					rs.getString("CLIENT_NAME"),
+					rs.getString("CLIENT_ZIP_COD"),
+					rs.getString("CLIENT_STREET_NAME"),
+					rs.getInt("CLIENT_STREET_NUMBER"),
+					rs.getString("CLIENT_STREET_COMPLEMENT"),
+					rs.getString("CLIENT_CITY"),
+					rs.getString("CLIENT_STATE"),
+					rs.getInt("CLIENT_METER_NUMBER"),
+					rs.getString("CLIENT_MEASUREMENT_ORDER"),
+					rs.getString("CLIENT_LIGHT_CLASS"),
+					rs.getString("CLIENT_LIGHT_SUBCLASS"),
+					rs.getBigDecimal("CLIENT_NORMAL_TAX"),
+					rs.getBigDecimal("CLIENT_TRIBUTE_TAX"),
+					rs.getInt("CLIENT_ALTER_BY"));
+			clientList.add(clt);
+		}
+	}
+	catch(SQLException err) {
+		System.out.println(err);
+		}
 	}
 	
+return clientList;
+
+}
+
+
 	public static Integer update(Client client) {
 		int result = 0;
 		
@@ -119,12 +170,12 @@ public class ClientDao {
 				+ "CLIENT_STATE = ?, "
 				+ "CLIENT_METER_NUMBER = ?, "
 				+ "CLIENT_MEASUREMENT_ORDER = ?,"
-				+ "CLIENT_LIGHT_CLASS = ?,"
-				+ "CLIENT_LIGHT_SUBCLASS = ?,"
+				+ "CLIENT_LIGHT_CLASS = ?, "
+				+ "CLIENT_LIGHT_SUBCLASS = ?, "
 				+ "CLIENT_NORMAL_TAX = ?,"
 				+ "CLIENT_TRIBUTE_TAX = ?,"
 				+ "CLIENT_SUPPLIER_CNPJ = ?, "
-				+ "CLIENT_ALTER_BY = ?"
+				+ "CLIENT_ALTER_BY = ? "
 				+ "WHERE CLIENT_ID = ?;";
 		
 		try{

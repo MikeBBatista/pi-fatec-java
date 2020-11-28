@@ -61,7 +61,9 @@ public class WaterAccountDao {
 		List<WaterAccount> WaterAccountList = new ArrayList<>();
 		String sql = "";
 		
+
 		if(installation.equals("")) {
+
 			sql = "Select * from WATER_ACCOUNT;";
 			
 			try {
@@ -85,7 +87,6 @@ public class WaterAccountDao {
 					BigDecimal	other = result.getBigDecimal("ACCOUNT_OTHERS");
 					Long      sup  = result.getLong("ACCOUNT_SUPPLIER_CNPJ");
 					Integer alterBy = result.getInt("ACCOUNT_ALTER_BY");
-				
 				
 				WaterAccount wat = new WaterAccount(id,accountNumber, dueDate, penalty,consumpition,polluition,sewer,water,pis,other,sup, alterBy);
 				WaterAccountList.add(wat);
@@ -124,7 +125,7 @@ public class WaterAccountDao {
 							rs.getInt("ACCOUNT_PIS"),
 							rs.getBigDecimal("ACCOUNT_OTHERS"),
 							rs.getLong("ACCOUNT_SUPPLIER_CNPJ"),
-							rs.getInt("ACCOUNT_ALTER_BY"));				
+							rs.getInt("ACCOUNT_ALTER_BY"));
 												
 					WaterAccountList.add(wat);
 				}
