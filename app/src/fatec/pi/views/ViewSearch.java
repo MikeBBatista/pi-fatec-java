@@ -32,6 +32,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -171,10 +172,12 @@ public class ViewSearch extends JFrame {
 				type = comboBoxBusca.getSelectedItem().toString();
 				String accountType = comboBoxConta.getSelectedItem().toString(); 
 				String cnpj = formataDados(textFieldCNPJ_1.getText());
+				String clientCpf = formataDados(textFieldCPF_1.getText());
 				dtm.setColumnIdentifiers(searchTitles(type, accountType));
-				searchResult(modelo, type, cnpj);
+				searchResult(modelo, type, cnpj, clientCpf);
 				tca.adjustColumns();
 				textFieldCNPJ_1.setText("");
+				textFieldCPF_1.setText("");
 				
 				
 			}
@@ -242,8 +245,8 @@ public class ViewSearch extends JFrame {
 
 
 			else if (search.equals("Cliente")) {
-				result = new String[]{"ID", "CPF/CNPJ", "NAME", "ZIP COD", "STREET NAME", "STREET NUMBER", "STREET COMPLEMENT", "CITY", "STATE" +
-						"METER NUMBER", "MEASUREMENT ORDER", "LIGHT CLASS ", "LIGHT SUBCLASS", "NORMAL TAX", "TRIBUTE TAX ", "SUPPLIER CNPJ"};
+				result = new String[]{"ID","SUPPLIER CNPJ", "CPF", "NAME", "ZIP COD", "STREET NAME", "STREET NUMBER", "STREET COMPLEMENT", "CITY", "STATE",
+						"METER NUMBER", "MEASUREMENT ORDER", "LIGHT CLASS ", "LIGHT SUBCLASS", "NORMAL TAX", "TRIBUTE TAX "};
 			}
 			else if (search.equals("Conta")) { // CONTA AGUA e LUZ
 
@@ -283,8 +286,8 @@ public class ViewSearch extends JFrame {
 				for(Client cl: clt) {
 					table.addRow(new Object[] {
 							cl.getId(),
-							cl.getClientCpf(),
 							cl.getSupplierCnpj(),
+							cl.getClientCpf(),
 							cl.getClientName(),
 							cl.getZipCode(),
 							cl.getStreetName(),
@@ -294,10 +297,12 @@ public class ViewSearch extends JFrame {
 							cl.getState(),
 							cl.getMeterNumber(),
 							cl.getMeasurementOrder(),
-							cl.getClass(),
+							cl.getLightClass(),
 							cl.getLightSubclass(),
 							cl.getNormalTax(),
 							cl.getTributeTax()
+						
+							
 					});
 				}
 				
@@ -324,6 +329,15 @@ public class ViewSearch extends JFrame {
 				}
 				Supplier sup = new Supplier(Integer.parseInt(objectValues[0]),Long.parseLong(objectValues[1]), objectValues[2], objectValues[3], supType, Integer.parseInt(System.getProperty("UserID")));
 				SupplierController.updateValues(sup);
+				
+			} else if (type.equals("Cliente")) {
+				BigDecimal normalTax = new BigDecimal(objectValues[14]);
+				BigDecimal tributeTax = new BigDecimal(objectValues[15]);
+				
+				Client clt = new Client(Integer.parseInt(objectValues[0]), Long.parseLong(objectValues[1]),Long.parseLong(objectValues[2]), objectValues[3], objectValues[4], objectValues[5],
+						Integer.parseInt(objectValues[6]), objectValues[7], objectValues[8], objectValues[9], Integer.parseInt(objectValues[10]), objectValues[11], objectValues[12], objectValues[13], 
+						normalTax, tributeTax, Integer.parseInt(System.getProperty("UserID")));
+				ClientController.updateValues(clt);
 			}
 		}
 }
