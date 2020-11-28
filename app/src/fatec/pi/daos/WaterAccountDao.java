@@ -56,12 +56,12 @@ public class WaterAccountDao {
 		return result;
 	}	
 	
-	public static List<WaterAccount> listWaterAccounts(Integer hidroNum) {
+	public static List<WaterAccount> listWaterAccounts(String installation) {
 		
 		List<WaterAccount> WaterAccountList = new ArrayList<>();
 		String sql = "";
 		
-		if(hidroNum.equals("")) {
+		if(installation.equals("")) {
 			sql = "Select * from WATER_ACCOUNT;";
 			
 			try {
@@ -107,7 +107,7 @@ public class WaterAccountDao {
 				BaseConnection con = new BaseConnection();
 				PreparedStatement st = con.connection.prepareStatement(sql);
 				
-				st.setInt(1, hidroNum);
+				st.setString(1, installation);
 				
 				ResultSet rs = st.executeQuery();
 				

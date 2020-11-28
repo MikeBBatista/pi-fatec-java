@@ -154,6 +154,11 @@ public class ViewSearch extends JFrame {
 		btnVoltar.setBounds(582, 621, 151, 23);
 		contentPane.add(btnVoltar);
 		
+		textFieldNOME = new JTextField();
+		textFieldNOME.setBounds(407, 212, 192, 25);
+		textFieldNOME.setColumns(10);
+		contentPane.add(textFieldNOME);		
+		
 		JButton btnPesquisa = new JButton("Pesquisar");
 		btnPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -161,8 +166,10 @@ public class ViewSearch extends JFrame {
 				type = comboBoxBusca.getSelectedItem().toString();
 				String accountType = comboBoxConta.getSelectedItem().toString(); 
 				String cnpj = formataDados(textFieldCNPJ_1.getText());
+				String installation = textFieldNOME.getText();
+				System.out.println(installation);
 				dtm.setColumnIdentifiers(searchTitles(type, accountType));
-				searchResult(modelo, type, cnpj);
+				searchResult(modelo, type, cnpj, installation, accountType);
 				textFieldCNPJ_1.setText("");
 				
 				
@@ -187,13 +194,7 @@ public class ViewSearch extends JFrame {
 		JLabel lblAccount = new JLabel("Hidr\u00F4metro / Medidor");
 		lblAccount.setBounds(308, 211, 108, 25);
 		contentPane.add(lblAccount);
-		
-		textFieldNOME = new JTextField();
-		textFieldNOME.setBounds(407, 212, 192, 25);
-		textFieldNOME.setColumns(10);
-		contentPane.add(textFieldNOME);
-
-		
+				
 		JLabel LabelBusca = new JLabel("Buscar por");
 		LabelBusca.setBounds(308, 109, 74, 20);
 		contentPane.add(LabelBusca);
@@ -201,8 +202,8 @@ public class ViewSearch extends JFrame {
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				updateData(table_data, modelo, type);
+				String accountType = comboBoxConta.getSelectedItem().toString();
+				updateData(table_data, modelo, type, accountType);
 			}
 		});
 		btnUpdate.setBounds(402, 621, 151, 23);
@@ -237,7 +238,7 @@ public class ViewSearch extends JFrame {
 			}
 			else if (search.equals("Conta")) { // CONTA AGUA e LUZ
 
-				if(accountType.equals("LUZ")) {
+				if(accountType.equals("Luz")) {
 					result = new String[]{"ID", "IDENT COD", "METERNUMBER", "INVOICE", "CURRENT DATE","DUE DATE","CONSUMPTION DAYS" +
 				"FLAG TYPE","CONSUMPTION VALUE","PIS PERCENTAGE","COFINS PERCENTAGE","ICMS BASIS","ICMS PERCENTAGE","ICMS VALUE" +
 					"PIS COFINS BASIS","PIS VALUE","COFINS VALUE","FORFEIT VALUE","INTEREST VALUE", "OTHER VALUES", "SUPPLY VALUES" +
@@ -252,8 +253,8 @@ public class ViewSearch extends JFrame {
 
 			return result;
 		}
-		
-		public static void searchResult(DefaultTableModel table, String type, String cnpj) {
+		//search
+		public static void searchResult(DefaultTableModel table, String type, String cnpj, String installation, String accountType) {
 			if(type.equals("Fornecedor")) {
 				List<Supplier> sup = SupplierController.getValues(cnpj);
 				for(Supplier sp: sup) {
@@ -266,10 +267,30 @@ public class ViewSearch extends JFrame {
 					});
 				}
 			}
+			if(type.equals("Conta")) {
+				if(accountType.equals("Água")) {
+					List<WaterAccount> wtr = WaterAccountController.getValues(installation);
+					for(WaterAccount wt: wtr) {
+						table.addRow(new Object[] {
+							wt.getId(),
+							wt.getNumber(),
+							wt.getDueDate(),
+							wt.getPenalty(),
+							wt.getConsumptionValue(),
+							wt.getPollutionValue(),
+							wt.getSewerValue(),
+							wt.getWaterValue(),
+							wt.getPisPercentage(),
+							wt.getOtherValues(),
+							wt.getSupplierCnpj()
+						});
+					}
+				}	
+			}
 			
 		}
-		
-		public static void updateData(JTable table, DefaultTableModel modelTable, String type){
+		//update
+		public static void updateData(JTable table, DefaultTableModel modelTable, String type, String accountType){
 			
 			Integer row = table.getSelectedRow();
 			String rowValues = modelTable.getDataVector().elementAt(row).toString();
@@ -279,7 +300,7 @@ public class ViewSearch extends JFrame {
 			
 			if(type.equals("Fornecedor")) {
 				Integer supType = 3;
-				if(objectValues[4].equals("Energia")) {
+				if(objectValues[4].equals("Luz")) {
 					supType = 0;
 				}
 
@@ -291,15 +312,15 @@ public class ViewSearch extends JFrame {
 			}
 			
 			else if(type.equals("Conta")) {
-				if(objectValues[4].equals("Água")) {
+				if(accountType.equals("Água")) {
 					BigDecimal penalty = new BigDecimal(objectValues[3]); 
 					BigDecimal consumptionValue = new BigDecimal(objectValues[4]);
 					BigDecimal pollutionValue = new BigDecimal(objectValues[5]);
 					BigDecimal sewerValue = new BigDecimal(objectValues[6]); 
 					BigDecimal waterValue = new BigDecimal(objectValues[7]);
 					BigDecimal otherValues = new BigDecimal(objectValues[9]);
-					WaterAccount nWaterAccount = new WaterAccount(Integer.parseInt(objectValues[0]), objectValues[2], penalty, consumptionValue, pollutionValue, sewerValue, waterValue, Integer.parseInt(objectValues[8]),
-							otherValues, Long.parseLong(objectValues[10]), Integer.parseInt(objectValues[11]), Integer.parseInt(objectValues[12]));
+					WaterAccount nWaterAccount = new WaterAccount(Integer.parseInt(objectValues[0]), Integer.parseInt(objectValues[1]), objectValues[2], penalty, consumptionValue, pollutionValue, sewerValue, waterValue, Integer.parseInt(objectValues[8]),
+							otherValues, Long.parseLong(objectValues[10]), Integer.parseInt(System.getProperty("UserID")));
 					WaterAccountController.updateValues(nWaterAccount);
 				}
 				

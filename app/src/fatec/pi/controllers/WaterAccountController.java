@@ -4,7 +4,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 import java.math.BigDecimal;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+import java.util.List;
 
 import fatec.pi.daos.SupplierDao;
 import fatec.pi.daos.WaterAccountDao;
@@ -25,8 +25,8 @@ public class WaterAccountController {
 		}
 		
 	}
-	public static List<WaterAccount> getValues(Integer hNumber){
-		List<WaterAccount> waterAccount = WaterAccountDao.listWaterAccounts(hNumber);
+	public static List<WaterAccount> getValues(String installation){
+		List<WaterAccount> waterAccount = WaterAccountDao.listWaterAccounts(installation);
 		return waterAccount;
 	}
 	
