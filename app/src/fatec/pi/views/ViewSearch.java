@@ -12,7 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import fatec.pi.controllers.ClientController;
 import fatec.pi.controllers.SupplierController;
+import fatec.pi.entities.Client;
 import fatec.pi.entities.Supplier;
 import fatec.pi.services.TableColumnAdjuster;
 
@@ -33,6 +35,7 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.ScrollPaneConstants;
 
 public class ViewSearch extends JFrame {
 
@@ -127,6 +130,7 @@ public class ViewSearch extends JFrame {
 		
 
 		JScrollPane scrollPane_table = new JScrollPane();
+		scrollPane_table.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane_table.setBounds(209, 378, 524, 220);
 		contentPane.add(scrollPane_table);
 		
@@ -159,6 +163,7 @@ public class ViewSearch extends JFrame {
 		btnVoltar.setBounds(582, 621, 151, 23);
 		contentPane.add(btnVoltar);
 		
+
 		JButton btnPesquisa = new JButton("Pesquisar");
 		btnPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -177,6 +182,7 @@ public class ViewSearch extends JFrame {
 		btnPesquisa.setBounds(625, 344, 108, 23);
 		contentPane.add(btnPesquisa);
 		
+
 		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setBounds(308, 176, 94, 25);
 		contentPane.add(lblCpf);
@@ -190,10 +196,11 @@ public class ViewSearch extends JFrame {
 		textFieldCPF_1.setColumns(10);
 		contentPane.add(textFieldCPF_1);
 		
+
 		JLabel lblAccount = new JLabel("Número de Instalação");
 		lblAccount.setBounds(263, 212, 135, 25);
 		contentPane.add(lblAccount);
-		
+
 		textFieldNOME = new JTextField();
 		textFieldNOME.setBounds(407, 212, 192, 25);
 		textFieldNOME.setColumns(10);
@@ -216,9 +223,7 @@ public class ViewSearch extends JFrame {
 		
 
 		
-		
 
-		
 	}
 	//Func Trata Dados
 		public static String formataDados(String dado){
@@ -234,6 +239,7 @@ public class ViewSearch extends JFrame {
 			if(search.equals("Fornecedor")) {
 				result = new String[]{"ID", "CNPJ", "NAME", "SITE", "TYPE"};
 			}
+
 
 			else if (search.equals("Cliente")) {
 				result = new String[]{"ID", "CPF/CNPJ", "NAME", "ZIP COD", "STREET NAME", "STREET NUMBER", "STREET COMPLEMENT", "CITY", "STATE" +
@@ -254,10 +260,12 @@ public class ViewSearch extends JFrame {
 				
 			}
 
+
 			return result;
 		}
-		
-		public static void searchResult(DefaultTableModel table, String type, String cnpj) {
+			
+				
+		public static void searchResult(DefaultTableModel table, String type, String cnpj, String clientCpf) {
 			if(type.equals("Fornecedor")) {
 				List<Supplier> sup = SupplierController.getValues(cnpj);
 				for(Supplier sp: sup) {
@@ -269,6 +277,30 @@ public class ViewSearch extends JFrame {
 							sp.toType()
 					});
 				}
+			}
+			if(type.contentEquals("Cliente")) {
+				List<Client> clt = ClientController.getValues(clientCpf);
+				for(Client cl: clt) {
+					table.addRow(new Object[] {
+							cl.getId(),
+							cl.getClientCpf(),
+							cl.getSupplierCnpj(),
+							cl.getClientName(),
+							cl.getZipCode(),
+							cl.getStreetName(),
+							cl.getStreetNumber(),
+							cl.getStreetComplement(),
+							cl.getCity(),
+							cl.getState(),
+							cl.getMeterNumber(),
+							cl.getMeasurementOrder(),
+							cl.getClass(),
+							cl.getLightSubclass(),
+							cl.getNormalTax(),
+							cl.getTributeTax()
+					});
+				}
+				
 			}
 			
 		}
