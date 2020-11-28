@@ -236,7 +236,7 @@ public class ViewSearch extends JFrame {
 			}
 			else if (search.equals("Conta")) { // CONTA AGUA e LUZ
 
-				if(accountType.equals("LUZ")) {
+				if(accountType.equals("Luz")) {
 					result = new String[]{"ID", "IDENT COD", "METERNUMBER", "INVOICE", "CURRENT DATE","DUE DATE","CONSUMPTION DAYS" +
 				"FLAG TYPE","CONSUMPTION VALUE","PIS PERCENTAGE","COFINS PERCENTAGE","ICMS BASIS","ICMS PERCENTAGE","ICMS VALUE" +
 					"PIS COFINS BASIS","PIS VALUE","COFINS VALUE","FORFEIT VALUE","INTEREST VALUE", "OTHER VALUES", "SUPPLY VALUES" +
@@ -264,7 +264,7 @@ public class ViewSearch extends JFrame {
 							sp.toType()
 					});
 				}
-			}else if (type.contentEquals("Conta")) {
+			}else if (type.contentEquals("LUZ")) {
 				List <LightAccount> lgh = LightAccountController.getValues(cnpj);
 				for(LightAccount la: lgh) {
 					table.addRow(new Object[] {
