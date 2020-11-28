@@ -32,5 +32,14 @@ public class LightAccountController {
 				List <LightAccount> lightAccounts = LightAccountDao.listLightAccounts(identCod);
 				return lightAccounts;
 			}
-
-}
+		
+			public static void updateValues (LightAccount lightaccount) {
+				if (LightAccountDao.update(lightaccount) == 1) {
+					showMessageDialog(null, "Dados alterados com sucesso!");
+				}
+				else {
+					showMessageDialog(null,"Dados do tipo incorreto, verifique e tente novamente");
+				}
+			}
+			
+ 		}

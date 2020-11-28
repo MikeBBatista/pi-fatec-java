@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 import fatec.pi.controllers.LightAccountController;
+import fatec.pi.entities.Client;
 import fatec.pi.entities.LightAccount;
 import fatec.pi.controllers.ClientController;
 import fatec.pi.controllers.SupplierController;
@@ -186,15 +187,16 @@ public class ViewSearch extends JFrame {
 				String accountType = comboBoxConta.getSelectedItem().toString(); 
 				String cnpj = formataDados(textFieldCNPJ_1.getText());
 				String installation = textFieldNOME.getText();
+				String identCod = textFieldNOME.getText();
 				System.out.println(installation);
 				dtm.setColumnIdentifiers(searchTitles(type, accountType));
 				String clientCpf = formataDados(textFieldCPF_1.getText());
-				searchResult(modelo, type, cnpj, clientCpf, installation, accountType );
-        String identCod = textFieldNOME.getText();
+				searchResult(modelo, type, cnpj, clientCpf, installation, accountType, identCod);
+
 				tca.adjustColumns();
 				textFieldCNPJ_1.setText("");
 				textFieldCPF_1.setText("");
-        textFieldNOME.setText("");
+				textFieldNOME.setText("");
 
 				
 			}
@@ -263,10 +265,8 @@ public class ViewSearch extends JFrame {
 			else if (search.equals("Conta")) { // CONTA AGUA e LUZ
 
 				if(accountType.equals("Luz")) {
-					result = new String[]{"ID", "IDENT COD", "METERNUMBER", "INVOICE", "CURRENT DATE","DUE DATE","CONSUMPTION DAYS" +
-				"FLAG TYPE","CONSUMPTION VALUE","PIS PERCENTAGE","COFINS PERCENTAGE","ICMS BASIS","ICMS PERCENTAGE","ICMS VALUE" +
-					"PIS COFINS BASIS","PIS VALUE","COFINS VALUE","FORFEIT VALUE","INTEREST VALUE", "OTHER VALUES", "SUPPLY VALUES" +
-				"FINANCIAL ITEMS", "ACCOUNT AMOUNT", "SUPPLIER CNPJ"};
+					result = new String[]{"ID", "IDENT COD", "METERNUMBER", "INVOICE", "CURRENT DATE","DUE DATE","CONSUMPTION DAYS", "FLAG TYPE","CONSUMPTION VALUE","PIS PERCENTAGE","COFINS PERCENTAGE",
+							"ICMS BASIS","ICMS PERCENTAGE","ICMS VALUE","PIS COFINS BASIS","PIS VALUE","COFINS VALUE","FORFEIT VALUE","INTEREST VALUE", "OTHER VALUES", "SUPPLY VALUES","FINANCIAL ITEMS", "ACCOUNT AMOUNT", "SUPPLIER CNPJ"};
 				}
 				
 				else {
@@ -281,7 +281,9 @@ public class ViewSearch extends JFrame {
 
 
 		//search
-		public static void searchResult(DefaultTableModel table, String type, String cnpj, String clientCpf, String installation, String accountType) {
+
+		public static void searchResult(DefaultTableModel table, String type, String cnpj, String clientCpf, String installation, String accountType, String identCod) {
+
 
 			if(type.equals("Fornecedor")) {
 				List<Supplier> sup = SupplierController.getValues(cnpj);
@@ -317,7 +319,6 @@ public class ViewSearch extends JFrame {
 							la.getPisValue(),
 							la.getCofinsValue(),
 							la.getForfeitValue(),
-							la.getInterestValue(),
 							la.getInterestValue(),
 							la.getOtherValues(),
 							la.getSupplyValue(),
@@ -374,6 +375,10 @@ public class ViewSearch extends JFrame {
 				}
 			}
 
+		}
+	}
+
+
         
 		//update
 		public static void updateData(JTable table, DefaultTableModel modelTable, String type, String accountType){
@@ -404,6 +409,47 @@ public class ViewSearch extends JFrame {
 						Integer.parseInt(objectValues[6]), objectValues[7], objectValues[8], objectValues[9], Integer.parseInt(objectValues[10]), objectValues[11], objectValues[12], objectValues[13], 
 						normalTax, tributeTax, Integer.parseInt(System.getProperty("UserID")));
 				ClientController.updateValues(clt);
+				
+			}
+			
+			else if(type.equals("Conta")) {
+				if(accountType.equals("Água")) {
+					BigDecimal penalty = new BigDecimal(objectValues[3]); 
+					BigDecimal consumptionValue = new BigDecimal(objectValues[4]);
+					BigDecimal pollutionValue = new BigDecimal(objectValues[5]);
+					BigDecimal sewerValue = new BigDecimal(objectValues[6]); 
+					BigDecimal waterValue = new BigDecimal(objectValues[7]);
+					BigDecimal otherValues = new BigDecimal(objectValues[9]);
+					WaterAccount nWaterAccount = new WaterAccount(Integer.parseInt(objectValues[0]), Integer.parseInt(objectValues[1]), objectValues[2], penalty, consumptionValue, pollutionValue, sewerValue, waterValue, Integer.parseInt(objectValues[8]),
+							otherValues, Long.parseLong(objectValues[10]), Integer.parseInt(System.getProperty("UserID")));
+					WaterAccountController.updateValues(nWaterAccount);
+					
+				}else if (accountType.equals("Luz")){
+					  
+					BigDecimal consumptionValue = new BigDecimal(objectValues[8]);
+					BigDecimal pisPercentage = new BigDecimal(objectValues[9]);
+					BigDecimal cofinsPercentage = new BigDecimal(objectValues[10]);
+					BigDecimal icmsBasis = new BigDecimal(objectValues[11]);
+					BigDecimal icmsPercentage = new BigDecimal(objectValues[12]);
+					BigDecimal icmsValue = new BigDecimal(objectValues[13]);
+					BigDecimal pisCofinsBasis = new BigDecimal(objectValues[14]);
+					BigDecimal pisValue = new BigDecimal(objectValues[15]);
+					BigDecimal cofinsValue = new BigDecimal(objectValues[16]);
+					BigDecimal forfeitValue = new BigDecimal(objectValues[17]);
+					BigDecimal interestValue = new BigDecimal(objectValues[18]);
+					BigDecimal otherValues = new BigDecimal(objectValues[19]);
+					BigDecimal supplyValue = new BigDecimal(objectValues[20]);
+					BigDecimal financialItems = new BigDecimal(objectValues[21]);
+					BigDecimal amount = new BigDecimal(objectValues[22]);
+					
+					
+					LightAccount nlight = new LightAccount (Integer.parseInt(objectValues[0]),Integer.parseInt(objectValues[1]), Integer.parseInt(objectValues[2]), objectValues[3], objectValues[4],
+							objectValues[5],Integer.parseInt(objectValues[6]),objectValues[7], consumptionValue,pisPercentage,cofinsPercentage,icmsBasis,icmsPercentage,icmsValue,
+							pisCofinsBasis,pisValue,cofinsValue,forfeitValue,interestValue,otherValues,supplyValue,financialItems,amount, Long.parseLong(objectValues[23]),
+							Integer.parseInt(System.getProperty("UserID")));
+					LightAccountController.updateValues(nlight);
+				}
+
 			}
 			
 			else if(type.equals("Conta")) {
@@ -421,4 +467,6 @@ public class ViewSearch extends JFrame {
 				
 			}
 		}
-}
+	}	
+
+

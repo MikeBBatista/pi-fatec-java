@@ -137,7 +137,7 @@ public class LightAccountDao {
 			}
 		}
 		else {
-			sql = "Select * from LIGHT_ACCOUNT where  LIGHT_IDENT_COD = ?";
+			sql = "Select * from LIGHT_ACCOUNT where LIGHT_IDENT_COD = ?";
 		try {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement st = con.connection.prepareStatement(sql);
@@ -191,36 +191,38 @@ public class LightAccountDao {
 				Logger logger = Logger.getLogger(SupplierDao.class.getName());
 				
 
-				String sql = "UPDATE LIGHT_LIGHT SET (LIGHT_IDENT_COD = ?,"
-				+ "LIGHT_METER_NUMBER = ?, "
-				+ "LIGHT_INVOICE = ?, "
-				+ "LIGHT_CURRENT_DATE = ?, "
-				+ "LIGHT_CONSUMPTION_DAYS= ?, "
-				+ "LIGHT_FLAG_TYPE, = ?, "
-				+ "LIGHT_CONSUMPTION_VALUE = ?, "
-				+ "LIGHT_PIS_PERCENTAGE = ?, "
-				+ "LIGHT_COFINS_PERCENTAGE = ?, "
-				+ "LIGHT_ICMS_BASIS = ? "
+				String sql = "UPDATE LIGHT_ACCOUNT SET LIGHT_IDENT_COD = ?,"
+				+ "LIGHT_METER_NUMBER = ?,"
+				+ "LIGHT_INVOICE = ?,"
+				+ "LIGHT_CURRENT_DATE = ?,"
+				+ "LIGHT_DUE_DATE = ?,"
+				+ "LIGHT_CONSUMPTION_DAYS= ?,"
+				+ "LIGHT_FLAG_TYPE = ?,"
+				+ "LIGHT_CONSUMPTION_VALUE = ?,"
+				+ "LIGHT_PIS_PERCENTAGE = ?,"
+				+ "LIGHT_COFINS_PERCENTAGE = ?,"
+				+ "LIGHT_ICMS_BASIS = ?,"
 				+ "LIGHT_ICMS_PERCENTAGE = ?,"
-				+ "LIGHT_ICMS_VALUE = ?, "
-				+ "LIGHT_PIS_COFINS_BASIS = ?, "
-				+ "LIGHT_PIS_VALUE = ?, "
-				+ "LIGHT_COFINS_VALUE = ?, "
-				+ "LIGHT_FORFEIT_VALUE = ?, "
-				+ "LIGHT_INTEREST_VALUE = ?, "
-				+ "LIGHT_OTHER_VALUES = ?, "
-				+ "LIGHT_SUPPLY_VALUES = ?, "
-				+ "LIGHT_FINANCIAL_ITEMS = ?, "
-				+ "LIGHT_AMOUNT = ?, "
+				+ "LIGHT_ICMS_VALUE = ?,"
+				+ "LIGHT_PIS_COFINS_BASIS = ?,"
+				+ "LIGHT_PIS_VALUE = ?,"
+				+ "LIGHT_COFINS_VALUE = ?,"
+				+ "LIGHT_FORFEIT_VALUE = ?,"
+				+ "LIGHT_INTEREST_VALUE = ?,"
+				+ "LIGHT_OTHER_VALUES = ?,"
+				+ "LIGHT_SUPPLY_VALUES = ?,"
+				+ "LIGHT_FINANCIAL_ITEMS = ?,"
+				+ "LIGHT_AMOUNT = ?,"
 				+ "LIGHT_SUPPLIER_CNPJ = ?,"
-				+ "LIGHT_ALTER_BY = ?) "
+				+ "LIGHT_ALTER_BY = ? "
 				+ "WHERE LIGHT_ID = ?;";
 		
 		try {
 			
 			BaseConnection con = new BaseConnection();
 			PreparedStatement updateValues = con.connection.prepareStatement(sql);
-
+			
+			
 			updateValues.setInt(1, light.getIdentCod());
 			updateValues.setInt(2, light.getMeterNumber());
 			updateValues.setString(3, light.getInvoice());
@@ -246,6 +248,7 @@ public class LightAccountDao {
 			updateValues.setLong(23, light.getSupplierCnpj());
 			updateValues.setInt(24, light.getAlterBy());
 			updateValues.setInt(25, light.getId());
+			
 			
 			result = updateValues.executeUpdate();
 			con.connection.close();
