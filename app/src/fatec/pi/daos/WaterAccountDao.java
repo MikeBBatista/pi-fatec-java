@@ -24,14 +24,16 @@ public class WaterAccountDao {
 				+ "ACCOUNT_WATER, "
 				+ "ACCOUNT_PIS, "
 				+ "ACCOUNT_OTHERS, "
-				+ "ACCOUNT_SUPPLIER_CNPJ) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+				+ "ACCOUNT_SUPPLIER_CNPJ,"
+				+ "ACCOUNT_USER_ID,"
+				+ "ACCOUNT_ALTER_BY) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 
 		try {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement saveValues = con.connection.prepareStatement(sql);
 			
-			saveValues.setString(1, water.getNumber());
+			saveValues.setInt(1, water.getNumber());
 			saveValues.setString(2, water.getDueDate());
 			saveValues.setBigDecimal(3, water.getPenalty());
 			saveValues.setBigDecimal(4, water.getConsumptionValue());
@@ -40,7 +42,9 @@ public class WaterAccountDao {
 			saveValues.setBigDecimal(7, water.getWaterValue());
 			saveValues.setInt(8, water.getPisPercentage());
 			saveValues.setBigDecimal(9, water.getOtherValues());
-			saveValues.setString(10, water.getSupplierCnpj());
+			saveValues.setLong(10, water.getSupplierCnpj());
+			saveValues.setInt(11, water.getCreatedBy());
+			saveValues.setInt(12, water.getAlterBy());
 			
 			result = saveValues.executeUpdate();
 			con.connection.close();
@@ -57,36 +61,37 @@ public class WaterAccountDao {
 		List<WaterAccount> WaterAccountList = new ArrayList<>();
 		String sql = "";
 		
-		if(hidroNum.equals("")) {
+		String hidroNumString = Integer.toString(hidroNum);
+		if(hidroNumString.equals("")) {
 			sql = "Select * from WATER_ACCOUNT;";
 			
 			try {
 				BaseConnection con = new BaseConnection();
 				PreparedStatement st = con.connection.prepareStatement(sql);
 				
-			
 				ResultSet result = st.executeQuery();
 				
 				
 				while(result.next()) {
-					
-					Integer id           = result.getInt("ACCOUNT_ID");
-					String accountNumber = result.getString("ACCOUNT_NUMBER");
-					String      dueDate  = result.getString("ACCOUNT_DUE_DATE");
-					BigDecimal	penalty  = result.getBigDecimal("ACCOUNT_PENALTY");
-					BigDecimal  consumpition = result.getBigDecimal("ACCOUNT_CONSUMPTION");
-					BigDecimal	polluition  = result.getBigDecimal("ACCOUNT_POLLUTION");
-					BigDecimal  sewer = result.getBigDecimal("ACCOUNT_SEWER");
-					BigDecimal	water = result.getBigDecimal("ACCOUNT_WATER");
-					Integer     pis      = result.getInt("ACCOUNT_PIS");
-					BigDecimal	other = result.getBigDecimal("ACCOUNT_OTHERS");
-					String      sup  = result.getString("ACCOUNT_SUPPLIER_CNPJ");
-					
-					
-					WaterAccount wat = new WaterAccount(id,accountNumber, dueDate, penalty,consumpition,polluition,sewer,water,pis,other,sup);
-					WaterAccountList.add(wat);
-					System.out.println(wat.toString());
-					con.connection.close();
+
+				Integer id = result.getInt("ACCOUNT_ID");
+				Integer accountNumber = result.getInt("ACCOUNT_NUMBER");
+				String      dueDate  = result.getString("ACCOUNT_DUE_DATE");
+				BigDecimal	penalty  = result.getBigDecimal("ACCOUNT_PENALTY");
+				BigDecimal  consumpition = result.getBigDecimal("ACCOUNT_CONSUMPTION");
+				BigDecimal	polluition  = result.getBigDecimal("ACCOUNT_POLLUTION");
+				BigDecimal  sewer = result.getBigDecimal("ACCOUNT_SEWER");
+				BigDecimal	water = result.getBigDecimal("ACCOUNT_WATER");
+				Integer     pis      = result.getInt("ACCOUNT_PIS");
+				BigDecimal	other = result.getBigDecimal("ACCOUNT_OTHERS");
+				Long      sup  = result.getLong("ACCOUNT_SUPPLIER_CNPJ");
+				Integer alterBy = result.getInt("ACCOUNT_ALTER_BY");
+				
+				
+				WaterAccount wat = new WaterAccount(id,accountNumber, dueDate, penalty,consumpition,polluition,sewer,water,pis,other,sup, alterBy);
+				WaterAccountList.add(wat);
+				System.out.println(wat.toString());
+				con.connection.close();
 
 				}
 			}
@@ -110,7 +115,7 @@ public class WaterAccountDao {
 				while(rs.next()) {
 					WaterAccount wat = new WaterAccount(
 							rs.getInt("ACCOUNT_ID"),
-							rs.getString("ACCOUNT_NUMBER"),
+							rs.getInt("ACCOUNT_NUMBER"),
 							rs.getString("ACCOUNT_DUE_DATE"),
 							rs.getBigDecimal("ACCOUNT_PENALTY"),
 							rs.getBigDecimal("ACCOUNT_CONSUMPTION"),
@@ -119,7 +124,8 @@ public class WaterAccountDao {
 							rs.getBigDecimal("ACCOUNT_WATER"),
 							rs.getInt("ACCOUNT_PIS"),
 							rs.getBigDecimal("ACCOUNT_OTHERS"),
-							rs.getString("ACCOUNT_SUPPLIER_CNPJ"));				
+							rs.getLong("ACCOUNT_SUPPLIER_CNPJ"),
+							rs.getInt("ACCOUNT_ALTER_BY"));
 												
 					WaterAccountList.add(wat);
 				}
@@ -148,7 +154,8 @@ public class WaterAccountDao {
 				+ "ACCOUNT_WATER = ?, "
 				+ "ACCOUNT_PIS = ?, "
 				+ "ACCOUNT_OTHERS = ?, "
-				+ "ACCOUNT_SUPPLIER_CNPJ = ? "
+				+ "ACCOUNT_SUPPLIER_CNPJ = ?,"
+				+ "ACCOUNT_ALTER_BY = ? "
 				+ "WHERE ACCOUNT_ID = ?;";
 		
 		try {
@@ -156,7 +163,7 @@ public class WaterAccountDao {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement updateValues = con.connection.prepareStatement(sql);
 			
-			updateValues.setString(1, water.getNumber());
+			updateValues.setInt(1, water.getNumber());
 			updateValues.setString(2, water.getDueDate());
 			updateValues.setBigDecimal(3, water.getPenalty());
 			updateValues.setBigDecimal(4, water.getConsumptionValue());
@@ -165,8 +172,9 @@ public class WaterAccountDao {
 			updateValues.setBigDecimal(7, water.getWaterValue());
 			updateValues.setInt(8, water.getPisPercentage());
 			updateValues.setBigDecimal(9, water.getOtherValues());
-			updateValues.setString(10, water.getSupplierCnpj());
-			updateValues.setInt(11, water.getId());
+			updateValues.setLong(10, water.getSupplierCnpj());
+			updateValues.setInt(11, water.getAlterBy());
+			updateValues.setInt(12, water.getId());
 			
 			result = updateValues.executeUpdate();
 			con.connection.close();
