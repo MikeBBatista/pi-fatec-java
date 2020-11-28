@@ -259,6 +259,7 @@ public class ViewClient extends JFrame {
 				Integer meterNumber = Integer.parseInt(txt_streetNumber.getText());
 				
 
+
 				ClientController.saveValues(Long.parseLong(formataDados(txt_supplierCnpj.getText())), Long.parseLong(formataDados(txt_clientCpf_1.getText())), txt_clientName.getText(),
 
 						formataDados(txt_zipCode.getText()), meterNumber, txt_streetName.getText(), txt_streetComplement.getText(),

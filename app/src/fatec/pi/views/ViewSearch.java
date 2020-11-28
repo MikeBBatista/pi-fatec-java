@@ -12,10 +12,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+
+import fatec.pi.controllers.LightAccountController;
+import fatec.pi.entities.LightAccount;
 import fatec.pi.controllers.ClientController;
 import fatec.pi.controllers.SupplierController;
 
+
 import fatec.pi.controllers.WaterAccountController;
+
 import fatec.pi.entities.Supplier;
 import fatec.pi.entities.WaterAccount;
 import fatec.pi.entities.Client;
@@ -185,10 +190,12 @@ public class ViewSearch extends JFrame {
 				dtm.setColumnIdentifiers(searchTitles(type, accountType));
 				String clientCpf = formataDados(textFieldCPF_1.getText());
 				searchResult(modelo, type, cnpj, clientCpf, installation, accountType );
+        String identCod = textFieldNOME.getText();
 				tca.adjustColumns();
 				textFieldCNPJ_1.setText("");
 				textFieldCPF_1.setText("");
-				
+        textFieldNOME.setText("");
+
 				
 			}
 		});
@@ -272,8 +279,10 @@ public class ViewSearch extends JFrame {
 			return result;
 		}
 
+
 		//search
 		public static void searchResult(DefaultTableModel table, String type, String cnpj, String clientCpf, String installation, String accountType) {
+
 			if(type.equals("Fornecedor")) {
 				List<Supplier> sup = SupplierController.getValues(cnpj);
 				for(Supplier sp: sup) {
@@ -285,8 +294,40 @@ public class ViewSearch extends JFrame {
 							sp.toType()
 					});
 				}
+			}else if (type.equals("Conta")) {
+				if (accountType.equals("Luz")) {
+				List <LightAccount> lgh = LightAccountController.getValues(identCod);
+				for(LightAccount la: lgh) {
+					table.addRow(new Object[] {
+							la.getId(),
+							la.getIdentCod(),
+							la.getMeterNumber(),
+							la.getInvoice(),
+							la.getCurrentDate(),
+							la.getDueDate(),
+							la.getConsumptionDays(),
+							la.getFlagType(),
+							la.getConsumptionValue(),
+							la.getPisPercentage(),
+							la.getCofinsPercentage(),
+							la.getIcmsBasis(),
+							la.getIcmsPercentage(),
+							la.getIcmsValue(),
+							la.getPisCofinsBasis(),
+							la.getPisValue(),
+							la.getCofinsValue(),
+							la.getForfeitValue(),
+							la.getInterestValue(),
+							la.getInterestValue(),
+							la.getOtherValues(),
+							la.getSupplyValue(),
+							la.getFinancialItems(),
+							la.getAmount(),
+							la.getSupplierCnpj(),
+							
+					});
+				}
 			}
-
 			if(type.contentEquals("Cliente")) {
 				List<Client> clt = ClientController.getValues(clientCpf);
 				for(Client cl: clt) {
@@ -332,10 +373,11 @@ public class ViewSearch extends JFrame {
 					}
 				}
 			}
-		}
+
+        
 		//update
 		public static void updateData(JTable table, DefaultTableModel modelTable, String type, String accountType){
-			
+		
 			Integer row = table.getSelectedRow();
 			String rowValues = modelTable.getDataVector().elementAt(row).toString();
 			rowValues = rowValues.replaceAll("\\[", "");

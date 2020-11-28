@@ -175,7 +175,11 @@ return clientList;
 				+ "CLIENT_NORMAL_TAX = ?,"
 				+ "CLIENT_TRIBUTE_TAX = ?,"
 				+ "CLIENT_SUPPLIER_CNPJ = ?, "
+
+			
+
 				+ "CLIENT_ALTER_BY = ? "
+
 				+ "WHERE CLIENT_ID = ?;";
 		
 		try{
