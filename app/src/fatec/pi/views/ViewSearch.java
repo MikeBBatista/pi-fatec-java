@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 import fatec.pi.controllers.SupplierController;
 import fatec.pi.entities.Supplier;
+import fatec.pi.services.TableColumnAdjuster;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -131,12 +132,12 @@ public class ViewSearch extends JFrame {
 		
 		table_data = new JTable();
 		scrollPane_table.setViewportView(table_data);
-		String[] rows = {"ID", "Name", "Site", "Type"};
-		dtm.setColumnIdentifiers(rows);
 		JScrollPane forTable = new JScrollPane();
 		getContentPane().add(forTable);
 		table_data.setModel(dtm);
 		table_data.setBounds(297, 393, 476, 203);
+		table_data.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		TableColumnAdjuster tca = new TableColumnAdjuster(table_data);
 		DefaultTableModel modelo = (DefaultTableModel) table_data.getModel();
 		
 		JButton btnRelatorio = new JButton("Gerar Relat\u00F3rio");
@@ -148,6 +149,13 @@ public class ViewSearch extends JFrame {
 		contentPane.add(btnRelatorio);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ViewMain voltamenu = new ViewMain();
+				voltamenu.setVisible(true);
+				setVisible(false);
+			}
+		});
 		btnVoltar.setBounds(582, 621, 151, 23);
 		contentPane.add(btnVoltar);
 		
@@ -160,6 +168,7 @@ public class ViewSearch extends JFrame {
 				String cnpj = formataDados(textFieldCNPJ_1.getText());
 				dtm.setColumnIdentifiers(searchTitles(type, accountType));
 				searchResult(modelo, type, cnpj);
+				tca.adjustColumns();
 				textFieldCNPJ_1.setText("");
 				
 				
@@ -181,8 +190,8 @@ public class ViewSearch extends JFrame {
 		textFieldCPF_1.setColumns(10);
 		contentPane.add(textFieldCPF_1);
 		
-		JLabel lblAccount = new JLabel("Hidr\u00F4metro / Medidor");
-		lblAccount.setBounds(308, 211, 108, 25);
+		JLabel lblAccount = new JLabel("Número de Instalação");
+		lblAccount.setBounds(263, 212, 135, 25);
 		contentPane.add(lblAccount);
 		
 		textFieldNOME = new JTextField();
@@ -210,8 +219,6 @@ public class ViewSearch extends JFrame {
 		
 
 		
-	
-		
 	}
 	//Func Trata Dados
 		public static String formataDados(String dado){
@@ -234,7 +241,7 @@ public class ViewSearch extends JFrame {
 			}
 			else if (search.equals("Conta")) { // CONTA AGUA e LUZ
 
-				if(accountType.equals("LUZ")) {
+				if(accountType.equals("Luz")) {
 					result = new String[]{"ID", "IDENT COD", "METERNUMBER", "INVOICE", "CURRENT DATE","DUE DATE","CONSUMPTION DAYS" +
 				"FLAG TYPE","CONSUMPTION VALUE","PIS PERCENTAGE","COFINS PERCENTAGE","ICMS BASIS","ICMS PERCENTAGE","ICMS VALUE" +
 					"PIS COFINS BASIS","PIS VALUE","COFINS VALUE","FORFEIT VALUE","INTEREST VALUE", "OTHER VALUES", "SUPPLY VALUES" +
