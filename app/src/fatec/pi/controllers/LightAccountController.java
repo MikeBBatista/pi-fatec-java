@@ -3,6 +3,7 @@ package fatec.pi.controllers;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import fatec.pi.daos.LightAccountDao;
 import fatec.pi.entities.LightAccount;
@@ -27,6 +28,9 @@ public class LightAccountController {
 			showMessageDialog(null, "Dados cadastrados com Sucesso!");
 		}
 	}
-			
+			public static List <LightAccount> getValues (String identCod){
+				List <LightAccount> lightAccounts = LightAccountDao.listLightAccounts(identCod);
+				return lightAccounts;
+			}
 
 }
