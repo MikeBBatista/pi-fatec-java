@@ -149,6 +149,13 @@ public class ViewSearch extends JFrame {
 		contentPane.add(btnRelatorio);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ViewMain voltamenu = new ViewMain();
+				voltamenu.setVisible(true);
+				setVisible(false);
+			}
+		});
 		btnVoltar.setBounds(582, 621, 151, 23);
 		contentPane.add(btnVoltar);
 		
@@ -211,8 +218,6 @@ public class ViewSearch extends JFrame {
 		
 		
 
-		
-	
 		
 	}
 	//Func Trata Dados
