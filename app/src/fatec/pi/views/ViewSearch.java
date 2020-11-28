@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 import fatec.pi.controllers.SupplierController;
 import fatec.pi.entities.Supplier;
+import fatec.pi.services.TableColumnAdjuster;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -131,12 +132,12 @@ public class ViewSearch extends JFrame {
 		
 		table_data = new JTable();
 		scrollPane_table.setViewportView(table_data);
-		String[] rows = {"ID", "Name", "Site", "Type"};
-		dtm.setColumnIdentifiers(rows);
 		JScrollPane forTable = new JScrollPane();
 		getContentPane().add(forTable);
 		table_data.setModel(dtm);
 		table_data.setBounds(297, 393, 476, 203);
+		table_data.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		TableColumnAdjuster tca = new TableColumnAdjuster(table_data);
 		DefaultTableModel modelo = (DefaultTableModel) table_data.getModel();
 		
 		JButton btnRelatorio = new JButton("Gerar Relat\u00F3rio");
@@ -160,6 +161,7 @@ public class ViewSearch extends JFrame {
 				String cnpj = formataDados(textFieldCNPJ_1.getText());
 				dtm.setColumnIdentifiers(searchTitles(type, accountType));
 				searchResult(modelo, type, cnpj);
+				tca.adjustColumns();
 				textFieldCNPJ_1.setText("");
 				
 				
@@ -234,7 +236,7 @@ public class ViewSearch extends JFrame {
 			}
 			else if (search.equals("Conta")) { // CONTA AGUA e LUZ
 
-				if(accountType.equals("LUZ")) {
+				if(accountType.equals("Luz")) {
 					result = new String[]{"ID", "IDENT COD", "METERNUMBER", "INVOICE", "CURRENT DATE","DUE DATE","CONSUMPTION DAYS" +
 				"FLAG TYPE","CONSUMPTION VALUE","PIS PERCENTAGE","COFINS PERCENTAGE","ICMS BASIS","ICMS PERCENTAGE","ICMS VALUE" +
 					"PIS COFINS BASIS","PIS VALUE","COFINS VALUE","FORFEIT VALUE","INTEREST VALUE", "OTHER VALUES", "SUPPLY VALUES" +
