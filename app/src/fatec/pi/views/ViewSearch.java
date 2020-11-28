@@ -190,8 +190,8 @@ public class ViewSearch extends JFrame {
 		textFieldCPF_1.setColumns(10);
 		contentPane.add(textFieldCPF_1);
 		
-		JLabel lblAccount = new JLabel("Hidr\u00F4metro / Medidor");
-		lblAccount.setBounds(308, 211, 108, 25);
+		JLabel lblAccount = new JLabel("Número de Instalação");
+		lblAccount.setBounds(263, 212, 135, 25);
 		contentPane.add(lblAccount);
 		
 		textFieldNOME = new JTextField();
