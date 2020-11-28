@@ -278,7 +278,7 @@ public class LightAccount {
 				+ pisCofinsBasis + ", pisValue=" + pisValue + ", cofinsValue=" + cofinsValue + ", forfeitValue="
 				+ forfeitValue + ", interestValue=" + interestValue + ", otherValues=" + otherValues + ", supplyValue="
 				+ supplyValue + ", financialItems=" + financialItems + ", amount=" + amount + ", supplierCnpj="
-				+ supplierCnpj + ", CreatedBy=" + createdBy + ", alterBy=" + alterBy + "]";
+				+ supplierCnpj + ",createdBy=" + createdBy +", alterBy=" + alterBy + "]";
 	}
 
 

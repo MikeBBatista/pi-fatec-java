@@ -33,8 +33,8 @@ public class LightAccountController {
 				return lightAccounts;
 			}
 		
-			public static void updateValues (LightAccount light) {
-				if (LightAccountDao.update(light) == 1) {
+			public static void updateValues (LightAccount lightaccount) {
+				if (LightAccountDao.update(lightaccount) == 1) {
 					showMessageDialog(null, "Dados alterados com sucesso!");
 				}
 				else {
