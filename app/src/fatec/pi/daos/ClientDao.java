@@ -126,8 +126,8 @@ public class ClientDao {
 		while (rs.next()) {
 			Client clt = new Client(
 					rs.getInt("CLIENT_ID"),
-					rs.getString("CLIENT_CPF"),
-					rs.getString("CLIENT_SUPPLIER_CNPJ"),
+					rs.getLong("CLIENT_SUPPLIER_CNPJ"),
+					rs.getLong("CLIENT_CPF"),
 					rs.getString("CLIENT_NAME"),
 					rs.getString("CLIENT_ZIP_COD"),
 					rs.getString("CLIENT_STREET_NAME"),
@@ -135,12 +135,13 @@ public class ClientDao {
 					rs.getString("CLIENT_STREET_COMPLEMENT"),
 					rs.getString("CLIENT_CITY"),
 					rs.getString("CLIENT_STATE"),
-					rs.getString("CLIENT_METER_NUMBER"),
+					rs.getInt("CLIENT_METER_NUMBER"),
 					rs.getString("CLIENT_MEASUREMENT_ORDER"),
 					rs.getString("CLIENT_LIGHT_CLASS"),
 					rs.getString("CLIENT_LIGHT_SUBCLASS"),
 					rs.getBigDecimal("CLIENT_NORMAL_TAX"),
-					rs.getBigDecimal("CLIENT_TRIBUTE_TAX"));
+					rs.getBigDecimal("CLIENT_TRIBUTE_TAX"),
+					rs.getInt("CLIENT_ALTER_BY"));
 			clientList.add(clt);
 		}
 	}
@@ -169,12 +170,12 @@ return clientList;
 				+ "CLIENT_STATE = ?, "
 				+ "CLIENT_METER_NUMBER = ?, "
 				+ "CLIENT_MEASUREMENT_ORDER = ?,"
-				+ "CLIENT_LIGHT_CLASS = ?,"
-				+ "CLIENT_LIGHT_SUBCLASS = ?,"
+				+ "CLIENT_LIGHT_CLASS = ?, "
+				+ "CLIENT_LIGHT_SUBCLASS = ?, "
 				+ "CLIENT_NORMAL_TAX = ?,"
 				+ "CLIENT_TRIBUTE_TAX = ?,"
 				+ "CLIENT_SUPPLIER_CNPJ = ?, "
-				+ "CLIENT_ALTER_BY = ?"
+				+ "CLIENT_ALTER_BY = ? "
 				+ "WHERE CLIENT_ID = ?;";
 		
 		try{

@@ -199,8 +199,6 @@ public class Client {
 				+ ", createdBy=" + createdBy + ", alterBy=" + alterBy + "]";
 	}
 
-
-
 	
 
 }
