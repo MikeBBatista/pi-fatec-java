@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 import fatec.pi.controllers.LightAccountController;
+import fatec.pi.entities.Client;
 import fatec.pi.entities.LightAccount;
 import fatec.pi.controllers.ClientController;
 import fatec.pi.controllers.SupplierController;
@@ -178,13 +179,13 @@ public class ViewSearch extends JFrame {
 				
 
 				String clientCpf = formataDados(textFieldCPF_1.getText());
-        String identCod = textFieldNOME.getText();
+				String identCod = textFieldNOME.getText();
 				dtm.setColumnIdentifiers(searchTitles(type, accountType));
-				searchResult(modelo, type, cnpj, clientCpf, accountType);
+				searchResult(modelo, type, cnpj, clientCpf, accountType, identCod);
 				tca.adjustColumns();
 				textFieldCNPJ_1.setText("");
 				textFieldCPF_1.setText("");
-        textFieldNOME.setText("");
+				textFieldNOME.setText("");
 
 				
 			}
@@ -224,8 +225,8 @@ public class ViewSearch extends JFrame {
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				updateData(table_data, modelo, type);
+				String accountType = comboBoxConta.getSelectedItem().toString(); 
+				updateData(table_data, modelo, type, accountType);
 			}
 		});
 		btnUpdate.setBounds(402, 621, 151, 23);
@@ -278,7 +279,7 @@ public class ViewSearch extends JFrame {
 	
 
 				
-		public static void searchResult(DefaultTableModel table, String type, String cnpj, String clientCpf, String accountType) {
+		public static void searchResult(DefaultTableModel table, String type, String cnpj, String clientCpf, String accountType, String identCod) {
 
 			if(type.equals("Fornecedor")) {
 				List<Supplier> sup = SupplierController.getValues(cnpj);
@@ -358,7 +359,7 @@ public class ViewSearch extends JFrame {
 		}
 	}
 		
-		public static void updateData(JTable table, DefaultTableModel modelTable, String type){
+		public static void updateData(JTable table, DefaultTableModel modelTable, String type, String accountType){
 			
 			Integer row = table.getSelectedRow();
 			String rowValues = modelTable.getDataVector().elementAt(row).toString();
@@ -368,7 +369,7 @@ public class ViewSearch extends JFrame {
 			
 			if(type.equals("Fornecedor")) {
 				Integer supType = 3;
-				if(objectValues[4].equals("Energia")) {
+				if(objectValues[4].equals("Luz")) {
 					supType = 0;
 				}
 
@@ -386,6 +387,36 @@ public class ViewSearch extends JFrame {
 						Integer.parseInt(objectValues[6]), objectValues[7], objectValues[8], objectValues[9], Integer.parseInt(objectValues[10]), objectValues[11], objectValues[12], objectValues[13], 
 						normalTax, tributeTax, Integer.parseInt(System.getProperty("UserID")));
 				ClientController.updateValues(clt);
+				
+			} else if (type.equals("Conta")) {
+				if (accountType.equals("Luz")) {
+					  
+						BigDecimal consumptionValue = new BigDecimal(objectValues[8]);
+						BigDecimal pisPercentage = new BigDecimal(objectValues[9]);
+						BigDecimal cofinsPercentage = new BigDecimal(objectValues[10]);
+						BigDecimal icmsBasis = new BigDecimal(objectValues[11]);
+						BigDecimal icmsPercentage = new BigDecimal(objectValues[12]);
+						BigDecimal icmsValue = new BigDecimal(objectValues[13]);
+						BigDecimal pisCofinsBasis = new BigDecimal(objectValues[14]);
+						BigDecimal pisValue = new BigDecimal(objectValues[15]);
+						BigDecimal cofinsValue = new BigDecimal(objectValues[16]);
+						BigDecimal forfeitValue = new BigDecimal(objectValues[17]);
+						BigDecimal interestValue = new BigDecimal(objectValues[18]);
+						BigDecimal otherValues = new BigDecimal(objectValues[19]);
+						BigDecimal supplyValue = new BigDecimal(objectValues[20]);
+						BigDecimal financialItems = new BigDecimal(objectValues[21]);
+						BigDecimal amount = new BigDecimal(objectValues[22]);
+						
+						
+						LightAccount lght = new LightAccount (Integer.parseInt(objectValues[0]), Integer.parseInt(objectValues[1]), Integer.parseInt(objectValues[2]), objectValues[3], objectValues[4],
+								objectValues[5],Integer.parseInt(objectValues[6]),objectValues[7], consumptionValue,pisPercentage,cofinsPercentage,icmsBasis,icmsPercentage,icmsValue,
+								pisCofinsBasis,pisValue,cofinsValue,forfeitValue,interestValue,otherValues,supplyValue,financialItems,amount, Long.parseLong(objectValues[23]),
+								Integer.parseInt(System.getProperty("UserID")));
+						LightAccountController.updateValues(lght);
+					}
+
 			}
 		}
-}
+	}	
+
+
