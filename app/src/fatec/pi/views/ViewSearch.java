@@ -192,6 +192,7 @@ public class ViewSearch extends JFrame {
 				dtm.setColumnIdentifiers(searchTitles(type, accountType));
 				String clientCpf = formataDados(textFieldCPF_1.getText());
 				searchResult(modelo, type, cnpj, clientCpf, installation, accountType, identCod);
+
 				tca.adjustColumns();
 				textFieldCNPJ_1.setText("");
 				textFieldCPF_1.setText("");
@@ -280,7 +281,9 @@ public class ViewSearch extends JFrame {
 
 
 		//search
+
 		public static void searchResult(DefaultTableModel table, String type, String cnpj, String clientCpf, String installation, String accountType, String identCod) {
+
 
 			if(type.equals("Fornecedor")) {
 				List<Supplier> sup = SupplierController.getValues(cnpj);
@@ -371,8 +374,10 @@ public class ViewSearch extends JFrame {
 					}
 				}
 			}
+
 		}
 	}
+
 
         
 		//update
@@ -445,6 +450,21 @@ public class ViewSearch extends JFrame {
 					LightAccountController.updateValues(nlight);
 				}
 
+			}
+			
+			else if(type.equals("Conta")) {
+				if(accountType.equals("Água")) {
+					BigDecimal penalty = new BigDecimal(objectValues[3]); 
+					BigDecimal consumptionValue = new BigDecimal(objectValues[4]);
+					BigDecimal pollutionValue = new BigDecimal(objectValues[5]);
+					BigDecimal sewerValue = new BigDecimal(objectValues[6]); 
+					BigDecimal waterValue = new BigDecimal(objectValues[7]);
+					BigDecimal otherValues = new BigDecimal(objectValues[9]);
+					WaterAccount nWaterAccount = new WaterAccount(Integer.parseInt(objectValues[0]), Integer.parseInt(objectValues[1]), objectValues[2], penalty, consumptionValue, pollutionValue, sewerValue, waterValue, Integer.parseInt(objectValues[8]),
+							otherValues, Long.parseLong(objectValues[10]), Integer.parseInt(System.getProperty("UserID")));
+					WaterAccountController.updateValues(nWaterAccount);
+				}
+				
 			}
 		}
 	}	
