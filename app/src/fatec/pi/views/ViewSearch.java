@@ -12,7 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import fatec.pi.controllers.LightAccountController;
 import fatec.pi.controllers.SupplierController;
+import fatec.pi.entities.LightAccount;
 import fatec.pi.entities.Supplier;
 
 import javax.swing.JTextField;
@@ -262,8 +264,39 @@ public class ViewSearch extends JFrame {
 							sp.toType()
 					});
 				}
+			}else if (type.contentEquals("Conta")) {
+				List <LightAccount> lgh = LightAccountController.getValues(cnpj);
+				for(LightAccount la: lgh) {
+					table.addRow(new Object[] {
+							la.getId(),
+							la.getIdentCod(),
+							la.getMeterNumber(),
+							la.getInvoice(),
+							la.getCurrentDate(),
+							la.getDueDate(),
+							la.getConsumptionDays(),
+							la.getFlagType(),
+							la.getConsumptionValue(),
+							la.getPisPercentage(),
+							la.getCofinsPercentage(),
+							la.getIcmsBasis(),
+							la.getIcmsPercentage(),
+							la.getIcmsValue(),
+							la.getPisCofinsBasis(),
+							la.getPisValue(),
+							la.getCofinsValue(),
+							la.getForfeitValue(),
+							la.getInterestValue(),
+							la.getInterestValue(),
+							la.getOtherValues(),
+							la.getSupplyValue(),
+							la.getFinancialItems(),
+							la.getAmount(),
+							la.getSupplierCnpj()
+							
+					});
+				}
 			}
-			
 		}
 		
 		public static void updateData(JTable table, DefaultTableModel modelTable, String type){

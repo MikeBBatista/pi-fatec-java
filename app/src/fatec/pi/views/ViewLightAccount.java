@@ -526,7 +526,7 @@ public class ViewLightAccount extends JFrame {
 		JButton btn_back = new JButton("VOLTAR");
 		btn_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				LightAccountDao.listLightAccounts();
+				
 	                ViewMain viewMain = new ViewMain();
 	                viewMain.setVisible(true);
 	                setVisible(false);
