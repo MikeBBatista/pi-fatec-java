@@ -56,7 +56,6 @@ public class SupplierDao {
 				while(rs.next()) {
 					Supplier sup = new Supplier(
 							rs.getInt("SUPPLIER_ID"),
-
 							rs.getLong("SUPPLIER_CNPJ"), 
 							rs.getString("SUPPLIER_NAME"), 
 							rs.getString("SUPPLIER_SITE"),
