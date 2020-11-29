@@ -80,15 +80,26 @@ public class LightAccountDao {
 		return result;
 	}		
 	
-	public static List<LightAccount> listLightAccounts(){
+	public static List <LightAccount> listLightAccounts(String identCod){
+		
 		List<LightAccount> lightList = new ArrayList<>();
-		String sql = "Select * from LIGHT_ACCOUNT";
+		
+		String sql = "";
+		
+		if(identCod.equals("")) {
+			
+			sql = "Select * from LIGHT_ACCOUNT";
+		
 		try {
 			BaseConnection con = new BaseConnection();
 			PreparedStatement st = con.connection.prepareStatement(sql);
+
 			
+
+
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
+
 			
 			while (rs.next()) {
 				LightAccount light = new LightAccount(
@@ -123,38 +134,86 @@ public class LightAccountDao {
 		}
 		catch(SQLException err) {
 			System.out.println(err);
+			}
 		}
+		else {
+			sql = "Select * from LIGHT_ACCOUNT where LIGHT_IDENT_COD = ?";
+		try {
+			BaseConnection con = new BaseConnection();
+			PreparedStatement st = con.connection.prepareStatement(sql);
+			
+			st.setString(1, identCod);
+			ResultSet rs = st.executeQuery();
+			
+			while (rs.next()) {
+				LightAccount light = new LightAccount(
+						rs.getInt("LIGHT_ID"),
+						rs.getInt("LIGHT_IDENT_COD"),
+						rs.getInt("LIGHT_METER_NUMBER"),
+						rs.getString("LIGHT_INVOICE"),
+						rs.getString("LIGHT_CURRENT_DATE"),
+						rs.getString("LIGHT_DUE_DATE"),
+						rs.getInt("LIGHT_CONSUMPTION_DAYS"),
+						rs.getString("LIGHT_FLAG_TYPE"),
+						rs.getBigDecimal("LIGHT_CONSUMPTION_VALUE"),
+						rs.getBigDecimal("LIGHT_PIS_PERCENTAGE"),
+						rs.getBigDecimal("LIGHT_COFINS_PERCENTAGE"),
+						rs.getBigDecimal("LIGHT_ICMS_BASIS"),
+						rs.getBigDecimal("LIGHT_ICMS_PERCENTAGE"),
+						rs.getBigDecimal("LIGHT_ICMS_VALUE"),
+						rs.getBigDecimal("LIGHT_PIS_COFINS_BASIS"),
+						rs.getBigDecimal("LIGHT_PIS_VALUE"),
+						rs.getBigDecimal("LIGHT_COFINS_VALUE"),
+						rs.getBigDecimal("LIGHT_FORFEIT_VALUE"),
+						rs.getBigDecimal("LIGHT_INTEREST_VALUE"),
+						rs.getBigDecimal("LIGHT_OTHER_VALUES"),
+						rs.getBigDecimal("LIGHT_SUPPLY_VALUES"),
+						rs.getBigDecimal("LIGHT_FINANCIAL_ITEMS"),
+						rs.getBigDecimal("LIGHT_AMOUNT"),
+						rs.getLong("LIGHT_SUPPLIER_CNPJ"),
+						rs.getInt("LIGHT_ALTER_BY"));
+				lightList.add(light);
+			}
+			
+		}	catch(SQLException err) {
+			System.out.println(err);
+			}
+		
+	}
 		return lightList;
 		
 	}
+	
+	
 		public static Integer update(LightAccount light) {
 
 				Integer result = 0;
 				Logger logger = Logger.getLogger(SupplierDao.class.getName());
 				
 
-				String sql = "UPDATE LIGHT_LIGHT SET LIGHT_IDENT_COD = ?,"
-				+ "LIGHT_METER_NUMBER = ?, "
-				+ "LIGHT_INVOICE = ?, "
-				+ "LIGHT_CURRENT_DATE = ?, "
-				+ "LIGHT_DUEDATE = ?, "
-				+ "LIGHT_CONSUMPTION_DAYS= ?, "
-				+ "LIGHT_FLAG_TYPE = ?, "
-				+ "LIGHT_CONSUMPTION_VALUE = ?, "
-				+ "LIGHT_PIS_PERCENTAGE = ?, "
-				+ "LIGHT_COFINS_PERCENTAGE = ?, "
-				+ "LIGHT_ICMS_BASIS = ?, "
+
+				String sql = "UPDATE LIGHT_ACCOUNT SET LIGHT_IDENT_COD = ?,"
+				+ "LIGHT_METER_NUMBER = ?,"
+				+ "LIGHT_INVOICE = ?,"
+				+ "LIGHT_CURRENT_DATE = ?,"
+				+ "LIGHT_DUE_DATE = ?,"
+				+ "LIGHT_CONSUMPTION_DAYS= ?,"
+				+ "LIGHT_FLAG_TYPE = ?,"
+				+ "LIGHT_CONSUMPTION_VALUE = ?,"
+				+ "LIGHT_PIS_PERCENTAGE = ?,"
+				+ "LIGHT_COFINS_PERCENTAGE = ?,"
+				+ "LIGHT_ICMS_BASIS = ?,"
 				+ "LIGHT_ICMS_PERCENTAGE = ?,"
-				+ "LIGHT_ICMS_VALUE = ?, "
-				+ "LIGHT_PIS_COFINS_BASIS = ?, "
-				+ "LIGHT_PIS_VALUE = ?, "
-				+ "LIGHT_COFINS_VALUE = ?, "
-				+ "LIGHT_FORFEIT_VALUE = ?, "
-				+ "LIGHT_INTEREST_VALUE = ?, "
-				+ "LIGHT_OTHER_VALUES = ?, "
-				+ "LIGHT_SUPPLY_VALUES = ?, "
-				+ "LIGHT_FINANCIAL_ITEMS = ?, "
-				+ "LIGHT_AMOUNT = ?, "
+				+ "LIGHT_ICMS_VALUE = ?,"
+				+ "LIGHT_PIS_COFINS_BASIS = ?,"
+				+ "LIGHT_PIS_VALUE = ?,"
+				+ "LIGHT_COFINS_VALUE = ?,"
+				+ "LIGHT_FORFEIT_VALUE = ?,"
+				+ "LIGHT_INTEREST_VALUE = ?,"
+				+ "LIGHT_OTHER_VALUES = ?,"
+				+ "LIGHT_SUPPLY_VALUES = ?,"
+				+ "LIGHT_FINANCIAL_ITEMS = ?,"
+				+ "LIGHT_AMOUNT = ?,"
 				+ "LIGHT_SUPPLIER_CNPJ = ?,"
 				+ "LIGHT_ALTER_BY = ? "
 				+ "WHERE LIGHT_ID = ?;";
@@ -163,7 +222,8 @@ public class LightAccountDao {
 			
 			BaseConnection con = new BaseConnection();
 			PreparedStatement updateValues = con.connection.prepareStatement(sql);
-
+			
+			
 			updateValues.setInt(1, light.getIdentCod());
 			updateValues.setInt(2, light.getMeterNumber());
 			updateValues.setString(3, light.getInvoice());
@@ -189,6 +249,7 @@ public class LightAccountDao {
 			updateValues.setLong(23, light.getSupplierCnpj());
 			updateValues.setInt(24, light.getAlterBy());
 			updateValues.setInt(25, light.getId());
+			
 			
 			result = updateValues.executeUpdate();
 			con.connection.close();
