@@ -133,16 +133,17 @@ public class LightAccountDao {
 				Logger logger = Logger.getLogger(SupplierDao.class.getName());
 				
 
-				String sql = "UPDATE LIGHT_LIGHT SET (LIGHT_IDENT_COD = ?,"
+				String sql = "UPDATE LIGHT_LIGHT SET LIGHT_IDENT_COD = ?,"
 				+ "LIGHT_METER_NUMBER = ?, "
 				+ "LIGHT_INVOICE = ?, "
 				+ "LIGHT_CURRENT_DATE = ?, "
+				+ "LIGHT_DUEDATE = ?, "
 				+ "LIGHT_CONSUMPTION_DAYS= ?, "
-				+ "LIGHT_FLAG_TYPE, = ?, "
+				+ "LIGHT_FLAG_TYPE = ?, "
 				+ "LIGHT_CONSUMPTION_VALUE = ?, "
 				+ "LIGHT_PIS_PERCENTAGE = ?, "
 				+ "LIGHT_COFINS_PERCENTAGE = ?, "
-				+ "LIGHT_ICMS_BASIS = ? "
+				+ "LIGHT_ICMS_BASIS = ?, "
 				+ "LIGHT_ICMS_PERCENTAGE = ?,"
 				+ "LIGHT_ICMS_VALUE = ?, "
 				+ "LIGHT_PIS_COFINS_BASIS = ?, "
@@ -155,7 +156,7 @@ public class LightAccountDao {
 				+ "LIGHT_FINANCIAL_ITEMS = ?, "
 				+ "LIGHT_AMOUNT = ?, "
 				+ "LIGHT_SUPPLIER_CNPJ = ?,"
-				+ "LIGHT_ALTER_BY = ?) "
+				+ "LIGHT_ALTER_BY = ? "
 				+ "WHERE LIGHT_ID = ?;";
 		
 		try {
