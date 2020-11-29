@@ -107,3 +107,12 @@ Para rodar o POC você vai precisar:
 
        - alt + S para salvar o conteúdo do formulário no banco;
        - alt + B para voltar para o menu principal.
+
+  - Tela de edição dos dados cadastrados:
+    - É dividida em duas funções, sendo a primeira a listagem dos dados cadastrados no banco na tabela, para verificação e alteração dos dados;
+    - Para listar um dado, escolha entre fornecedor, cliente ou conta e clicar em "pesquisar", cada qual tem seu próprio filtro por exemplo:
+       - Para Listar um fornecedor único é necessário informar o cnpj, já para um cliente é necessário informar o cpf;
+       - Caso nenhum filtro seja passado a aplicação irá listar todos dados daquela entidade na tela;
+       - A conta é uma entidade que precisa que seja passado também seu tipo, para que possa ser listada de acordo.
+    - Para alterar um dado listado da tabela, precisamos apenas clicar sobre o dado e mudar seu valor e então clicar fora da cédula e por fim clicar em "Update";
+    - Só é possível alterar uma linha de dado por update.
