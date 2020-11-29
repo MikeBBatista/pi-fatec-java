@@ -191,6 +191,7 @@ public class LightAccountDao {
 				Logger logger = Logger.getLogger(SupplierDao.class.getName());
 				
 
+
 				String sql = "UPDATE LIGHT_ACCOUNT SET LIGHT_IDENT_COD = ?,"
 				+ "LIGHT_METER_NUMBER = ?,"
 				+ "LIGHT_INVOICE = ?,"
