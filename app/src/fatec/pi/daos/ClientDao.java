@@ -111,20 +111,20 @@ public class ClientDao {
 			}
 		}
 	
-	else {
-		sql = "Select * from CLIENT_REGISTER where CLIENT_CPF = ?";
+		else {
+			sql = "Select * from CLIENT_REGISTER where CLIENT_CPF = ?";
 	
 	
-	try {
-		BaseConnection con = new BaseConnection();
-		PreparedStatement st = con.connection.prepareStatement(sql);
+		try {
+			BaseConnection con = new BaseConnection();
+			PreparedStatement st = con.connection.prepareStatement(sql);
 		
-		st.setString(1, clientCpf);
+			st.setString(1, clientCpf);
 		
-		ResultSet rs = st.executeQuery();
+			ResultSet rs = st.executeQuery();
 		
-		while (rs.next()) {
-			Client clt = new Client(
+			while (rs.next()) {
+				Client clt = new Client(
 					rs.getInt("CLIENT_ID"),
 					rs.getLong("CLIENT_SUPPLIER_CNPJ"),
 					rs.getLong("CLIENT_CPF"),
@@ -143,16 +143,16 @@ public class ClientDao {
 					rs.getBigDecimal("CLIENT_TRIBUTE_TAX"),
 					rs.getInt("CLIENT_ALTER_BY"));
 			clientList.add(clt);
+			}
 		}
-	}
-	catch(SQLException err) {
-		System.out.println(err);
+		catch(SQLException err) {
+			System.out.println(err);
+			}
 		}
-	}
 	
-return clientList;
+		return clientList;
 
-}
+	}
 
 
 	public static Integer update(Client client) {

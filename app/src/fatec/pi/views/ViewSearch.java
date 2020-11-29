@@ -178,33 +178,6 @@ public class ViewSearch extends JFrame {
 		textFieldNOME.setColumns(10);
 		contentPane.add(textFieldNOME);		
 		
-
-		JButton btnPesquisa = new JButton("Pesquisar");
-		btnPesquisa.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				modelo.setNumRows(0);
-				type = comboBoxBusca.getSelectedItem().toString();
-				String accountType = comboBoxConta.getSelectedItem().toString(); 
-				String cnpj = formataDados(textFieldCNPJ_1.getText());
-				String installation = textFieldNOME.getText();
-				String identCod = textFieldNOME.getText();
-				System.out.println(installation);
-				dtm.setColumnIdentifiers(searchTitles(type, accountType));
-				String clientCpf = formataDados(textFieldCPF_1.getText());
-				searchResult(modelo, type, cnpj, clientCpf, installation, accountType, identCod);
-
-				tca.adjustColumns();
-				textFieldCNPJ_1.setText("");
-				textFieldCPF_1.setText("");
-				textFieldNOME.setText("");
-
-				
-			}
-		});
-		btnPesquisa.setBounds(625, 344, 108, 23);
-		contentPane.add(btnPesquisa);
-		
-
 		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setBounds(308, 176, 94, 25);
 		contentPane.add(lblCpf);
@@ -227,6 +200,34 @@ public class ViewSearch extends JFrame {
 		JLabel LabelBusca = new JLabel("Buscar por");
 		LabelBusca.setBounds(308, 109, 74, 20);
 		contentPane.add(LabelBusca);
+		
+
+		JButton btnPesquisa = new JButton("Pesquisar");
+		btnPesquisa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				modelo.setNumRows(0);
+				type = comboBoxBusca.getSelectedItem().toString();
+				String accountType = comboBoxConta.getSelectedItem().toString(); 
+				String cnpj = formataDados(textFieldCNPJ_1.getText());
+				String installation = textFieldNOME.getText();
+				String identCod = textFieldNOME.getText();
+				System.out.println(installation);
+				dtm.setColumnIdentifiers(searchTitles(type, accountType));
+				String clientCpf = formataDados(textFieldCPF_1.getText());
+				searchResult(modelo, type, cnpj, clientCpf, installation, accountType, identCod);
+				tca.adjustColumns();
+				textFieldCNPJ_1.setText("");
+				textFieldCPF_1.setText("");
+				textFieldNOME.setText("");
+
+				
+			}
+		});
+		btnPesquisa.setBounds(625, 344, 108, 23);
+		contentPane.add(btnPesquisa);
+		
+
+
 		
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
@@ -296,7 +297,8 @@ public class ViewSearch extends JFrame {
 							sp.toType()
 					});
 				}
-			}else if (type.equals("Conta")) {
+			}
+			else if (type.equals("Conta")) {
 				if (accountType.equals("Luz")) {
 				List <LightAccount> lgh = LightAccountController.getValues(identCod);
 				for(LightAccount la: lgh) {
@@ -329,10 +331,29 @@ public class ViewSearch extends JFrame {
 					});
 				}
 			}
-			if(type.contentEquals("Cliente")) {
-				List<Client> clt = ClientController.getValues(clientCpf);
-				for(Client cl: clt) {
-					table.addRow(new Object[] {
+				else if(accountType.equals("Água")) {
+					List<WaterAccount> wtr = WaterAccountController.getValues(installation);
+					for(WaterAccount wt: wtr) {
+						table.addRow(new Object[] {
+							wt.getId(),
+							wt.getNumber(),
+							wt.getDueDate(),
+							wt.getPenalty(),
+							wt.getConsumptionValue(),
+							wt.getPollutionValue(),
+							wt.getSewerValue(),
+							wt.getWaterValue(),
+							wt.getPisPercentage(),
+							wt.getOtherValues(),
+							wt.getSupplierCnpj()
+						});
+					}
+				}
+			}
+			else if(type.contentEquals("Cliente")) {
+					List<Client> clt = ClientController.getValues(clientCpf);
+					for(Client cl: clt) {
+						table.addRow(new Object[] {
 							cl.getId(),
 							cl.getSupplierCnpj(),
 							cl.getClientCpf(),
@@ -354,28 +375,6 @@ public class ViewSearch extends JFrame {
 					});
 				}		
 			}
-			if(type.equals("Conta")) {
-				if(accountType.equals("Água")) {
-					List<WaterAccount> wtr = WaterAccountController.getValues(installation);
-					for(WaterAccount wt: wtr) {
-						table.addRow(new Object[] {
-							wt.getId(),
-							wt.getNumber(),
-							wt.getDueDate(),
-							wt.getPenalty(),
-							wt.getConsumptionValue(),
-							wt.getPollutionValue(),
-							wt.getSewerValue(),
-							wt.getWaterValue(),
-							wt.getPisPercentage(),
-							wt.getOtherValues(),
-							wt.getSupplierCnpj()
-						});
-					}
-				}
-			}
-
-		}
 	}
 
 
@@ -391,7 +390,7 @@ public class ViewSearch extends JFrame {
 			
 			if(type.equals("Fornecedor")) {
 				Integer supType = 3;
-				if(objectValues[4].equals("Luz")) {
+				if(objectValues[4].equals("Energia")) {
 					supType = 0;
 				}
 
